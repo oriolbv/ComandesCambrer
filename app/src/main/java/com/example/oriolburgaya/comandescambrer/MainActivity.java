@@ -3,9 +3,12 @@ package com.example.oriolburgaya.comandescambrer;
 import android.app.Activity;
 import android.os.Bundle;
 
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -13,9 +16,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
 
     private ListView listView;
+    private ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class MainActivity extends Activity {
         items.add(new ItemListComandes("Polla"));
 
         this.listView.setAdapter(new ItemListComandesAdapter(this, items));
+        addListenerOnButton();
 
     }
 
@@ -67,5 +72,21 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addListenerOnButton() {
+
+        imageButton = (ImageButton) findViewById(R.id.imageButton);
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // AFEGIR UNA COMANDA TO-DO
+                Toast.makeText(MainActivity.this,
+                        "ImageButton is clicked!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

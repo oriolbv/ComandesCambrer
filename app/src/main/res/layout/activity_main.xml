@@ -18,8 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton"
-        android:layout_x="274dp"
-        android:layout_y="452dp"
+        android:layout_x="248dp"
+        android:layout_y="465dp"
         android:src="@drawable/ic_launcher"/>
 
 </AbsoluteLayout>
