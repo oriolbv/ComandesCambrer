@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -14,12 +14,12 @@
         android:layout_alignParentEnd="true"
         android:layout_weight="1"/>
 
-    <Button
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
-        android:layout_gravity="right"
-        android:layout_weight="1" />
+        android:id="@+id/imageButton"
+        android:layout_x="274dp"
+        android:layout_y="452dp"
+        android:src="@drawable/ic_launcher"/>
 
-</LinearLayout>
+</AbsoluteLayout>
