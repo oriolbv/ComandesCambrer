@@ -20,6 +20,7 @@
         android:id="@+id/imageButton"
         android:layout_x="248dp"
         android:layout_y="465dp"
-        android:src="@drawable/ic_launcher"/>
+        android:src="@drawable/ic_launcher"
+        android:onClick="afegirComanda"/>
 
 </AbsoluteLayout>

@@ -1,9 +1,13 @@
 package com.example.oriolburgaya.comandescambrer;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,11 +16,17 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.oriolburgaya.comandescambrer.BD.ComandesCambrerDbHelper;
+import com.example.oriolburgaya.comandescambrer.BD.ComandesDataSource;
+import com.example.oriolburgaya.comandescambrer.models.Comanda;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    public final static int AFEGIR_COMANDA_REQUEST_CODE = 1;
 
     private ListView listView;
     private ImageButton imageButton;
@@ -26,6 +36,15 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+
+
+        //Crear nuevo objeto QuotesDataSource
+        ComandesDataSource dataSource = new ComandesDataSource(this);
+
+        //SQLiteDatabase db = new SQLiteDatabase();
+        ArrayList<Comanda> comandes = dataSource.getAllComandes();
+        Log.i("ArrayList", ""+comandes.get(0).getPreu());
+
 
         this.listView = (ListView) findViewById(R.id.listView);
 
@@ -44,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
         items.add(new ItemListComandes("Polla"));
 
         this.listView.setAdapter(new ItemListComandesAdapter(this, items));
-        addListenerOnButton();
+        //addListenerOnButton();
 
     }
 
@@ -58,35 +77,22 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            //Toast t = new Toast()
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void afegirComanda(View view) {
+        Toast.makeText(MainActivity.this,
+                "He fet click madafaka!", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, AfegirComandaActivity.class);
+        startActivityForResult(intent, AFEGIR_COMANDA_REQUEST_CODE);
     }
 
-    public void addListenerOnButton() {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        imageButton = (ImageButton) findViewById(R.id.imageButton);
+        if (requestCode == AFEGIR_COMANDA_REQUEST_CODE) {
 
-        imageButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // AFEGIR UNA COMANDA TO-DO
-                Toast.makeText(MainActivity.this,
-                        "ImageButton is clicked!", Toast.LENGTH_SHORT).show();
-
+            if (resultCode == RESULT_OK) {
+                Log.i("onActivityResult", "Result OK! : "+ data.getStringExtra("data"));
             }
-        });
+        }
     }
 }
