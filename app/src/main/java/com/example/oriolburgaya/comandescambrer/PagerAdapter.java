@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.example.oriolburgaya.comandescambrer.Fragments.dummy.PrimersFragrment;
 import com.example.oriolburgaya.comandescambrer.Fragments.dummy.SegonsFragment;
 import com.example.oriolburgaya.comandescambrer.Fragments.dummy.TercersFragment;
 

@@ -1,4 +1,4 @@
-package com.example.oriolburgaya.comandescambrer;
+package com.example.oriolburgaya.comandescambrer.Fragments.dummy;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.example.oriolburgaya.comandescambrer.R;
@@ -19,15 +20,15 @@ import java.util.Arrays;
  */
 public class PrimersFragrment extends Fragment {
 
-    ListView listView;
+    GridView gridView;
     private ArrayAdapter<String> listAdapter ;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView;
-        rootView = inflater.inflate(R.layout.activity_afegir_productes_comanda_1, container, false);
+        rootView = inflater.inflate(R.layout.fragment_afegir_primers_comanda, container, false);
         Log.i("getView()", "" + container.toString());
-        listView = (ListView) rootView.findViewById(R.id.listPrimers);
+        gridView = (GridView) rootView.findViewById(R.id.gridViewProductes);
 
 
         // Create and populate a List of planet names.
@@ -39,7 +40,7 @@ public class PrimersFragrment extends Fragment {
         // Create ArrayAdapter using the planet list.
         listAdapter = new ArrayAdapter<String>(rootView.getContext(), R.layout.simplerow, planetList);
 
-        listView.setAdapter(listAdapter);
+        gridView.setAdapter(listAdapter);
 
 
 
