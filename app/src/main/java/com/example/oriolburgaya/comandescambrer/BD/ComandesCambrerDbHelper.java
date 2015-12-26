@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class ComandesCambrerDbHelper extends SQLiteOpenHelper {
     public static String DATABASE_NAME = "ComandesCambrer";
-    public static int DATABASE_VERSION = 1;
+    public static int DATABASE_VERSION = 3;
 
 
     public ComandesCambrerDbHelper(Context context) {
@@ -22,6 +22,8 @@ public class ComandesCambrerDbHelper extends SQLiteOpenHelper {
         db.execSQL(ComandesDataSource.CREATE_COMANDES_SCRIPT);
         // Insertem registres inicials
         db.execSQL(ComandesDataSource.INSERT_COMANDES_SCRIPT);
+        // Creem la taula Comandes
+        db.execSQL(ProductesDataSource.CREATE_PRODUCTES_SCRIPT);
     }
 
     @Override

@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.oriolburgaya.comandescambrer.BD.ComandesCambrerDbHelper;
 import com.example.oriolburgaya.comandescambrer.BD.ComandesDataSource;
+import com.example.oriolburgaya.comandescambrer.BD.ProductesDataSource;
 import com.example.oriolburgaya.comandescambrer.models.Comanda;
 
 import java.util.ArrayList;
@@ -37,9 +38,10 @@ public class MainActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_main);
 
-
+        //Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.image);
         //Crear nuevo objeto QuotesDataSource
         ComandesDataSource dataSource = new ComandesDataSource(this);
+        ProductesDataSource productesDataSource = new ProductesDataSource(this);
 
         //SQLiteDatabase db = new SQLiteDatabase();
         ArrayList<Comanda> comandes = dataSource.getAllComandes();
