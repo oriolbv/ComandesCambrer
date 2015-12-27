@@ -1,11 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ImageView
-        android:layout_width="150dp"
+        android:layout_x="10dp"
+        android:layout_y="15dp"
+        android:layout_width="160dp"
         android:layout_height="150dp"
+        android:scaleType="fitXY"
         android:layout_margin="10dp"
-        android:id="@+id/gridImage"/>
+        android:id="@+id/gridImage"
+        android:src="@drawable/chicken"/>
 
-</LinearLayout>
+    <TextView
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:text="Pollastre"
+        android:id="@+id/textView"
+        android:layout_x="10dp"
+        android:layout_y="56dp"
+        android:background="#8FF0"
+        android:textColor="#ff000000"
+        android:textAlignment="center"
+        android:gravity="center_horizontal" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="38dp"
+        android:layout_height="26dp"
+        android:text="-"
+        android:id="@+id/button"
+        android:layout_x="132dp"
+        android:layout_y="15dp"
+        android:background="#8F00" />
+
+    <TextView
+        android:layout_width="161dp"
+        android:layout_height="41dp"
+        android:text="Quantitat : x5"
+        android:id="@+id/textView2"
+        android:layout_x="9dp"
+        android:layout_y="164dp"
+        android:background="#ffffac5e"
+        android:enabled="true"
+        android:textColor="#ff000000" />
+
+</AbsoluteLayout>

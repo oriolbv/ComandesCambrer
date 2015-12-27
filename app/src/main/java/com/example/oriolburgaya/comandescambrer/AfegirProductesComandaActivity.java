@@ -2,6 +2,7 @@ package com.example.oriolburgaya.comandescambrer;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -16,6 +17,9 @@ import android.view.MenuItem;
  * Created by oriolbv on 25/12/15.
  */
 public class AfegirProductesComandaActivity extends ActionBarActivity {
+
+    private static int AFEGIR_PRODUCTE_REQUEST_CODE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +66,7 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.menu_productes_comanda, menu);
         return true;
     }
 
@@ -74,8 +78,9 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            //Toast t = new Toast()
+        if (id == R.id.action_afegir) {
+            Intent intent = new Intent(this, AfegirProducteActivity.class);
+            startActivityForResult(intent, AFEGIR_PRODUCTE_REQUEST_CODE);
             return true;
         }
 

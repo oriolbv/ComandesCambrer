@@ -85,12 +85,13 @@
         android:layout_x="182dp"
         android:layout_y="490dp" />
 
-    <DatePicker
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/dp_Data"
-        android:layout_x="78dp"
-        android:layout_y="-1dp"
-        android:calendarViewShown="false" />
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/editText"
+        android:layout_x="85dp"
+        android:layout_y="69dp" />
 
 </AbsoluteLayout>

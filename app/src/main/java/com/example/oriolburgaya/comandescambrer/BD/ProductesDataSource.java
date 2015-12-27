@@ -39,6 +39,8 @@ public class ProductesDataSource {
                     ColumnProductes.STOCK_PRODUCTE+" "+INT_TYPE+" not null)";
 
 
+
+
     private ComandesCambrerDbHelper openHelper;
     private SQLiteDatabase database;
 
@@ -48,7 +50,7 @@ public class ProductesDataSource {
         database = openHelper.getWritableDatabase();
     }
 
-    public ArrayList<Producte> getAllComandes() {
+    public ArrayList<Producte> getAllProductes() {
     ArrayList<Producte> productes = new ArrayList<Producte>();
 
         Cursor mCursor = database.query(
@@ -68,7 +70,7 @@ public class ProductesDataSource {
                 producte.setNom(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnProductes.NOM_PRODUCTE)));
                 producte.setPreu(mCursor.getDouble(mCursor.getColumnIndexOrThrow(ColumnProductes.PREU_PRODUCTE)));
                 producte.setTipus(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnProductes.TIPUS_PRODUCTE)));
-                producte.setImatge(mCursor.getInt(mCursor.getColumnIndexOrThrow(ColumnProductes.IMATGE_PRODUCTE)));
+                producte.setImatge(mCursor.getBlob(mCursor.getColumnIndexOrThrow(ColumnProductes.IMATGE_PRODUCTE)));
                 producte.setStock(mCursor.getInt(mCursor.getColumnIndexOrThrow(ColumnProductes.STOCK_PRODUCTE)));
                 productes.add(producte);
             } while (mCursor.moveToNext());
@@ -79,13 +81,13 @@ public class ProductesDataSource {
         return productes;
     }
 
-    public void insertRegister(byte[] img) {
+    public void insertRegister(String nom, double preu, String tipus, byte[] img, int stock) {
         ContentValues cv = new ContentValues();
-        cv.put(ColumnProductes.NOM_PRODUCTE, "Hamburguesa");
-        cv.put(ColumnProductes.PREU_PRODUCTE, 7);
-        cv.put(ColumnProductes.TIPUS_PRODUCTE, "Primer");
+        cv.put(ColumnProductes.NOM_PRODUCTE, nom);
+        cv.put(ColumnProductes.PREU_PRODUCTE, preu);
+        cv.put(ColumnProductes.TIPUS_PRODUCTE, tipus);
         cv.put(ColumnProductes.IMATGE_PRODUCTE, img);
-        cv.put(ColumnProductes.STOCK_PRODUCTE, 30);
+        cv.put(ColumnProductes.STOCK_PRODUCTE, stock);
         database.insert(PRODUCTES_TABLE_NAME, null, cv);
     }
 }

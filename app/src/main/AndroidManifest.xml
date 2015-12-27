@@ -32,6 +32,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AfegirComandaActivity"/>
         </activity>
+        <activity
+            android:name=".AfegirProducteActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".AfegirProductesComandaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".AfegirProductesComandaActivity"/>
+        </activity>
     </application>
 
 </manifest>

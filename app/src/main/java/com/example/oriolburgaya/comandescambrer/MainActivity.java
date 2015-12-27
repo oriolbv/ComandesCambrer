@@ -22,6 +22,7 @@ import com.example.oriolburgaya.comandescambrer.BD.ComandesCambrerDbHelper;
 import com.example.oriolburgaya.comandescambrer.BD.ComandesDataSource;
 import com.example.oriolburgaya.comandescambrer.BD.ProductesDataSource;
 import com.example.oriolburgaya.comandescambrer.models.Comanda;
+import com.example.oriolburgaya.comandescambrer.models.Producte;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -43,19 +44,34 @@ public class MainActivity extends ActionBarActivity {
 
         //Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.image);
         //Crear nuevo objeto QuotesDataSource
-        ComandesDataSource dataSource = new ComandesDataSource(this);
         ProductesDataSource productesDataSource = new ProductesDataSource(this);
+        ComandesDataSource dataSource = new ComandesDataSource(this);
 
+        ArrayList<Producte> productes = productesDataSource.getAllProductes();
+        if (productes.size() == 0) {
+            byte[] img=null;
+            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.chicken);
+            ByteArrayOutputStream bos=new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            img=bos.toByteArray();
+            productesDataSource.insertRegister("Pollastre", 12.3, "Primer", img, 3);
 
-/*
-        byte[] img=null;
-        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hamburger);
-        ByteArrayOutputStream bos=new ByteArrayOutputStream();
-        bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
-        img=bos.toByteArray();
+            img=null;
+            bm = BitmapFactory.decodeResource(getResources(), R.drawable.hamburger);
+            bos=new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            img=bos.toByteArray();
+            productesDataSource.insertRegister("Hamburguesa", 5.2, "Primer", img, 30);
 
-        productesDataSource.insertRegister(img);
-*/
+            img=null;
+            bm = BitmapFactory.decodeResource(getResources(), R.drawable.crestetes);
+            bos=new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            img=bos.toByteArray();
+            productesDataSource.insertRegister("Crestetes", 2.3, "Primer", img, 10);
+
+        }
+
 
         //SQLiteDatabase db = new SQLiteDatabase();
         ArrayList<Comanda> comandes = dataSource.getAllComandes();
@@ -80,6 +96,7 @@ public class MainActivity extends ActionBarActivity {
 
         this.listView.setAdapter(new ItemListComandesAdapter(this, items));
         //addListenerOnButton();
+
 
     }
 

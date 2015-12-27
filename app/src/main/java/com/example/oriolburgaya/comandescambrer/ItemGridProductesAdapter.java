@@ -1,6 +1,7 @@
 package com.example.oriolburgaya.comandescambrer;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+
+import java.util.ArrayList;
 
 import static android.view.View.inflate;
 import static android.widget.ImageView.ScaleType;
@@ -24,10 +27,10 @@ public class ItemGridProductesAdapter extends BaseAdapter {
 //            R.drawable.espaguetis_bolonyesa, R.drawable.pastis_chocolata
 //    };
 
-    private final int[] mImatges;
+    private final ArrayList<Bitmap> mImatges;
 
 
-    public ItemGridProductesAdapter(Context c, int[] mImatges) {
+    public ItemGridProductesAdapter(Context c, ArrayList<Bitmap> mImatges) {
         mContext = c;
         this.mImatges = mImatges;
     }
@@ -35,7 +38,7 @@ public class ItemGridProductesAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mImatges.length;
+        return mImatges.size();
     }
 
     @Override
@@ -57,7 +60,7 @@ public class ItemGridProductesAdapter extends BaseAdapter {
             grid = new View(mContext);
             grid = inflater.inflate(R.layout.productes_grid_item, null);
             ImageView imageView = (ImageView) grid.findViewById(R.id.gridImage);
-            imageView.setImageResource(mImatges[i]);
+            imageView.setImageBitmap(mImatges.get(i));
         } else {
             grid = (View) view;
         }

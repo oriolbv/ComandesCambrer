@@ -11,8 +11,9 @@ public class Producte {
     private String nom;
     private double preu;
     private String tipus;
-    private int imatge;
+    private byte[] imatge;
     private int stock;
+    private boolean bActivat;
 
     public String getId() {
         return id;
@@ -46,11 +47,11 @@ public class Producte {
         this.tipus = tipus;
     }
 
-    public int getImatge() {
+    public byte[] getImatge() {
         return imatge;
     }
 
-    public void setImatge(int imatge) {
+    public void setImatge(byte[] imatge) {
         this.imatge = imatge;
     }
 
@@ -60,6 +61,14 @@ public class Producte {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    public boolean getbActivat() {
+        return bActivat;
+    }
+
+    public void setbActivat(boolean bActivat) {
+        this.bActivat = bActivat;
     }
 
 
