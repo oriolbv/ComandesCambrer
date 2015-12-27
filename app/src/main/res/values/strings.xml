@@ -6,4 +6,11 @@
     <string name="action_settings">Settings</string>
     <string name="action_afegir">Add</string>
 
+    <string-array name="array_tipus_producte">
+        <item>Primers</item>
+        <item>Segons</item>
+        <item>Postres</item>
+        <item>Begudes</item>
+    </string-array>
+
 </resources>

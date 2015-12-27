@@ -17,7 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:minWidth="150dp"/>
+            android:minWidth="150dp"
+            android:id="@+id/et_NomProducte"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,7 +34,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:minWidth="150dp" />
+            android:minWidth="150dp"
+            android:id="@+id/sp_TipusProducte"
+            android:entries="@array/array_tipus_producte"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -50,7 +53,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:minWidth="100dp"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:id="@+id/et_PreuProducte"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -60,13 +64,69 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Preu"
+            android:text="Stock"
             android:id="@+id/tv_StockProducte" />
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:minWidth="100dp"
+            android:id="@+id/et_StockProducte"
             android:inputType="number"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Imatge"
+            android:id="@+id/tv_ImatgeProducte" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Càmera"
+            android:id="@+id/btn_CameraProducte"
+            android:onClick="fotoCameraProducte"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="Galeria"
+            android:id="@+id/btn_GaleriaProducte"
+            android:onClick="fotoGaleriaProducte"/>
+    </LinearLayout>
+    <ImageView
+        android:layout_margin="20dp"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:id="@+id/iv_ImatgeProducte"
+    />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="158dp"
+            android:layout_height="wrap_content"
+            android:text="Confirmar"
+            android:id="@+id/btn_ConfirmarProducte"
+            android:layout_x="13dp"
+            android:layout_y="489dp"
+            android:onClick="confirmarProducte"/>
+
+        <Button
+            android:layout_width="158dp"
+            android:layout_height="wrap_content"
+            android:text="Cancelar"
+            android:id="@+id/btn_CancelarProducte"
+            android:layout_x="182dp"
+            android:layout_y="490dp"
+            android:onClick="cancelarProducte"/>
+        </LinearLayout>
 </LinearLayout>

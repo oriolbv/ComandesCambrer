@@ -86,4 +86,17 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == AFEGIR_PRODUCTE_REQUEST_CODE) {
+
+            if (resultCode == RESULT_OK) {
+                Log.i("AfegirProductesComandaActivity", "ProducteAfegit : "+ data.getStringExtra("data"));
+                // Refresh del llistat de productes!
+            }
+        }
+    }
 }
