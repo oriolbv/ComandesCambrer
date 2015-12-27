@@ -1,5 +1,6 @@
 package com.example.oriolburgaya.comandescambrer.BD;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,6 +24,7 @@ public class ProductesDataSource {
         public static final String ID_PRODUCTE = BaseColumns._ID;
         public static final String NOM_PRODUCTE = "nom";
         public static final String PREU_PRODUCTE = "preu";
+        public static final String TIPUS_PRODUCTE = "tipus";
         public static final String IMATGE_PRODUCTE = "imatge";
         public static final String STOCK_PRODUCTE = "stock";
     }
@@ -32,6 +34,7 @@ public class ProductesDataSource {
                     ColumnProductes.ID_PRODUCTE+" "+INT_TYPE+" primary key autoincrement," +
                     ColumnProductes.NOM_PRODUCTE+" "+STRING_TYPE+" not null," +
                     ColumnProductes.PREU_PRODUCTE+" "+REAL_TYPE+" not null," +
+                    ColumnProductes.TIPUS_PRODUCTE+" "+STRING_TYPE+" not null," +
                     ColumnProductes.IMATGE_PRODUCTE+" "+BLOB_TYPE+" not null," +
                     ColumnProductes.STOCK_PRODUCTE+" "+INT_TYPE+" not null)";
 
@@ -64,6 +67,7 @@ public class ProductesDataSource {
                 producte.setId(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnProductes.ID_PRODUCTE)));
                 producte.setNom(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnProductes.NOM_PRODUCTE)));
                 producte.setPreu(mCursor.getDouble(mCursor.getColumnIndexOrThrow(ColumnProductes.PREU_PRODUCTE)));
+                producte.setTipus(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnProductes.TIPUS_PRODUCTE)));
                 producte.setImatge(mCursor.getInt(mCursor.getColumnIndexOrThrow(ColumnProductes.IMATGE_PRODUCTE)));
                 producte.setStock(mCursor.getInt(mCursor.getColumnIndexOrThrow(ColumnProductes.STOCK_PRODUCTE)));
                 productes.add(producte);
@@ -73,5 +77,15 @@ public class ProductesDataSource {
             mCursor.close();
         }
         return productes;
+    }
+
+    public void insertRegister(byte[] img) {
+        ContentValues cv = new ContentValues();
+        cv.put(ColumnProductes.NOM_PRODUCTE, "Hamburguesa");
+        cv.put(ColumnProductes.PREU_PRODUCTE, 7);
+        cv.put(ColumnProductes.TIPUS_PRODUCTE, "Primer");
+        cv.put(ColumnProductes.IMATGE_PRODUCTE, img);
+        cv.put(ColumnProductes.STOCK_PRODUCTE, 30);
+        database.insert(PRODUCTES_TABLE_NAME, null, cv);
     }
 }

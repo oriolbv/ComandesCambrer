@@ -47,10 +47,11 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
         };
 
         // Add 3 tabs, specifying the tab's text and TabListener
-        for (int i = 0; i < 3; i++) {
+        String[] texts = {"Primers", "Segons", "Postres", "Begudes"};
+        for (int i = 0; i < 4; i++) {
             actionBar.addTab(
                     actionBar.newTab()
-                            .setText("Tab " + (i + 1))
+                            .setText(texts[i])
                             .setTabListener(tabListener));
         }
     }

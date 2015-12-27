@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class ComandesCambrerDbHelper extends SQLiteOpenHelper {
     public static String DATABASE_NAME = "ComandesCambrer";
-    public static int DATABASE_VERSION = 3;
+    public static int DATABASE_VERSION = 4;
 
 
     public ComandesCambrerDbHelper(Context context) {

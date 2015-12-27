@@ -26,11 +26,9 @@ public class PrimersFragrment extends Fragment {
     int[] mImatges = {
             R.drawable.coca,
             R.drawable.pastis_chocolata,
-            R.drawable.espaguetis_bolonyesa,
             R.drawable.crestetes,
             R.drawable.hamburger,
             R.drawable.salmon,
-            R.drawable.paella,
             R.drawable.chicken
     };
 

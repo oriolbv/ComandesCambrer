@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import android.support.v7.app.ActionBarActivity;
@@ -21,6 +23,7 @@ import com.example.oriolburgaya.comandescambrer.BD.ComandesDataSource;
 import com.example.oriolburgaya.comandescambrer.BD.ProductesDataSource;
 import com.example.oriolburgaya.comandescambrer.models.Comanda;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +45,17 @@ public class MainActivity extends ActionBarActivity {
         //Crear nuevo objeto QuotesDataSource
         ComandesDataSource dataSource = new ComandesDataSource(this);
         ProductesDataSource productesDataSource = new ProductesDataSource(this);
+
+
+/*
+        byte[] img=null;
+        Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.hamburger);
+        ByteArrayOutputStream bos=new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
+        img=bos.toByteArray();
+
+        productesDataSource.insertRegister(img);
+*/
 
         //SQLiteDatabase db = new SQLiteDatabase();
         ArrayList<Comanda> comandes = dataSource.getAllComandes();

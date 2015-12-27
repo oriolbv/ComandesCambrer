@@ -10,6 +10,7 @@ public class Producte {
     private String id;
     private String nom;
     private double preu;
+    private String tipus;
     private int imatge;
     private int stock;
 
@@ -35,6 +36,14 @@ public class Producte {
 
     public void setPreu(double preu) {
         this.preu = preu;
+    }
+
+    public String getTipus() {
+        return tipus;
+    }
+
+    public void setTipus(String tipus) {
+        this.tipus = tipus;
     }
 
     public int getImatge() {
