@@ -54,21 +54,21 @@ public class MainActivity extends ActionBarActivity {
             ByteArrayOutputStream bos=new ByteArrayOutputStream();
             bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
             img=bos.toByteArray();
-            productesDataSource.insertRegister("Pollastre", 12.3, "Primer", img, 3);
+            productesDataSource.insertRegister("Pollastre", 12.3, "Segon", img, 3);
 
             img=null;
             bm = BitmapFactory.decodeResource(getResources(), R.drawable.hamburger);
             bos=new ByteArrayOutputStream();
             bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
             img=bos.toByteArray();
-            productesDataSource.insertRegister("Hamburguesa", 5.2, "Primer", img, 30);
+            productesDataSource.insertRegister("Hamburguesa", 5.2, "Segon", img, 30);
 
             img=null;
             bm = BitmapFactory.decodeResource(getResources(), R.drawable.crestetes);
             bos=new ByteArrayOutputStream();
             bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
             img=bos.toByteArray();
-            productesDataSource.insertRegister("Crestetes", 2.3, "Primer", img, 10);
+            productesDataSource.insertRegister("Crestetes", 2.3, "Segon", img, 10);
 
         }
 

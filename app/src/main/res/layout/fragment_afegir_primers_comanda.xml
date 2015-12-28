@@ -7,7 +7,5 @@
     <GridView android:id="@+id/gridViewProductes" android:layout_width="match_parent"
         android:layout_height="match_parent" android:numColumns="2" />
 
-    <TextView android:id="@+id/textViewGrid" android:layout_width="match_parent"
-        android:layout_height="match_parent" android:gravity="center" />
 
 </FrameLayout>

@@ -18,9 +18,9 @@ import com.example.oriolburgaya.comandescambrer.models.Producte;
 import java.util.ArrayList;
 
 /**
- * Created by oriolbv on 25/12/15.
+ * Created by oriolbv on 28/12/15.
  */
-public class TercersFragment extends Fragment {
+public class BegudesFragment extends Fragment {
 
     GridView gridView;
     ArrayList<Bitmap> bitmapImatges = new ArrayList<Bitmap>();

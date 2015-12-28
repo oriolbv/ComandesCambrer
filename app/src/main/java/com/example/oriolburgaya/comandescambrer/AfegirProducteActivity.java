@@ -142,8 +142,6 @@ public class AfegirProducteActivity extends ActionBarActivity {
             // Enviem la informació
             setResult(RESULT_OK, backData);
             finish();
-
-
         }
 
     }

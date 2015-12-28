@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.example.oriolburgaya.comandescambrer.Fragments.dummy.BegudesFragment;
 import com.example.oriolburgaya.comandescambrer.Fragments.dummy.PrimersFragrment;
 import com.example.oriolburgaya.comandescambrer.Fragments.dummy.SegonsFragment;
 import com.example.oriolburgaya.comandescambrer.Fragments.dummy.TercersFragment;
@@ -33,6 +34,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 2:
                 TercersFragment tab3 = new TercersFragment();
                 return tab3;
+            case 3:
+                BegudesFragment tab4 = new BegudesFragment();
+                return tab4;
             default:
                 return null;
         }

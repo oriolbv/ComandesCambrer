@@ -12,6 +12,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by oriolbv on 25/12/15.
@@ -19,12 +22,20 @@ import android.view.MenuItem;
 public class AfegirProductesComandaActivity extends ActionBarActivity {
 
     private static int AFEGIR_PRODUCTE_REQUEST_CODE = 1;
+    ActionBar.TabListener tabListener;
+    TextView tv_NomProducte;
+    TextView tv_QuantitatProducte;
+    TextView tv_PreuProducte;
+    TextView tv_PreuTotalProducte;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afegir_productes_comanda);
 
+        tv_QuantitatProducte = (TextView) findViewById(R.id.tv_QttProducte);
+        tv_PreuTotalProducte = (TextView) findViewById(R.id.tv_PreuTotalProducte);
         ActionBar actionBar = this.getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowTitleEnabled(true);
@@ -32,13 +43,10 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
         final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 3);
         viewPager.setAdapter(adapter);
         // Create a tab listener that is called when the user changes tabs.
-        ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+        tabListener = new ActionBar.TabListener() {
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
                 // show the given tab
-                //setContentView(R.layout.clear);
                 viewPager.setCurrentItem(tab.getPosition());
-
-
             }
 
             public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
@@ -96,7 +104,35 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
             if (resultCode == RESULT_OK) {
                 Log.i("AfegirProductesComandaActivity", "ProducteAfegit : "+ data.getStringExtra("data"));
                 // Refresh del llistat de productes!
+                tv_QuantitatProducte = (TextView) findViewById(R.id.tv_QttProducte);
+                tv_PreuTotalProducte = (TextView) findViewById(R.id.tv_PreuTotalProducte);
+
+                ActionBar actionBar = this.getSupportActionBar();
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+                actionBar.setDisplayShowTitleEnabled(true);
+                final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+                final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 3);
+                viewPager.setAdapter(adapter);
+                // Create a tab listener that is called when the user changes tabs.
+                tabListener = new ActionBar.TabListener() {
+                    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+                        // show the given tab
+                        //setContentView(R.layout.clear);
+                        viewPager.setCurrentItem(tab.getPosition());
+
+
+                    }
+
+                    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+                        // hide the given tab
+                    }
+
+                    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+                        // probably ignore this event
+                    }
+                };
             }
         }
     }
+
 }
