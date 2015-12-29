@@ -8,6 +8,7 @@ import android.provider.BaseColumns;
 import android.util.Log;
 
 import com.example.oriolburgaya.comandescambrer.models.Producte;
+import com.example.oriolburgaya.comandescambrer.models.ProductesComanda;
 
 import java.util.ArrayList;
 
@@ -195,6 +196,41 @@ public class ProductesComandaDataSource {
         }
         return producte;
     }
+
+    public ArrayList<ProductesComanda> getProductesComanda(int idComanda) {
+        ArrayList<ProductesComanda> productesComandes = new ArrayList<ProductesComanda>();
+        String sIdComanda = Integer.toString(idComanda);
+
+        Cursor mCursor = database.query(
+                PRODUCTES_COMANDA_TABLE_NAME,  //Nom de la taula
+                null,
+                ColumnProductesComanda.ID_COMANDA + "=?",
+                new String[] {sIdComanda},
+                null,
+                null,
+                null
+        );
+        ProductesComanda producteComanda;
+        if (mCursor.moveToFirst()) {
+            do {
+                producteComanda = new ProductesComanda();
+                producteComanda.setIdComanda(mCursor.getInt(mCursor.getColumnIndexOrThrow(ColumnProductesComanda.ID_COMANDA)));
+                producteComanda.setIdProducte(mCursor.getInt(mCursor.getColumnIndexOrThrow(ColumnProductesComanda.ID_PRODUCTE)));
+                producteComanda.setPreuTotal(mCursor.getDouble(mCursor.getColumnIndexOrThrow(ColumnProductesComanda.PREU_TOTAL_PRODUCTESCOMANDA)));
+                producteComanda.setQttProducte(mCursor.getInt(mCursor.getColumnIndexOrThrow(ColumnProductesComanda.QTT_PRODUCTE)));
+                productesComandes.add(producteComanda);
+            } while (mCursor.moveToNext());
+        }
+        if (mCursor != null && !mCursor.isClosed()) {
+            mCursor.close();
+        }
+        return productesComandes;
+    }
+
+    public void deleteRegisters(int idComanda) {
+        database.delete(PRODUCTES_COMANDA_TABLE_NAME, "id_comanda="+idComanda, null);
+    }
+
 
 
 

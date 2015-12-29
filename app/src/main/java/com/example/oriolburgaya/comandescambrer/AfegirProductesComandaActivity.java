@@ -113,15 +113,16 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
         } else if (id == R.id.action_Ok) {
             GridView gv = (GridView) findViewById(R.id.gridViewProductes);
             Log.i("gridView", ""+gv.getCount());
-
-
+            Intent backData = new Intent();
+            backData.putExtra("idComanda", idComanda);
+            setResult(RESULT_OK, backData);
+            finish();
 
             //Intent backData = new Intent();
             //backData.putExtra("data", "Hola em dic Oriol.");
 
             // Enviem la informació
-            //setResult(RESULT_OK, backData);
-            //finish();
+            //
         }
 
         return super.onOptionsItemSelected(item);
@@ -170,7 +171,7 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
     @Override
     public void onBackPressed() {
         Intent backData = new Intent();
-        backData.putExtra("data", idComanda);
+        backData.putExtra("idComanda", idComanda);
         setResult(RESULT_CANCELED, backData);
         finish();
     }

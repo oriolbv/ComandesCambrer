@@ -8,9 +8,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.oriolburgaya.comandescambrer.BD.ProductesDataSource;
 import com.example.oriolburgaya.comandescambrer.models.Comanda;
 import com.example.oriolburgaya.comandescambrer.models.Producte;
+import com.example.oriolburgaya.comandescambrer.models.ProductesComanda;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,8 +22,12 @@ import java.util.List;
 public class ItemProducteComandaAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Producte> items;
+    private List<ProductesComanda> items;
 
+    public ItemProducteComandaAdapter(Context context, List<ProductesComanda> items) {
+        this.context = context;
+        this.items = items;
+    }
     @Override
     public int getCount() {
         return this.items.size();
@@ -51,6 +58,11 @@ public class ItemProducteComandaAdapter extends BaseAdapter {
         TextView tvNom = (TextView) rowView.findViewById(R.id.tv_NomProducteComanda);
         TextView tvPreu = (TextView) rowView.findViewById(R.id.tv_PreuProducteComanda);
 
+        tvQtt.setText(""+items.get(i).getQttProducte());
+        ProductesDataSource productesDataSource = new ProductesDataSource(context);
+        Producte producte = productesDataSource.getProducteById(items.get(i).getIdProducte());
+        tvNom.setText(producte.getNom());
+        tvPreu.setText(String.valueOf(items.get(i).getPreuTotal()));
 /*        Comanda item = this.items.get(position);
         Log.i("tvNumTAula", String.valueOf(item.getnTaula()));
         tvTitle.setText(item.getId());

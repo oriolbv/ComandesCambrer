@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -82,7 +83,16 @@ public class MainActivity extends ActionBarActivity {
 
 
         this.listView.setAdapter(new ItemListComandesAdapter(this, comandes));
-        //addListenerOnButton();
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ItemListComandesAdapter adapter = (ItemListComandesAdapter)listView.getAdapter();
+                adapter.removeItemAt(i); // you need to implement this method
+                adapter.notifyDataSetChanged();
+                return true;
+            }
+        });
 
 
     }

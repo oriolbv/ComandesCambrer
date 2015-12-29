@@ -9,17 +9,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.oriolburgaya.comandescambrer.BD.ComandesDataSource;
-
-import org.w3c.dom.Text;
+import com.example.oriolburgaya.comandescambrer.BD.ProductesComandaDataSource;
+import com.example.oriolburgaya.comandescambrer.models.ProductesComanda;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by oriolbv on 24/12/15.
@@ -32,6 +30,7 @@ public class AfegirComandaActivity extends ActionBarActivity {
     EditText etHora;
     EditText etNTaula;
     TextView tvPreuTotal;
+    private ListView listView;
 
 
     @Override
@@ -50,6 +49,14 @@ public class AfegirComandaActivity extends ActionBarActivity {
         etHora = (EditText) findViewById(R.id.et_Hora);
         etNTaula = (EditText) findViewById(R.id.et_nTaula);
         tvPreuTotal = (TextView) findViewById(R.id.tv_PreuTotalComanda);
+        ProductesComandaDataSource productesComandaDataSource = new ProductesComandaDataSource(this);
+        ArrayList<ProductesComanda> productesComanda = productesComandaDataSource.getProductesComanda(idComanda);
+        double preuTotal = 0;
+        for (int i = 0; i < productesComanda.size(); ++i) {
+            preuTotal = preuTotal + productesComanda.get(i).getPreuTotal();
+        }
+        tvPreuTotal.setText(String.valueOf(preuTotal));
+
     }
 
 
@@ -120,11 +127,21 @@ public class AfegirComandaActivity extends ActionBarActivity {
         Log.i("CANCELED", "CANCELED");
         if (requestCode == AFEGIR_PRODUCTES_COMANDA_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                //Log.i("ProductesAfegits", "Result OK! : " + data.getStringExtra("data"));
                 Log.i("OK", "OK");
+                idComanda = data.getIntExtra("idComanda", 0);
+                listView = (ListView) findViewById(R.id.listView2);
+                ProductesComandaDataSource productesComandaDataSource = new ProductesComandaDataSource(this);
+                ArrayList<ProductesComanda> productesComanda = productesComandaDataSource.getProductesComanda(idComanda);
+                listView.setAdapter(new ItemProducteComandaAdapter(this, productesComanda));
+                double preuTotal = 0;
+                for (int i = 0; i < productesComanda.size(); ++i) {
+                    preuTotal = preuTotal + productesComanda.get(i).getPreuTotal();
+                }
+                tvPreuTotal.setText(String.valueOf(preuTotal));
+
             } else if (resultCode == RESULT_CANCELED) {
                 Log.i("CANCELED", "CANCELED");
-                idComanda = data.getIntExtra("data", 0);
+                idComanda = data.getIntExtra("idComanda", 0);
             }
         }
     }

@@ -106,4 +106,8 @@ public class ComandesDataSource {
         cv.put(ColumnComandes.NTAULA_COMANDA, nTaula);
         database.update(COMANDES_TABLE_NAME, cv, "_id="+id, null);
     }
+
+    public void deleteRegister(int id) {
+        database.delete(COMANDES_TABLE_NAME, "_id="+id, null);
+    }
 }

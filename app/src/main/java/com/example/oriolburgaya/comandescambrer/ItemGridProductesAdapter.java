@@ -125,7 +125,19 @@ public class ItemGridProductesAdapter extends BaseAdapter {
                 if (qttActual > 0) {
                     int novaQtt = qttActual - 1;
                     tv_qttProducte.setText("" + novaQtt);
+                    TextView tv_PreuProducte = (TextView) row.findViewById(R.id.tv_PreuUnitatProducte);
+                    TextView tv_PreuTotalProducte = (TextView) row.findViewById(R.id.tv_PreuTotalProducte);
+                    String sPreuUnitat = tv_PreuProducte.getText().toString().replace("€", "").replace(" ", "");
+                    double preuUnitat = Double.parseDouble(sPreuUnitat);
+                    double preuTotal = preuUnitat*novaQtt;
+                    tv_PreuTotalProducte.setText(String.format("%.2f", String.valueOf(preuTotal)));
+
+                    ProductesComandaDataSource productesComandaDataSource = new ProductesComandaDataSource(mContext);
+                    TextView tv_idProducte = (TextView) row.findViewById(R.id.tv_idProducte);
+                    Log.i("ID", tv_idProducte.getText().toString());
+                    productesComandaDataSource.modificarProductesComanda(Integer.parseInt(tv_idProducte.getText().toString()), idComanda, novaQtt);
                 }
+
             }
         });
         return row;

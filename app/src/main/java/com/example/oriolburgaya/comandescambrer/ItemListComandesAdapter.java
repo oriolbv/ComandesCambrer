@@ -8,7 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.oriolburgaya.comandescambrer.BD.ComandesDataSource;
+import com.example.oriolburgaya.comandescambrer.BD.ProductesComandaDataSource;
 import com.example.oriolburgaya.comandescambrer.models.Comanda;
+import com.example.oriolburgaya.comandescambrer.models.ProductesComanda;
 
 import java.util.List;
 
@@ -63,5 +66,14 @@ public class ItemListComandesAdapter extends BaseAdapter {
         tvImportTotal.setText(String.valueOf(item.getPreu()));
         tvNumTaula.setText(String.valueOf(item.getnTaula()));
         return rowView;
+    }
+
+    public void removeItemAt(int i) {
+        Log.i("removeAt", "" + items.get(i).getId());
+        ComandesDataSource comandesDataSource = new ComandesDataSource(context);
+        comandesDataSource.deleteRegister(Integer.valueOf(items.get(i).getId()));
+        ProductesComandaDataSource productesComandaDataSource = new ProductesComandaDataSource(context);
+        productesComandaDataSource.deleteRegisters(Integer.valueOf(items.get(i).getId()));
+        items.remove(i);
     }
 }
