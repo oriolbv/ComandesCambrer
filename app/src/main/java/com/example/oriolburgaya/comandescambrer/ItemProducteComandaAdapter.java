@@ -9,21 +9,17 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.oriolburgaya.comandescambrer.models.Comanda;
+import com.example.oriolburgaya.comandescambrer.models.Producte;
 
 import java.util.List;
 
 /**
- * Created by oriol.burgaya on 12/21/15.
+ * Created by oriolbv on 28/12/15.
  */
-public class ItemListComandesAdapter extends BaseAdapter {
+public class ItemProducteComandaAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Comanda> items;
-
-    public ItemListComandesAdapter(Context context, List<Comanda> items) {
-        this.context = context;
-        this.items = items;
-    }
+    private List<Producte> items;
 
     @Override
     public int getCount() {
@@ -41,27 +37,27 @@ public class ItemListComandesAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int i, View convertView, ViewGroup parent) {
         View rowView = convertView;
 
         if (convertView == null) {
             // Creem un nou objecte dins la view
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            rowView = inflater.inflate(R.layout.comandes_list_item, parent, false);
+            rowView = inflater.inflate(R.layout.productes_comanda_list_item, parent, false);
         }
 
         // Modifiquem la data de la view
-        TextView tvTitle = (TextView) rowView.findViewById(R.id.tvTitle);
-        TextView tvData = (TextView) rowView.findViewById(R.id.tv_DataComanda);
-        TextView tvImportTotal = (TextView) rowView.findViewById(R.id.tv_ImportTotal);
-        TextView tvNumTaula = (TextView) rowView.findViewById(R.id.tv_NumeroTaula);
+        TextView tvQtt = (TextView) rowView.findViewById(R.id.tv_QttProducteComanda);
+        TextView tvNom = (TextView) rowView.findViewById(R.id.tv_NomProducteComanda);
+        TextView tvPreu = (TextView) rowView.findViewById(R.id.tv_PreuProducteComanda);
 
-        Comanda item = this.items.get(position);
-        Log.i("tvNumTaula", String.valueOf(item.getnTaula()));
+/*        Comanda item = this.items.get(position);
+        Log.i("tvNumTAula", String.valueOf(item.getnTaula()));
         tvTitle.setText(item.getId());
         tvData.setText(item.getData());
         tvImportTotal.setText(String.valueOf(item.getPreu()));
         tvNumTaula.setText(String.valueOf(item.getnTaula()));
+*/
         return rowView;
     }
 }

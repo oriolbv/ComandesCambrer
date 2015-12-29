@@ -15,7 +15,7 @@ import java.io.ByteArrayOutputStream;
  */
 public class ComandesCambrerDbHelper extends SQLiteOpenHelper {
     public static String DATABASE_NAME = "ComandesCambrer";
-    public static int DATABASE_VERSION = 5;
+    public static int DATABASE_VERSION = 6;
     public Context context;
     public SQLiteDatabase db;
 
@@ -35,7 +35,7 @@ public class ComandesCambrerDbHelper extends SQLiteOpenHelper {
         // Creem la taula Comandes
         db.execSQL(ProductesDataSource.CREATE_PRODUCTES_SCRIPT);
 
-        //insertProductesInicials();
+        db.execSQL(ProductesComandaDataSource.CREATE_PRODUCTES_COMANDA_SCRIPT);
 
     }
 

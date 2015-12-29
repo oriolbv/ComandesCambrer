@@ -1,97 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    EditText
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:id="@+id/et_Data"
-        android:layout_x="89dp"
-        android:layout_y="87dp" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Data:"
-        android:id="@+id/tv_Data"
-        android:layout_x="15dp"
-        android:layout_y="86dp" />
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data:"
+            android:id="@+id/tv_Data"
+            android:layout_x="15dp"
+            android:layout_y="86dp" />
 
-    <TextView
+        <EditText
+            android:layout_width="158dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:id="@+id/et_Data"
+            android:layout_x="89dp"
+            android:layout_y="87dp" />
+        </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nº Taula"
-        android:id="@+id/tv_nTaula"
-        android:layout_x="11dp"
-        android:layout_y="208dp" />
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hora:"
+            android:id="@+id/tv_Hora"
+            android:layout_x="15dp"
+            android:layout_y="86dp" />
 
-    <EditText
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/et_nTaula"
-        android:layout_x="99dp"
-        android:layout_y="200dp" />
+        <EditText
+            android:layout_width="160dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:inputType="time"
+            android:id="@+id/et_Hora"
+            android:layout_x="89dp"
+            android:layout_y="87dp" />
+    </LinearLayout>
 
-    <ImageButton
-        android:layout_width="60dp"
-        android:layout_height="74dp"
-        android:id="@+id/btn_AfegirProductes"
-        android:layout_x="207dp"
-        android:layout_y="237dp"
-        android:onClick="afegirProductesComanda"/>
-
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Productes"
-        android:id="@+id/tv_Productes"
-        android:layout_x="20dp"
-        android:layout_y="269dp" />
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nº Taula"
+            android:id="@+id/tv_nTaula"
+            android:layout_x="11dp"
+            android:layout_y="208dp" />
+
+        <EditText
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/et_nTaula" />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Productes"
+            android:id="@+id/tv_Productes"
+            android:layout_x="20dp"
+            android:layout_y="269dp" />
+
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:id="@+id/btn_AfegirProductes"
+            android:layout_marginLeft="190dp"
+            android:onClick="afegirProductesComanda"/>
+        </LinearLayout>
 
     <ListView
-        android:layout_width="334dp"
-        android:layout_height="127dp"
-        android:id="@+id/listView2"
-        android:layout_x="13dp"
-        android:layout_y="328dp" />
+        android:layout_width="match_parent"
+        android:layout_height="251dp"
+        android:layout_marginTop="15dp"
+        android:id="@+id/listView2"/>
 
-    <TextView
-        android:layout_width="148dp"
-        android:layout_height="wrap_content"
-        android:text="Preu Total: 65,4€"
-        android:id="@+id/tv_PreuTotal"
-        android:layout_x="18dp"
-        android:layout_y="462dp" />
-
-    <Button
-        android:layout_width="158dp"
-        android:layout_height="wrap_content"
-        android:text="Confirmar"
-        android:id="@+id/btn_ConfirmarComanda"
-        android:layout_x="13dp"
-        android:layout_y="489dp"
-        android:onClick="confirmarComanda"/>
-
-    <Button
-        android:layout_width="158dp"
-        android:layout_height="wrap_content"
-        android:text="Cancelar"
-        android:id="@+id/btn_CancelarComanda"
-        android:layout_x="182dp"
-        android:layout_y="490dp" />
-
-    <EditText
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/editText"
-        android:layout_x="85dp"
-        android:layout_y="69dp" />
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preu Total:"
+            android:id="@+id/tv_PreuTotalComandaTitol"
+            android:layout_x="18dp"
+            android:layout_y="462dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="65.4€"
+            android:id="@+id/tv_PreuTotalComanda"
+            android:layout_x="18dp"
+            android:layout_y="462dp" />
+        </LinearLayout>
 
-</AbsoluteLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp">
+
+        <Button
+            android:layout_width="158dp"
+            android:layout_height="wrap_content"
+            android:text="Confirmar"
+            android:id="@+id/btn_ConfirmarComanda"
+            android:layout_x="13dp"
+            android:layout_y="489dp"
+            android:onClick="confirmarComanda"/>
+
+        <Button
+            android:layout_width="158dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Cancelar"
+            android:id="@+id/btn_CancelarComanda"
+            android:layout_x="182dp"
+            android:layout_y="490dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

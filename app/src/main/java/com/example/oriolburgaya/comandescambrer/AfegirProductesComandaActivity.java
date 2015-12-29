@@ -13,8 +13,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.oriolburgaya.comandescambrer.models.Producte;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 /**
  * Created by oriolbv on 25/12/15.
@@ -23,10 +30,15 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
 
     private static int AFEGIR_PRODUCTE_REQUEST_CODE = 1;
     ActionBar.TabListener tabListener;
+    TextView tv_idProducte;
+    TextView tv_idComanda;
     TextView tv_NomProducte;
     TextView tv_QuantitatProducte;
     TextView tv_PreuProducte;
     TextView tv_PreuTotalProducte;
+    ArrayList<Producte> productesComanda = new ArrayList<Producte>();
+    int idComanda;
+
 
 
     @Override
@@ -34,13 +46,21 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afegir_productes_comanda);
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            int value = extras.getInt("idComanda");
+            idComanda = value;
+        }
+        tv_idComanda = (TextView) findViewById(R.id.tv_idComanda);
+        tv_idProducte = (TextView) findViewById(R.id.tv_idProducte);
         tv_QuantitatProducte = (TextView) findViewById(R.id.tv_QttProducte);
         tv_PreuTotalProducte = (TextView) findViewById(R.id.tv_PreuTotalProducte);
         ActionBar actionBar = this.getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowTitleEnabled(true);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 3);
+        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 3, idComanda);
         viewPager.setAdapter(adapter);
         // Create a tab listener that is called when the user changes tabs.
         tabListener = new ActionBar.TabListener() {
@@ -90,6 +110,18 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
             Intent intent = new Intent(this, AfegirProducteActivity.class);
             startActivityForResult(intent, AFEGIR_PRODUCTE_REQUEST_CODE);
             return true;
+        } else if (id == R.id.action_Ok) {
+            GridView gv = (GridView) findViewById(R.id.gridViewProductes);
+            Log.i("gridView", ""+gv.getCount());
+
+
+
+            //Intent backData = new Intent();
+            //backData.putExtra("data", "Hola em dic Oriol.");
+
+            // Enviem la informació
+            //setResult(RESULT_OK, backData);
+            //finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -111,7 +143,7 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
                 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
                 actionBar.setDisplayShowTitleEnabled(true);
                 final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-                final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 3);
+                final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 3, idComanda);
                 viewPager.setAdapter(adapter);
                 // Create a tab listener that is called when the user changes tabs.
                 tabListener = new ActionBar.TabListener() {
@@ -133,6 +165,14 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
                 };
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent backData = new Intent();
+        backData.putExtra("data", idComanda);
+        setResult(RESULT_CANCELED, backData);
+        finish();
     }
 
 }

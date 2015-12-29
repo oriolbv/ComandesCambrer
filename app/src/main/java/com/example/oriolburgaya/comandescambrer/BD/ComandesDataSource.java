@@ -1,5 +1,6 @@
 package com.example.oriolburgaya.comandescambrer.BD;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,14 +28,14 @@ public class ComandesDataSource {
 
     public static final String CREATE_COMANDES_SCRIPT =
             "create table "+COMANDES_TABLE_NAME+"(" +
-                    ColumnComandes.ID_COMANDA+" "+INT_TYPE+" primary key autoincrement," +
-                    ColumnComandes.DATA_COMANDA+" "+STRING_TYPE+" not null," +
-                    ColumnComandes.PREU_COMANDA+" "+REAL_TYPE+" not null," +
-                    ColumnComandes.NTAULA_COMANDA+" "+REAL_TYPE+" not null)";
+                    ColumnComandes.ID_COMANDA+" "+INT_TYPE+" primary key," +
+                    ColumnComandes.DATA_COMANDA+" "+STRING_TYPE+" null," +
+                    ColumnComandes.PREU_COMANDA+" "+REAL_TYPE+" null," +
+                    ColumnComandes.NTAULA_COMANDA+" "+REAL_TYPE+" null)";
 
     public static final String INSERT_COMANDES_SCRIPT =
             "insert into "+COMANDES_TABLE_NAME+" values(" +
-                    "null," +
+                    "1," +
                     "\"24/12/2015 22:29\"," +
                     34+"," +
                     2+")";
@@ -76,7 +77,33 @@ public class ComandesDataSource {
         }
 
         return comandes;
+    }
 
+    public int getNouIdentificador() {
+        ArrayList<Comanda> comandes = getAllComandes();
+        int idMax = 0;
+        for (int i = 0; i < comandes.size(); ++i) {
+            if (Integer.parseInt(comandes.get(i).getId()) > idMax) {
+                idMax = Integer.parseInt(comandes.get(i).getId());
+            }
+        }
+        return idMax + 1;
+    }
 
+    public void insertRegister(int id, String data, double preu, int nTaula) {
+        ContentValues cv = new ContentValues();
+        cv.put(ColumnComandes.ID_COMANDA, id);
+        cv.put(ColumnComandes.DATA_COMANDA, data);
+        cv.put(ColumnComandes.PREU_COMANDA, preu);
+        cv.put(ColumnComandes.NTAULA_COMANDA, nTaula);
+        database.insert(COMANDES_TABLE_NAME, null, cv);
+    }
+
+    public void updateRegister(int id, String data, double preu, int nTaula) {
+        ContentValues cv = new ContentValues();
+        cv.put(ColumnComandes.DATA_COMANDA, data);
+        cv.put(ColumnComandes.PREU_COMANDA, preu);
+        cv.put(ColumnComandes.NTAULA_COMANDA, nTaula);
+        database.update(COMANDES_TABLE_NAME, cv, "_id="+id, null);
     }
 }

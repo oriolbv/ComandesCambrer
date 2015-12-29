@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.oriolburgaya.comandescambrer.BD.ProductesComandaDataSource;
 import com.example.oriolburgaya.comandescambrer.models.Producte;
 
 import org.w3c.dom.Text;
@@ -29,20 +30,17 @@ import static android.widget.ImageView.ScaleType;
 public class ItemGridProductesAdapter extends BaseAdapter {
 
     private Context mContext;
-    // references to our images
-//    private int[] mImatges = {
-//            R.drawable.bistecPatates, R.drawable.coca,
-//            R.drawable.espaguetis_bolonyesa, R.drawable.pastis_chocolata
-//    };
 
     private final ArrayList<Bitmap> mImatges;
     private ArrayList<Producte> productes;
+    private int idComanda;
 
 
-    public ItemGridProductesAdapter(Context c, ArrayList<Bitmap> mImatges, ArrayList<Producte> productes) {
+    public ItemGridProductesAdapter(Context c, ArrayList<Bitmap> mImatges, ArrayList<Producte> productes, int idComanda) {
         mContext = c;
         this.mImatges = mImatges;
         this.productes = productes;
+        this.idComanda = idComanda;
     }
 
 
@@ -76,14 +74,27 @@ public class ItemGridProductesAdapter extends BaseAdapter {
             TextView tv_QttProducte = (TextView) grid.findViewById(R.id.tv_QttProducte);
             TextView tv_PreuProducte = (TextView) grid.findViewById(R.id.tv_PreuUnitatProducte);
             Button btn_decrementarProducte = (Button) grid.findViewById(R.id.btn_DecrementarQtt);
+            TextView tv_idProducte = (TextView) grid.findViewById(R.id.tv_idProducte);
+            TextView tv_PreuTotalProducte = (TextView) grid.findViewById(R.id.tv_PreuTotalProducte);
+
+            ProductesComandaDataSource productesComandaDataSource = new ProductesComandaDataSource(mContext);
+            int qttProducte = productesComandaDataSource.getQttProductesComanda(Integer.parseInt(productes.get(i).getId()), idComanda);
+            double preuTotal = productesComandaDataSource.getPreuTotalProductesComanda(Integer.parseInt(productes.get(i).getId()), idComanda);
+            Log.i("Info Product: ", "idProducte: "+ productes.get(i).getId() +" idComanda: "+ idComanda + " -------- " + "qtt: " + qttProducte + " preu: "+ preuTotal);
+
+            tv_idProducte.setText(productes.get(i).getId());
             tv_NomProducte.setText(productes.get(i).getNom());
             tv_PreuProducte.setText(String.valueOf(productes.get(i).getPreu()) + " €");
+            tv_QttProducte.setText(Integer.toString(qttProducte));
+            tv_PreuTotalProducte.setText(String.valueOf(preuTotal));
+
         } else {
             grid = (View) view;
         }
         final View row = grid;
         row.setId(i);
         Button btn_decrementarProducte = (Button) row.findViewById(R.id.btn_DecrementarQtt);
+
         row.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,6 +102,17 @@ public class ItemGridProductesAdapter extends BaseAdapter {
                 int qttActual = Integer.parseInt(tv_qttProducte.getText().toString());
                 int novaQtt = qttActual + 1;
                 tv_qttProducte.setText("" + novaQtt);
+                TextView tv_PreuProducte = (TextView) row.findViewById(R.id.tv_PreuUnitatProducte);
+                TextView tv_PreuTotalProducte = (TextView) row.findViewById(R.id.tv_PreuTotalProducte);
+                String sPreuUnitat = tv_PreuProducte.getText().toString().replace("€", "").replace(" ", "");
+                double preuUnitat = Double.parseDouble(sPreuUnitat);
+                double preuTotal = preuUnitat*novaQtt;
+                tv_PreuTotalProducte.setText(String.valueOf(preuTotal));
+
+                ProductesComandaDataSource productesComandaDataSource = new ProductesComandaDataSource(mContext);
+                TextView tv_idProducte = (TextView) row.findViewById(R.id.tv_idProducte);
+                Log.i("ID", tv_idProducte.getText().toString());
+                productesComandaDataSource.modificarProductesComanda(Integer.parseInt(tv_idProducte.getText().toString()), idComanda, novaQtt);
 
             }
         });

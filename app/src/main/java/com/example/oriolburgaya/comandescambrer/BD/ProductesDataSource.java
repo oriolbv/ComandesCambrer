@@ -81,6 +81,36 @@ public class ProductesDataSource {
         return productes;
     }
 
+    public Producte getProducteById(int id) {
+        Producte producte = null;
+        String sIdProducte = Integer.toString(id);
+        Cursor mCursor = database.query(
+                PRODUCTES_TABLE_NAME,  //Nom de la taula
+                null,
+                ColumnProductes.ID_PRODUCTE + "=?",
+                new String[] {sIdProducte},
+                null,
+                null,
+                null
+        );
+
+        if (mCursor.moveToFirst()) {
+            do {
+                producte = new Producte();
+                producte.setId(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnProductes.ID_PRODUCTE)));
+                producte.setNom(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnProductes.NOM_PRODUCTE)));
+                producte.setPreu(mCursor.getDouble(mCursor.getColumnIndexOrThrow(ColumnProductes.PREU_PRODUCTE)));
+                producte.setTipus(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnProductes.TIPUS_PRODUCTE)));
+                producte.setImatge(mCursor.getBlob(mCursor.getColumnIndexOrThrow(ColumnProductes.IMATGE_PRODUCTE)));
+                producte.setStock(mCursor.getInt(mCursor.getColumnIndexOrThrow(ColumnProductes.STOCK_PRODUCTE)));
+            } while (mCursor.moveToNext());
+        }
+        if (mCursor != null && !mCursor.isClosed()) {
+            mCursor.close();
+        }
+        return producte;
+    }
+
     public ArrayList<Producte> getProductesTipus(String tipus) {
         ArrayList<Producte> productes = new ArrayList<Producte>();
 

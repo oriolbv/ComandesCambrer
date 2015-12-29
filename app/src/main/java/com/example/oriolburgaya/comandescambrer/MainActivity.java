@@ -80,21 +80,8 @@ public class MainActivity extends ActionBarActivity {
 
         this.listView = (ListView) findViewById(R.id.listView);
 
-        List items = new ArrayList();
-        items.add(new ItemListComandes("Pollo"));
-        items.add(new ItemListComandes("Pollo"));
-        items.add(new ItemListComandes("Polla"));
-        items.add(new ItemListComandes("Pollo"));
-        items.add(new ItemListComandes("Pollo"));
-        items.add(new ItemListComandes("Polla"));
-        items.add(new ItemListComandes("Pollo"));
-        items.add(new ItemListComandes("Pollo"));
-        items.add(new ItemListComandes("Polla"));
-        items.add(new ItemListComandes("Pollo"));
-        items.add(new ItemListComandes("Pollo"));
-        items.add(new ItemListComandes("Polla"));
 
-        this.listView.setAdapter(new ItemListComandesAdapter(this, items));
+        this.listView.setAdapter(new ItemListComandesAdapter(this, comandes));
         //addListenerOnButton();
 
 
@@ -111,9 +98,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void afegirComanda(View view) {
+        ComandesDataSource dataSource = new ComandesDataSource(this);
+        int nouId = dataSource.getNouIdentificador();
         Toast.makeText(MainActivity.this,
-                "He fet click madafaka!", Toast.LENGTH_SHORT).show();
+                "Nou identificador : "+ nouId, Toast.LENGTH_SHORT).show();
+        dataSource.insertRegister(nouId, null, 0.0, 0);
         Intent intent = new Intent(this, AfegirComandaActivity.class);
+        intent.putExtra("idComanda", nouId);
         startActivityForResult(intent, AFEGIR_COMANDA_REQUEST_CODE);
     }
 
@@ -125,6 +116,10 @@ public class MainActivity extends ActionBarActivity {
 
             if (resultCode == RESULT_OK) {
                 Log.i("onActivityResult", "Result OK! : "+ data.getStringExtra("data"));
+                ComandesDataSource dataSource = new ComandesDataSource(this);
+                ArrayList<Comanda> comandes = dataSource.getAllComandes();
+                this.listView = (ListView) findViewById(R.id.listView);
+                this.listView.setAdapter(new ItemListComandesAdapter(this, comandes));
             }
         }
     }

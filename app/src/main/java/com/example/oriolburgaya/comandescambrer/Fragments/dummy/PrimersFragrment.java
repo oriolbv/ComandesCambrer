@@ -40,6 +40,9 @@ public class PrimersFragrment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         // GET TOTS ELS PRODUCTES DE TIPUS : "Primer"
+        Bundle args = getArguments();
+        int idComanda = args.getInt("idComanda", 0);
+        Log.i("index", ""+idComanda);
         this.container = container;
         ProductesDataSource productesDataSource = new ProductesDataSource(this.getActivity());
         ArrayList<Producte> productes = productesDataSource.getProductesTipus("Primer");
@@ -49,24 +52,10 @@ public class PrimersFragrment extends Fragment {
         }
         View rootView;
         rootView = inflater.inflate(R.layout.fragment_afegir_primers_comanda, container, false);
-        ItemGridProductesAdapter adapter = new ItemGridProductesAdapter(container.getContext(), bitmapImatges, productes);
+        ItemGridProductesAdapter adapter = new ItemGridProductesAdapter(container.getContext(), bitmapImatges, productes, idComanda);
         gridView = (GridView) rootView.findViewById(R.id.gridViewProductes);
         gridView.setAdapter(adapter);
 
-
-
-    /*    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //ViewGroup c = container;
-                //Toast.makeText(AfegirProductesComandaActivity.this, ""+i, Toast.LENGTH_SHORT).show();
-                Log.i("aaaaa", ""+i);
-
-            }
-        });
-
-*/
 
 
         return rootView;

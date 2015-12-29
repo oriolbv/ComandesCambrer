@@ -6,6 +6,7 @@ package com.example.oriolburgaya.comandescambrer;
 public class ItemListComandes {
     private String nom;
 
+
     public ItemListComandes() {
         super();
     }

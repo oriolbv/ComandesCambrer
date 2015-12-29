@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,15 +28,18 @@ public class BegudesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Bundle args = getArguments();
+        int idComanda = args.getInt("idComanda", 0);
+        Log.i("index", "" + idComanda);
         ProductesDataSource productesDataSource = new ProductesDataSource(this.getActivity());
-        ArrayList<Producte> productes = productesDataSource.getProductesTipus("Postre");
+        ArrayList<Producte> productes = productesDataSource.getProductesTipus("Beguda");
         for (int i = 0; i < productes.size(); ++i) {
             Bitmap b = BitmapFactory.decodeByteArray(productes.get(i).getImatge(), 0, productes.get(i).getImatge().length);
             bitmapImatges.add(b);
         }
         View rootView;
         rootView = inflater.inflate(R.layout.fragment_afegir_primers_comanda, container, false);
-        ItemGridProductesAdapter adapter = new ItemGridProductesAdapter(container.getContext(), bitmapImatges, productes);
+        ItemGridProductesAdapter adapter = new ItemGridProductesAdapter(container.getContext(), bitmapImatges, productes, idComanda);
         gridView = (GridView) rootView.findViewById(R.id.gridViewProductes);
         gridView.setAdapter(adapter);
 
