@@ -42,6 +42,7 @@ public class PrimersFragrment extends Fragment {
         // GET TOTS ELS PRODUCTES DE TIPUS : "Primer"
         Bundle args = getArguments();
         int idComanda = args.getInt("idComanda", 0);
+        boolean gestio = args.getBoolean("gestio");
         Log.i("index", ""+idComanda);
         this.container = container;
         ProductesDataSource productesDataSource = new ProductesDataSource(this.getActivity());
@@ -52,7 +53,7 @@ public class PrimersFragrment extends Fragment {
         }
         View rootView;
         rootView = inflater.inflate(R.layout.fragment_afegir_primers_comanda, container, false);
-        ItemGridProductesAdapter adapter = new ItemGridProductesAdapter(container.getContext(), bitmapImatges, productes, idComanda);
+        ItemGridProductesAdapter adapter = new ItemGridProductesAdapter(container.getContext(), bitmapImatges, productes, idComanda, gestio);
         gridView = (GridView) rootView.findViewById(R.id.gridViewProductes);
         gridView.setAdapter(adapter);
 

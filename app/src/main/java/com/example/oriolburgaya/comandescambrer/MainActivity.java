@@ -1,6 +1,8 @@
 package com.example.oriolburgaya.comandescambrer;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -86,13 +88,34 @@ public class MainActivity extends BaseActivity {
 
         this.listView.setAdapter(new ItemListComandesAdapter(this, comandes));
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ItemListComandesAdapter adapter = (ItemListComandesAdapter)listView.getAdapter();
-                adapter.removeItemAt(i); // you need to implement this method
-                adapter.notifyDataSetChanged();
+                final int position = i;
+                AlertDialog.Builder adb = new AlertDialog.Builder(view.getContext());
+                adb.setTitle("Vols esborrar aquesta comanda?");
+                adb.setIcon(R.drawable.delete_red);
+                adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ItemListComandesAdapter adapter = (ItemListComandesAdapter)listView.getAdapter();
+                        adapter.removeItemAt(position); // you need to implement this method
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                adb.show();
                 return true;
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
             }
         });
 
@@ -104,8 +127,8 @@ public class MainActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         super.onCreateOptionsMenu(menu);
-        //MenuInflater inflater = getMenuInflater();
-        //inflater.inflate(R.menu.menu_main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 

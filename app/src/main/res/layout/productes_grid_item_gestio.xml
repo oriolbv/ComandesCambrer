@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="165dp"
+        android:layout_height="230dp"
+        android:layout_x="10dp"
+        android:layout_y="15dp"
+        >
+        <AbsoluteLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+            <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:textSize="16dp"
+            android:id="@+id/tv_idProducte"
+            android:layout_x="0dp"
+            android:text="id"
+            android:layout_y="0dp"
+            android:background="#8FF0"
+            android:textColor="#ff000000"
+            android:textAlignment="center"
+            android:gravity="center_horizontal" />
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:id="@+id/gridImage"
+                android:src="@drawable/chicken"
+                android:layout_x="0dp"
+                android:layout_y="0dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pollastre"
+                android:textSize="16dp"
+                android:id="@+id/tv_NomProducteMostrar"
+                android:layout_x="0dp"
+                android:layout_y="50dp"
+                android:background="#8FF0"
+                android:textColor="#ff000000"
+                android:textAlignment="center"
+                android:gravity="center_horizontal" />
+
+        </AbsoluteLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:background="#ffffac5e">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="0 €"
+                android:id="@+id/tv_PreuUnitatProducte"
+                android:enabled="true"
+                android:textSize="20dp"
+                android:textColor="#ff000000"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</AbsoluteLayout>

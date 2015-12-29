@@ -1,10 +1,8 @@
 package com.example.oriolburgaya.comandescambrer;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -153,13 +151,20 @@ public class BaseActivity extends ActionBarActivity {
 //		setTitle(listArray[position]);
         mDrawerLayout.closeDrawer(mDrawerList);
         BaseActivity.position = position; //Setting currently selected position in this field so that it will be available in our child activities.
-
+        Intent intent;
         switch (position) {
+
             case 0:
-                startActivity(new Intent(this, MainActivity.class));
+                intent = new Intent(this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
             case 1:
-                startActivity(new Intent(this, AfegirProductesComandaActivity.class));
+                intent = new Intent(this, ProductesActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
                 break;
             case 2:
                 startActivity(new Intent(this, MainActivity.class));

@@ -60,7 +60,7 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowTitleEnabled(true);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 3, idComanda);
+        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 3, idComanda, false);
         viewPager.setAdapter(adapter);
         // Create a tab listener that is called when the user changes tabs.
         tabListener = new ActionBar.TabListener() {
@@ -144,7 +144,7 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
                 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
                 actionBar.setDisplayShowTitleEnabled(true);
                 final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-                final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 3, idComanda);
+                final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 3, idComanda, false);
                 viewPager.setAdapter(adapter);
                 // Create a tab listener that is called when the user changes tabs.
                 tabListener = new ActionBar.TabListener() {

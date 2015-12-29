@@ -17,11 +17,13 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
     int nombreTabs;
     int idComanda;
+    boolean gestio;
 
-    public PagerAdapter(FragmentManager fm, int nombreTabs, int idComanda) {
+    public PagerAdapter(FragmentManager fm, int nombreTabs, int idComanda, boolean gestio) {
         super(fm);
         this.nombreTabs = nombreTabs;
         this.idComanda = idComanda;
+        this.gestio = gestio;
     }
 
 
@@ -31,23 +33,26 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         switch (i) {
             case 0:
                 PrimersFragrment tab1 = new PrimersFragrment();
-
                 args.putInt("idComanda", idComanda);
+                args.putBoolean("gestio", gestio);
                 tab1.setArguments(args);
                 return tab1;
             case 1:
                 SegonsFragment tab2 = new SegonsFragment();
                 args.putInt("idComanda", idComanda);
+                args.putBoolean("gestio", gestio);
                 tab2.setArguments(args);
                 return tab2;
             case 2:
                 TercersFragment tab3 = new TercersFragment();
                 args.putInt("idComanda", idComanda);
+                args.putBoolean("gestio", gestio);
                 tab3.setArguments(args);
                 return tab3;
             case 3:
                 BegudesFragment tab4 = new BegudesFragment();
                 args.putInt("idComanda", idComanda);
+                args.putBoolean("gestio", gestio);
                 tab4.setArguments(args);
                 return tab4;
             default:
