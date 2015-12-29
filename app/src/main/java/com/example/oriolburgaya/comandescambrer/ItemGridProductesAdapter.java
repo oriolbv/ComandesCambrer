@@ -107,7 +107,7 @@ public class ItemGridProductesAdapter extends BaseAdapter {
                 String sPreuUnitat = tv_PreuProducte.getText().toString().replace("€", "").replace(" ", "");
                 double preuUnitat = Double.parseDouble(sPreuUnitat);
                 double preuTotal = preuUnitat*novaQtt;
-                tv_PreuTotalProducte.setText(String.valueOf(preuTotal));
+                tv_PreuTotalProducte.setText(String.format("%.2f", preuTotal) + " €");
 
                 ProductesComandaDataSource productesComandaDataSource = new ProductesComandaDataSource(mContext);
                 TextView tv_idProducte = (TextView) row.findViewById(R.id.tv_idProducte);
@@ -130,7 +130,7 @@ public class ItemGridProductesAdapter extends BaseAdapter {
                     String sPreuUnitat = tv_PreuProducte.getText().toString().replace("€", "").replace(" ", "");
                     double preuUnitat = Double.parseDouble(sPreuUnitat);
                     double preuTotal = preuUnitat*novaQtt;
-                    tv_PreuTotalProducte.setText(String.format("%.2f", String.valueOf(preuTotal)));
+                    tv_PreuTotalProducte.setText(String.format("%.2f", preuTotal) + " €");
 
                     ProductesComandaDataSource productesComandaDataSource = new ProductesComandaDataSource(mContext);
                     TextView tv_idProducte = (TextView) row.findViewById(R.id.tv_idProducte);

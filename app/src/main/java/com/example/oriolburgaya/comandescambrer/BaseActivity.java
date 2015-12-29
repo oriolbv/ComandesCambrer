@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -94,10 +95,11 @@ public class BaseActivity extends ActionBarActivity {
         actionBarDrawerToggle = new ActionBarDrawerToggle(
                 this,						/* host Activity */
                 mDrawerLayout, 				/* DrawerLayout object */
-                R.drawable.ic_launcher,     /* nav drawer image to replace 'Up' caret */
+                R.drawable.ic_drawer,     /* nav drawer image to replace 'Up' caret */
                 R.string.open_drawer,       /* "open drawer" description for accessibility */
                 R.string.close_drawer)      /* "close drawer" description for accessibility */
         {
+
             @Override
             public void onDrawerClosed(View drawerView) {
                 getSupportActionBar().setTitle(listArray[position]);
@@ -122,7 +124,11 @@ public class BaseActivity extends ActionBarActivity {
                 super.onDrawerStateChanged(newState);
             }
         };
+        actionBarDrawerToggle.setDrawerIndicatorEnabled(false);
+        actionBarDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_drawer);
+        actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(actionBarDrawerToggle);
+
 
         if(isLaunch){
             isLaunch = false;
