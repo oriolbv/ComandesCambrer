@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:alpha=".5">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="165dp"
@@ -14,18 +15,18 @@
             android:layout_width="match_parent"
             android:layout_height="180dp">
             <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:textSize="16dp"
-            android:id="@+id/tv_idProducte"
-            android:layout_x="0dp"
-            android:text="id"
-            android:layout_y="0dp"
-            android:background="#8FF0"
-            android:textColor="#ff000000"
-            android:textAlignment="center"
-            android:gravity="center_horizontal" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:textSize="16dp"
+                android:id="@+id/tv_idProducte"
+                android:layout_x="0dp"
+                android:text="id"
+                android:layout_y="0dp"
+                android:background="#8FF0"
+                android:textColor="#ff000000"
+                android:textAlignment="center"
+                android:gravity="center_horizontal" />
 
 
             <ImageView
@@ -119,7 +120,7 @@
                 android:enabled="true"
                 android:textColor="#ff000000" />
 
-         </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

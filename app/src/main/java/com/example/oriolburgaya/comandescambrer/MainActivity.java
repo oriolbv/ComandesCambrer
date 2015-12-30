@@ -80,7 +80,6 @@ public class MainActivity extends BaseActivity {
 
         //SQLiteDatabase db = new SQLiteDatabase();
         ArrayList<Comanda> comandes = dataSource.getAllComandes();
-        Log.i("ArrayList", ""+comandes.get(0).getPreu());
 
 
         this.listView = (ListView) findViewById(R.id.listView);
@@ -128,19 +127,12 @@ public class MainActivity extends BaseActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        inflater.inflate(R.menu.menu_comandes, menu);
         return true;
     }
 
     public void afegirComanda(View view) {
-        ComandesDataSource dataSource = new ComandesDataSource(this);
-        int nouId = dataSource.getNouIdentificador();
-        Toast.makeText(MainActivity.this,
-                "Nou identificador : "+ nouId, Toast.LENGTH_SHORT).show();
-        dataSource.insertRegister(nouId, null, 0.0, 0);
-        Intent intent = new Intent(this, AfegirComandaActivity.class);
-        intent.putExtra("idComanda", nouId);
-        startActivityForResult(intent, AFEGIR_COMANDA_REQUEST_CODE);
+
     }
 
     @Override
@@ -157,5 +149,28 @@ public class MainActivity extends BaseActivity {
                 this.listView.setAdapter(new ItemListComandesAdapter(this, comandes));
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_afegir) {
+            ComandesDataSource dataSource = new ComandesDataSource(this);
+            int nouId = dataSource.getNouIdentificador();
+            Toast.makeText(MainActivity.this,
+                    "Nou identificador : "+ nouId, Toast.LENGTH_SHORT).show();
+            dataSource.insertRegister(nouId, null, 0.0, 0);
+            Intent intent = new Intent(this, AfegirComandaActivity.class);
+            intent.putExtra("idComanda", nouId);
+            startActivityForResult(intent, AFEGIR_COMANDA_REQUEST_CODE);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

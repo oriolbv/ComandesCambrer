@@ -148,6 +148,14 @@ public class ItemGridProductesAdapter extends BaseAdapter {
             if (view == null) {
                 grid = new View(mContext);
                 grid = inflater.inflate(R.layout.productes_grid_item_gestio, null);
+                ImageView imageView = (ImageView) grid.findViewById(R.id.gridImage);
+                imageView.setImageBitmap(mImatges.get(i));
+                TextView tv_idProducte = (TextView) grid.findViewById(R.id.tv_idProducte);
+                TextView tv_NomProducte = (TextView) grid.findViewById(R.id.tv_NomProducteMostrar);
+                TextView tv_PreuProducte = (TextView) grid.findViewById(R.id.tv_PreuUnitatProducte);
+                tv_NomProducte.setText(productes.get(i).getNom());
+                tv_PreuProducte.setText(String.valueOf(productes.get(i).getPreu()) + " €");
+                tv_idProducte.setText(productes.get(i).getId());
             } else {
                 grid = (View) view;
             }

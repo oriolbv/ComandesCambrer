@@ -34,6 +34,7 @@ public class BegudesFragment extends Fragment {
         Log.i("index", "" + idComanda);
         ProductesDataSource productesDataSource = new ProductesDataSource(this.getActivity());
         ArrayList<Producte> productes = productesDataSource.getProductesTipus("Beguda");
+        Log.i("nProductes: ", ""+productes.size());
         for (int i = 0; i < productes.size(); ++i) {
             Bitmap b = BitmapFactory.decodeByteArray(productes.get(i).getImatge(), 0, productes.get(i).getImatge().length);
             bitmapImatges.add(b);

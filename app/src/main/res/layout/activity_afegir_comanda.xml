@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp">
+        android:layout_marginLeft="10dp"
+        android:weightSum="1">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,6 +27,14 @@
             android:id="@+id/et_Data"
             android:layout_x="89dp"
             android:layout_y="87dp" />
+        <ImageButton
+            android:layout_marginLeft="10dp"
+            android:layout_width="110px"
+            android:layout_height="110px"
+            android:onClick="setDataComanda"
+            android:src="@drawable/calendari_redimensionada"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"/>
         </LinearLayout>
 
     <LinearLayout
@@ -50,6 +59,15 @@
             android:id="@+id/et_Hora"
             android:layout_x="89dp"
             android:layout_y="87dp" />
+        <ImageButton
+            android:layout_marginLeft="10dp"
+            android:layout_width="110px"
+            android:layout_height="110px"
+            android:onClick="setHoraComanda"
+            android:src="@drawable/galeria_redimensionada"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:radius="50px"/>
     </LinearLayout>
 
     <LinearLayout
@@ -150,7 +168,8 @@
             android:text="Cancelar"
             android:id="@+id/btn_CancelarComanda"
             android:layout_x="182dp"
-            android:layout_y="490dp" />
+            android:layout_y="490dp"
+            android:onClick="cancelarComanda"/>
 
     </LinearLayout>
 

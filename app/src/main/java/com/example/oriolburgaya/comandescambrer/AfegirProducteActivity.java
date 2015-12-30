@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -47,6 +48,7 @@ public class AfegirProducteActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afegir_producte);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFFDC4436));
         etNomProducte = (EditText) findViewById(R.id.et_NomProducte);
         spTipusProducte = (Spinner) findViewById(R.id.sp_TipusProducte);
         etPreuProducte = (EditText) findViewById(R.id.et_PreuProducte);
@@ -137,11 +139,13 @@ public class AfegirProducteActivity extends ActionBarActivity {
             producte.setStock(Integer.parseInt(etStockProducte.getText().toString()));
             ProductesDataSource productesDataSource = new ProductesDataSource(this);
             productesDataSource.insertRegister(producte.getNom(),producte.getPreu(), producte.getTipus(), producte.getImatge(), producte.getStock());
-            Intent backData = new Intent();
+            Intent backData = new Intent(this, ProductesActivity.class);
             backData.putExtra("data", producte.getNom());
             // Enviem la informació
             setResult(RESULT_OK, backData);
-            finish();
+
+            startActivity(backData);
+
         }
 
     }

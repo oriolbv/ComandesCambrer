@@ -13,7 +13,7 @@ public class Producte {
     private String tipus;
     private byte[] imatge;
     private int stock;
-    private boolean bActivat;
+    private boolean bDeleted;
 
     public String getId() {
         return id;
@@ -63,12 +63,12 @@ public class Producte {
         this.stock = stock;
     }
 
-    public boolean getbActivat() {
-        return bActivat;
+    public boolean getbDeleted() {
+        return bDeleted;
     }
 
-    public void setbActivat(boolean bActivat) {
-        this.bActivat = bActivat;
+    public void setbDeleted(boolean bDeleted) {
+        this.bDeleted = bDeleted;
     }
 
 

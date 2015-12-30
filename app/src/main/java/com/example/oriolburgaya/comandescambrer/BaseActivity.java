@@ -1,6 +1,7 @@
 package com.example.oriolburgaya.comandescambrer;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -36,7 +37,7 @@ public class BaseActivity extends ActionBarActivity {
     /**
      * List item array for navigation drawer items.
      * */
-    protected String[] listArray = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+    protected String[] listArray = { "Agafar Comanda", "Productes", "Fer Caixa", "Item 4", "Item 5" };
 
     /**
      * Static variable for selected item position. Which can be used in child activity to know which item is selected from the list.
@@ -88,6 +89,7 @@ public class BaseActivity extends ActionBarActivity {
         Log.i("ActionBar", getSupportActionBar().toString());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFFDC4436));
 
         // ActionBarDrawerToggle ties together the the proper interactions between the sliding drawer and the action bar app icon
         actionBarDrawerToggle = new ActionBarDrawerToggle(
@@ -186,7 +188,7 @@ public class BaseActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -213,7 +215,9 @@ public class BaseActivity extends ActionBarActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         // If the nav drawer is open, hide action items related to the content view
         boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        if (menu.findItem(R.id.action_settings) != null) {
+            menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
+        }
         return super.onPrepareOptionsMenu(menu);
     }
 

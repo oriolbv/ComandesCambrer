@@ -3,6 +3,7 @@ package com.example.oriolburgaya.comandescambrer;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -51,7 +52,7 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
             int value = extras.getInt("idComanda");
             idComanda = value;
         }
-        tv_idComanda = (TextView) findViewById(R.id.tv_idComanda);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFFDC4436));
         tv_idProducte = (TextView) findViewById(R.id.tv_idProducte);
         tv_QuantitatProducte = (TextView) findViewById(R.id.tv_QttProducte);
         tv_PreuTotalProducte = (TextView) findViewById(R.id.tv_PreuTotalProducte);
@@ -59,8 +60,9 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setBackgroundDrawable(new ColorDrawable(0xFFDC4436));
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 3, idComanda, false);
+        final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 4, idComanda, false);
         viewPager.setAdapter(adapter);
         // Create a tab listener that is called when the user changes tabs.
         tabListener = new ActionBar.TabListener() {
@@ -144,7 +146,7 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
                 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
                 actionBar.setDisplayShowTitleEnabled(true);
                 final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-                final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 3, idComanda, false);
+                final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 4, idComanda, false);
                 viewPager.setAdapter(adapter);
                 // Create a tab listener that is called when the user changes tabs.
                 tabListener = new ActionBar.TabListener() {

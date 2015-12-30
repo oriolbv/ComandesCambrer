@@ -1,6 +1,11 @@
 package com.example.oriolburgaya.comandescambrer;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -8,16 +13,21 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.oriolburgaya.comandescambrer.BD.ComandesDataSource;
 import com.example.oriolburgaya.comandescambrer.BD.ProductesComandaDataSource;
 import com.example.oriolburgaya.comandescambrer.models.ProductesComanda;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by oriolbv on 24/12/15.
@@ -32,13 +42,17 @@ public class AfegirComandaActivity extends ActionBarActivity {
     TextView tvPreuTotal;
     private ListView listView;
 
+    private DatePickerDialog fromDatePickerDialog;
+    private DatePickerDialog toDatePickerDialog;
+
+    private SimpleDateFormat dateFormatter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_afegir_comanda);
-
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFFDC4436));
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             int value = extras.getInt("idComanda");
@@ -56,9 +70,19 @@ public class AfegirComandaActivity extends ActionBarActivity {
             preuTotal = preuTotal + productesComanda.get(i).getPreuTotal();
         }
         tvPreuTotal.setText(String.valueOf(preuTotal));
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 
+        setDateTimeField();
     }
 
+    private void setDateTimeField() {
+
+        //toDateEtxt.setOnClickListener(this);
+        //etData.setOnClickListener();
+
+
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -113,12 +137,52 @@ public class AfegirComandaActivity extends ActionBarActivity {
         }
     }
 
+    public void cancelarComanda(View view) {
+        Intent backData = new Intent();
+        setResult(RESULT_CANCELED, backData);
+        ComandesDataSource comandesDataSource = new ComandesDataSource(this);
+        comandesDataSource.deleteRegister(idComanda);
+        finish();
+    }
+
+
     public void afegirProductesComanda(View view) {
         Toast.makeText(AfegirComandaActivity.this,
                 "He fet click per afegir Productes a la comanda!", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, AfegirProductesComandaActivity.class);
         intent.putExtra("idComanda", idComanda);
         startActivityForResult(intent, AFEGIR_PRODUCTES_COMANDA_REQUEST_CODE);
+    }
+
+    public void setDataComanda(View view) {
+
+        Calendar newCalendar = Calendar.getInstance();
+        fromDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                etData.setText(dateFormatter.format(newDate.getTime()));
+            }
+
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        fromDatePickerDialog.show();
+    }
+
+    public void setHoraComanda(View view) {
+        Calendar mcurrentTime = Calendar.getInstance();
+        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+        int minute = mcurrentTime.get(Calendar.MINUTE);
+        TimePickerDialog mTimePicker;
+        mTimePicker = new TimePickerDialog(AfegirComandaActivity.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                etHora.setText( selectedHour + ":" + selectedMinute);
+            }
+        }, hour, minute, true);//Yes 24 hour time
+        mTimePicker.setTitle("Select Time");
+        mTimePicker.show();
+
     }
 
     @Override

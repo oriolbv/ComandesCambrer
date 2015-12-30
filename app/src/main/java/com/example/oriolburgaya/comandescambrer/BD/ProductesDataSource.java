@@ -19,6 +19,7 @@ public class ProductesDataSource {
     public static final String INT_TYPE = "integer";
     public static final String REAL_TYPE = "real";
     public static final String BLOB_TYPE = "blob";
+    public static final String NUMERIC_TYPE = "numeric";
 
     public static class ColumnProductes {
         public static final String ID_PRODUCTE = BaseColumns._ID;
@@ -27,6 +28,7 @@ public class ProductesDataSource {
         public static final String TIPUS_PRODUCTE = "tipus";
         public static final String IMATGE_PRODUCTE = "imatge";
         public static final String STOCK_PRODUCTE = "stock";
+        public static final String DELETED_PRODUCTE = "deleted";
     }
 
     public static final String CREATE_PRODUCTES_SCRIPT =
@@ -36,7 +38,8 @@ public class ProductesDataSource {
                     ColumnProductes.PREU_PRODUCTE+" "+REAL_TYPE+" not null," +
                     ColumnProductes.TIPUS_PRODUCTE+" "+STRING_TYPE+" not null," +
                     ColumnProductes.IMATGE_PRODUCTE+" "+BLOB_TYPE+" not null," +
-                    ColumnProductes.STOCK_PRODUCTE+" "+INT_TYPE+" not null)";
+                    ColumnProductes.STOCK_PRODUCTE+" "+INT_TYPE+" not null," +
+                    ColumnProductes.DELETED_PRODUCTE+" "+NUMERIC_TYPE+" not null)";
 
 
 
@@ -80,6 +83,9 @@ public class ProductesDataSource {
         }
         return productes;
     }
+
+
+
 
     public Producte getProducteById(int id) {
         Producte producte = null;
@@ -149,6 +155,7 @@ public class ProductesDataSource {
         cv.put(ColumnProductes.TIPUS_PRODUCTE, tipus);
         cv.put(ColumnProductes.IMATGE_PRODUCTE, img);
         cv.put(ColumnProductes.STOCK_PRODUCTE, stock);
+        cv.put(ColumnProductes.DELETED_PRODUCTE, false);
         database.insert(PRODUCTES_TABLE_NAME, null, cv);
     }
 }
