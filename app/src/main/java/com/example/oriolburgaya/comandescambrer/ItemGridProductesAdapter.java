@@ -119,6 +119,10 @@ public class ItemGridProductesAdapter extends BaseAdapter {
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    //boolean bQuedaStock = true;
+                    //TextView tv_id = (TextView) row.findViewById(R.id.tv_idProducte);
+
+
                     TextView tv_qttProducte = (TextView) row.findViewById(R.id.tv_QttProducte);
                     int qttActual = Integer.parseInt(tv_qttProducte.getText().toString());
                     int novaQtt = qttActual + 1;
@@ -193,30 +197,6 @@ public class ItemGridProductesAdapter extends BaseAdapter {
 
 
             });
-            /*row.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(final View view) {
-                    final Producte producte = (Producte) getItem(row.getId());
-                    final int position = row.getId();
-                    Log.i("viewPager", ""+viewPager.getCurrentItem());
-                    AlertDialog.Builder adb = new AlertDialog.Builder(view.getContext());
-                    adb.setTitle("Vols esborrar aquest producte?");
-                    adb.setIcon(R.drawable.delete_red);
-                    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            itemGridProductesAdapter.removeItemAt(position);
-                            itemGridProductesAdapter.notifyDataSetChanged();
-                        }
-                    });
-                    adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    adb.show();
-                    return true;
-                }
-            });*/
             return row;
         }
     }

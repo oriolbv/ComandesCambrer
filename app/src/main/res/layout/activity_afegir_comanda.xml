@@ -27,14 +27,13 @@
             android:id="@+id/et_Data"
             android:layout_x="89dp"
             android:layout_y="87dp" />
-        <ImageButton
-            android:layout_marginLeft="10dp"
+
+        <ImageView
             android:layout_width="110px"
             android:layout_height="110px"
-            android:onClick="setDataComanda"
+            android:layout_marginLeft="10dp"
             android:src="@drawable/calendari_redimensionada"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true"/>
+            android:onClick="setDataComanda"/>
         </LinearLayout>
 
     <LinearLayout
@@ -59,36 +58,28 @@
             android:id="@+id/et_Hora"
             android:layout_x="89dp"
             android:layout_y="87dp" />
-        <ImageButton
-            android:layout_marginLeft="10dp"
-            android:layout_width="110px"
-            android:layout_height="110px"
-            android:onClick="setHoraComanda"
-            android:src="@drawable/galeria_redimensionada"
-            android:scaleType="centerCrop"
-            android:adjustViewBounds="true"
-            android:radius="50px"/>
+
 
         <ImageView
             android:layout_width="110px"
             android:layout_height="110px"
-            android:src="@drawable/galeria_redimensionada"
-            android:onClick="setHoraComanda"/>
+            android:src="@drawable/rellotge_redimensionada"
+            android:onClick="setHoraComanda"
+            android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nº Taula"
             android:id="@+id/tv_nTaula"
-            android:layout_x="11dp"
-            android:layout_y="208dp" />
+ />
 
         <EditText
             android:layout_width="60dp"
@@ -96,13 +87,20 @@
             android:inputType="number"
             android:layout_marginLeft="10dp"
             android:id="@+id/et_nTaula" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(del 1 al 20)"
+            android:id="@+id/tv_hintTaules"
+            android:layout_marginLeft="10dp"
+            android:textColor="#ffb9b9b9" />
         </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp">
         <TextView
             android:layout_width="wrap_content"
@@ -123,7 +121,7 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="220dp"
         android:layout_marginTop="15dp"
         android:id="@+id/listView2"/>
 

@@ -169,7 +169,7 @@ public class BaseActivity extends ActionBarActivity {
                 startActivity(intent);
                 break;
             case 2:
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, FerCaixaActivity.class));
                 break;
             case 3:
                 startActivity(new Intent(this, MainActivity.class));

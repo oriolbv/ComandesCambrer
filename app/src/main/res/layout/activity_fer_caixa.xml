@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:weightSum="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data:"
+            android:id="@+id/tv_DataFerCaixa"
+            android:layout_x="15dp"
+            android:layout_y="86dp" />
+
+        <EditText
+            android:layout_width="158dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:id="@+id/et_DataFerCaixa"
+            android:layout_x="89dp"
+            android:layout_y="87dp" />
+
+        <ImageView
+            android:layout_width="110px"
+            android:layout_height="110px"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/calendari_redimensionada"
+            android:onClick="setDataFerCaixa"/>
+    </LinearLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="385dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/listView_FerCaixa"></ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guanys Totals : "
+            android:textSize="20dp"
+            android:textColor="#ff000000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="0 €"
+            android:textSize="20dp"
+            android:id="@+id/tv_GuanysTotals"
+            android:textColor="#ff000000" />
+
+
+
+        </LinearLayout>
+</LinearLayout>

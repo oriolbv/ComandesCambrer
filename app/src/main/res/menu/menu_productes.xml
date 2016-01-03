@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
     <item android:id="@+id/action_afegir" android:title="@string/action_afegir"
+        android:icon="@drawable/icon_add_grey"
         android:orderInCategory="100" app:showAsAction="always" />
 
 </menu>

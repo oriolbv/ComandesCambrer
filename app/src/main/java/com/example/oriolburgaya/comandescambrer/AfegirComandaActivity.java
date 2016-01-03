@@ -42,6 +42,7 @@ public class AfegirComandaActivity extends ActionBarActivity {
     EditText etNTaula;
     TextView tvPreuTotal;
     private ListView listView;
+    private boolean esAfegir;
 
     private DatePickerDialog fromDatePickerDialog;
     private DatePickerDialog toDatePickerDialog;
@@ -66,7 +67,8 @@ public class AfegirComandaActivity extends ActionBarActivity {
         if (extras != null) {
             int value = extras.getInt("idComanda");
             idComanda = value;
-            if (extras.getBoolean("esAfegir") == true) {
+            esAfegir = extras.getBoolean("esAfegir");
+            if (esAfegir == true) {
                 ProductesComandaDataSource productesComandaDataSource = new ProductesComandaDataSource(this);
                 ArrayList<ProductesComanda> productesComanda = productesComandaDataSource.getProductesComanda(idComanda);
                 double preuTotal = 0;
@@ -101,11 +103,6 @@ public class AfegirComandaActivity extends ActionBarActivity {
 
     private void setDateTimeField() {
 
-        //toDateEtxt.setOnClickListener(this);
-        //etData.setOnClickListener();
-
-
-
     }
 
     @Override
@@ -129,11 +126,17 @@ public class AfegirComandaActivity extends ActionBarActivity {
             //Toast t = new Toast()
             return true;
         } else if (id == android.R.id.home) {
-            Intent backData = new Intent();
-            setResult(RESULT_CANCELED, backData);
-            ComandesDataSource comandesDataSource = new ComandesDataSource(this);
-            comandesDataSource.deleteRegister(idComanda);
-            finish();
+            if (esAfegir) {
+                Intent backData = new Intent();
+                setResult(RESULT_CANCELED, backData);
+                ComandesDataSource comandesDataSource = new ComandesDataSource(this);
+                comandesDataSource.deleteRegister(idComanda);
+                finish();
+            } else {
+                Intent backData = new Intent();
+                setResult(RESULT_CANCELED, backData);
+                finish();
+            }
         }
 
 
@@ -185,7 +188,6 @@ public class AfegirComandaActivity extends ActionBarActivity {
     }
 
     public void setDataComanda(View view) {
-
         Calendar newCalendar = Calendar.getInstance();
         fromDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
 

@@ -62,14 +62,7 @@ public class ItemProducteComandaAdapter extends BaseAdapter {
         ProductesDataSource productesDataSource = new ProductesDataSource(context);
         Producte producte = productesDataSource.getProducteById(items.get(i).getIdProducte());
         tvNom.setText(producte.getNom());
-        tvPreu.setText(String.valueOf(items.get(i).getPreuTotal()));
-/*        Comanda item = this.items.get(position);
-        Log.i("tvNumTAula", String.valueOf(item.getnTaula()));
-        tvTitle.setText(item.getId());
-        tvData.setText(item.getData());
-        tvImportTotal.setText(String.valueOf(item.getPreu()));
-        tvNumTaula.setText(String.valueOf(item.getnTaula()));
-*/
+        tvPreu.setText(String.format("%.2f", items.get(i).getPreuTotal()) + " €");
         return rowView;
     }
 }

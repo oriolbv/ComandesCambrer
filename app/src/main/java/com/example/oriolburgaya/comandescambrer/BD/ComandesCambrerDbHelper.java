@@ -31,7 +31,7 @@ public class ComandesCambrerDbHelper extends SQLiteOpenHelper {
         // Creem la taula Comandes
         db.execSQL(ComandesDataSource.CREATE_COMANDES_SCRIPT);
         // Insertem registres inicials
-        db.execSQL(ComandesDataSource.INSERT_COMANDES_SCRIPT);
+        //db.execSQL(ComandesDataSource.INSERT_COMANDES_SCRIPT);
         // Creem la taula Comandes
         db.execSQL(ProductesDataSource.CREATE_PRODUCTES_SCRIPT);
 

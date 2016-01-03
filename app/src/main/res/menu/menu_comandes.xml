@@ -4,5 +4,15 @@
     <item android:id="@+id/action_afegir" android:title="@string/action_afegir"
         android:icon="@drawable/icon_add_grey"
         android:orderInCategory="100" app:showAsAction="always" />
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="always"
+        android:icon="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha">
+        <menu>
+            <item android:id="@+id/settings"
+                android:title="@string/action_settings" />
+            <item android:id="@+id/about"
+                android:title="@string/action_about" />
+        </menu>
+    </item>
 
 </menu>

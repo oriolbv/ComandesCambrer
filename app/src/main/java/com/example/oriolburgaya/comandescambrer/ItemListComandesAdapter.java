@@ -61,9 +61,9 @@ public class ItemListComandesAdapter extends BaseAdapter {
 
         Comanda item = this.items.get(position);
         Log.i("tvNumTaula", String.valueOf(item.getnTaula()));
-        tvTitle.setText(item.getId());
+        tvTitle.setText((position+1)+".");
         tvData.setText(item.getData());
-        tvImportTotal.setText(String.valueOf(item.getPreu()));
+        tvImportTotal.setText(String.format("%.2f", item.getPreu()) + " €");
         tvNumTaula.setText(String.valueOf(item.getnTaula()));
         return rowView;
     }

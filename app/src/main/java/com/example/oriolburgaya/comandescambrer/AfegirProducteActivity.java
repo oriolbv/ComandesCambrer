@@ -119,10 +119,9 @@ public class AfegirProducteActivity extends ActionBarActivity {
             startActivity(backData);
             return true;
         } else if (id == android.R.id.home) {
-            Intent backData = new Intent(this, ProductesActivity.class);
-            backData.putExtra("data", producte.getNom());
+            Intent backData = new Intent();
             setResult(RESULT_CANCELED, backData);
-            startActivity(backData);
+            finish();
         }
         return true;
     }
@@ -221,7 +220,9 @@ public class AfegirProducteActivity extends ActionBarActivity {
     }
 
     public void cancelarProducte(View view) {
-
+        Intent backData = new Intent();
+        setResult(RESULT_CANCELED, backData);
+        finish();
     }
 
 }

@@ -9,6 +9,7 @@
     <string name="open_drawer">open</string>
     <string name="close_drawer">close</string>
     <string name="action_remove">remove</string>
+    <string name="action_about">About</string>
 
 
     <string-array name="array_tipus_producte">

@@ -56,13 +56,43 @@ public class ComandesDataSource {
         ArrayList<Comanda> comandes = new ArrayList<Comanda>();
 
         Cursor mCursor = database.query(
-                COMANDES_TABLE_NAME,  //Nom de la taula
-                null,  //Lista de Columnas a consultar
-                null,  //Columnas para la clausula WHERE
-                null,  //Valores a comparar con las columnas del WHERE
-                null,  //Agrupar con GROUP BY
-                null,  //Condición HAVING para GROUP BY
-                null  //Clausula ORDER BY
+                COMANDES_TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null
+        );
+
+        if (mCursor.moveToFirst()) {
+            do {
+                Comanda comanda = new Comanda();
+                comanda.setId(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnComandes.ID_COMANDA)));
+                comanda.setData(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnComandes.DATA_COMANDA)));
+                comanda.setHora(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnComandes.HORA_COMANDA)));
+                comanda.setPreu(mCursor.getDouble(mCursor.getColumnIndexOrThrow(ColumnComandes.PREU_COMANDA)));
+                comanda.setnTaula(mCursor.getInt(mCursor.getColumnIndexOrThrow(ColumnComandes.NTAULA_COMANDA)));
+                comandes.add(comanda);
+            } while (mCursor.moveToNext());
+        }
+        if (mCursor != null && !mCursor.isClosed()) {
+            mCursor.close();
+        }
+
+        return comandes;
+    }
+
+    public ArrayList<Comanda> getAllComandesData(String data) {
+        ArrayList<Comanda> comandes = new ArrayList<Comanda>();
+        Cursor mCursor = database.query(
+                COMANDES_TABLE_NAME,
+                null,
+                ColumnComandes.DATA_COMANDA + "=?",
+                new String[] {""+data},
+                null,
+                null,
+                null
         );
 
         if (mCursor.moveToFirst()) {

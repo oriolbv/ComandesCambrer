@@ -63,7 +63,7 @@
 
                 android:layout_gravity="right" />
         </AbsoluteLayout>
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -71,7 +71,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Quantitat:  x"
+                android:text="Quantitat:"
                 android:textSize="16dp"
                 android:id="@+id/tv_titolQtt"
                 android:enabled="true"
@@ -81,18 +81,20 @@
                 android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:text="0"
+                android:layout_marginLeft="75dp"
                 android:id="@+id/tv_QttProducte"
                 android:enabled="true"
                 android:textColor="#ff000000" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
+                android:layout_marginRight="5dp"
+                android:layout_alignParentRight="true"
                 android:text="0"
                 android:id="@+id/tv_PreuUnitatProducte"
                 android:enabled="true"
                 android:textColor="#ff000000" />
-        </LinearLayout>
+        </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="35dp"
