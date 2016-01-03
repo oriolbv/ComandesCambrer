@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 
 import com.example.oriolburgaya.comandescambrer.Fragments.dummy.BegudesFragment;
 import com.example.oriolburgaya.comandescambrer.Fragments.dummy.PrimersFragrment;
@@ -18,12 +19,14 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     int nombreTabs;
     int idComanda;
     boolean gestio;
+    ViewPager viewPager;
 
     public PagerAdapter(FragmentManager fm, int nombreTabs, int idComanda, boolean gestio) {
         super(fm);
         this.nombreTabs = nombreTabs;
         this.idComanda = idComanda;
         this.gestio = gestio;
+        this.viewPager = viewPager;
     }
 
 

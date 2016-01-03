@@ -22,6 +22,7 @@ public class ComandesDataSource {
     public static class ColumnComandes {
         public static final String ID_COMANDA = BaseColumns._ID;
         public static final String DATA_COMANDA = "data";
+        public static final String HORA_COMANDA = "hora";
         public static final String PREU_COMANDA = "preu";
         public static final String NTAULA_COMANDA = "nTaula";
     }
@@ -30,13 +31,15 @@ public class ComandesDataSource {
             "create table "+COMANDES_TABLE_NAME+"(" +
                     ColumnComandes.ID_COMANDA+" "+INT_TYPE+" primary key," +
                     ColumnComandes.DATA_COMANDA+" "+STRING_TYPE+" null," +
+                    ColumnComandes.HORA_COMANDA+" "+STRING_TYPE+" null," +
                     ColumnComandes.PREU_COMANDA+" "+REAL_TYPE+" null," +
                     ColumnComandes.NTAULA_COMANDA+" "+REAL_TYPE+" null)";
 
     public static final String INSERT_COMANDES_SCRIPT =
             "insert into "+COMANDES_TABLE_NAME+" values(" +
                     "1," +
-                    "\"24/12/2015 22:29\"," +
+                    "\"24/12/2015\"," +
+                    "\"22:29\"," +
                     34+"," +
                     2+")";
 
@@ -67,6 +70,7 @@ public class ComandesDataSource {
                 Comanda comanda = new Comanda();
                 comanda.setId(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnComandes.ID_COMANDA)));
                 comanda.setData(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnComandes.DATA_COMANDA)));
+                comanda.setHora(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnComandes.HORA_COMANDA)));
                 comanda.setPreu(mCursor.getDouble(mCursor.getColumnIndexOrThrow(ColumnComandes.PREU_COMANDA)));
                 comanda.setnTaula(mCursor.getInt(mCursor.getColumnIndexOrThrow(ColumnComandes.NTAULA_COMANDA)));
                 comandes.add(comanda);
@@ -77,6 +81,33 @@ public class ComandesDataSource {
         }
 
         return comandes;
+    }
+
+    public Comanda getComanda(int id) {
+        Comanda comanda = new Comanda();
+
+        Cursor mCursor = database.query(
+                COMANDES_TABLE_NAME,  //Nom de la taula
+                null, 
+                ColumnComandes.ID_COMANDA + "=?",
+                new String[] {""+id},
+                null,
+                null,
+                null
+        );
+        if (mCursor.moveToFirst()) {
+            do {
+                comanda.setId(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnComandes.ID_COMANDA)));
+                comanda.setData(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnComandes.DATA_COMANDA)));
+                comanda.setHora(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnComandes.HORA_COMANDA)));
+                comanda.setPreu(mCursor.getDouble(mCursor.getColumnIndexOrThrow(ColumnComandes.PREU_COMANDA)));
+                comanda.setnTaula(mCursor.getInt(mCursor.getColumnIndexOrThrow(ColumnComandes.NTAULA_COMANDA)));
+            } while (mCursor.moveToNext());
+        }
+        if (mCursor != null && !mCursor.isClosed()) {
+            mCursor.close();
+        }
+        return comanda;
     }
 
     public int getNouIdentificador() {
@@ -90,18 +121,20 @@ public class ComandesDataSource {
         return idMax + 1;
     }
 
-    public void insertRegister(int id, String data, double preu, int nTaula) {
+    public void insertRegister(int id, String data, String hora, double preu, int nTaula) {
         ContentValues cv = new ContentValues();
         cv.put(ColumnComandes.ID_COMANDA, id);
         cv.put(ColumnComandes.DATA_COMANDA, data);
+        cv.put(ColumnComandes.HORA_COMANDA, hora);
         cv.put(ColumnComandes.PREU_COMANDA, preu);
         cv.put(ColumnComandes.NTAULA_COMANDA, nTaula);
         database.insert(COMANDES_TABLE_NAME, null, cv);
     }
 
-    public void updateRegister(int id, String data, double preu, int nTaula) {
+    public void updateRegister(int id, String data, String hora, double preu, int nTaula) {
         ContentValues cv = new ContentValues();
         cv.put(ColumnComandes.DATA_COMANDA, data);
+        cv.put(ColumnComandes.HORA_COMANDA, hora);
         cv.put(ColumnComandes.PREU_COMANDA, preu);
         cv.put(ColumnComandes.NTAULA_COMANDA, nTaula);
         database.update(COMANDES_TABLE_NAME, cv, "_id="+id, null);

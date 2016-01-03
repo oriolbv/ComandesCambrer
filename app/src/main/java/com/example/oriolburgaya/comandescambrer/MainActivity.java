@@ -36,6 +36,7 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
 
     public final static int AFEGIR_COMANDA_REQUEST_CODE = 1;
+    public final static int MODIFICAR_COMANDA_REQUEST_CODE = 1;
 
     private ListView listView;
     private ImageButton imageButton;
@@ -52,7 +53,7 @@ public class MainActivity extends BaseActivity {
         ProductesDataSource productesDataSource = new ProductesDataSource(this);
         ComandesDataSource dataSource = new ComandesDataSource(this);
 
-        ArrayList<Producte> productes = productesDataSource.getAllProductes();
+        ArrayList<Producte> productes = productesDataSource.getAllProductesNoEliminats();
         if (productes.size() == 0) {
             byte[] img=null;
             Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.chicken);
@@ -79,7 +80,7 @@ public class MainActivity extends BaseActivity {
 
 
         //SQLiteDatabase db = new SQLiteDatabase();
-        ArrayList<Comanda> comandes = dataSource.getAllComandes();
+        final ArrayList<Comanda> comandes = dataSource.getAllComandes();
 
 
         this.listView = (ListView) findViewById(R.id.listView);
@@ -114,6 +115,15 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ComandesDataSource dataSource = new ComandesDataSource(view.getContext());
+                ItemListComandesAdapter itemListComandesAdapter = (ItemListComandesAdapter) listView.getAdapter();
+                Comanda comanda = (Comanda) itemListComandesAdapter.getItem(i);
+                Log.i("comanda", comanda.getId());
+
+                Intent intent = new Intent(view.getContext(), AfegirComandaActivity.class);
+                intent.putExtra("idComanda", Integer.parseInt(comanda.getId()));
+                intent.putExtra("esAfegir", false);
+                startActivityForResult(intent, MODIFICAR_COMANDA_REQUEST_CODE);
 
             }
         });
@@ -164,9 +174,10 @@ public class MainActivity extends BaseActivity {
             int nouId = dataSource.getNouIdentificador();
             Toast.makeText(MainActivity.this,
                     "Nou identificador : "+ nouId, Toast.LENGTH_SHORT).show();
-            dataSource.insertRegister(nouId, null, 0.0, 0);
+            dataSource.insertRegister(nouId, null, null, 0.0, 0);
             Intent intent = new Intent(this, AfegirComandaActivity.class);
             intent.putExtra("idComanda", nouId);
+            intent.putExtra("esAfegir", true);
             startActivityForResult(intent, AFEGIR_COMANDA_REQUEST_CODE);
             return true;
         }

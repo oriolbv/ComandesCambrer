@@ -8,6 +8,8 @@
     <string name="action_Ok">OK</string>
     <string name="open_drawer">open</string>
     <string name="close_drawer">close</string>
+    <string name="action_remove">remove</string>
+
 
     <string-array name="array_tipus_producte">
         <item>Primer</item>

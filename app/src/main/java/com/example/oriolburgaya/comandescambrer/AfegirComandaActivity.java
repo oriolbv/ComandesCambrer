@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.oriolburgaya.comandescambrer.BD.ComandesDataSource;
 import com.example.oriolburgaya.comandescambrer.BD.ProductesComandaDataSource;
+import com.example.oriolburgaya.comandescambrer.models.Comanda;
 import com.example.oriolburgaya.comandescambrer.models.ProductesComanda;
 
 import java.text.SimpleDateFormat;
@@ -53,26 +54,49 @@ public class AfegirComandaActivity extends ActionBarActivity {
 
         setContentView(R.layout.activity_afegir_comanda);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFFDC4436));
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            int value = extras.getInt("idComanda");
-            idComanda = value;
-        }
-
         etData = (EditText) findViewById(R.id.et_Data);
         etHora = (EditText) findViewById(R.id.et_Hora);
         etNTaula = (EditText) findViewById(R.id.et_nTaula);
         tvPreuTotal = (TextView) findViewById(R.id.tv_PreuTotalComanda);
-        ProductesComandaDataSource productesComandaDataSource = new ProductesComandaDataSource(this);
-        ArrayList<ProductesComanda> productesComanda = productesComandaDataSource.getProductesComanda(idComanda);
-        double preuTotal = 0;
-        for (int i = 0; i < productesComanda.size(); ++i) {
-            preuTotal = preuTotal + productesComanda.get(i).getPreuTotal();
-        }
-        tvPreuTotal.setText(String.valueOf(preuTotal));
-        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 
+        dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+        listView = (ListView) findViewById(R.id.listView2);
         setDateTimeField();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            int value = extras.getInt("idComanda");
+            idComanda = value;
+            if (extras.getBoolean("esAfegir") == true) {
+                ProductesComandaDataSource productesComandaDataSource = new ProductesComandaDataSource(this);
+                ArrayList<ProductesComanda> productesComanda = productesComandaDataSource.getProductesComanda(idComanda);
+                double preuTotal = 0;
+                for (int i = 0; i < productesComanda.size(); ++i) {
+                    preuTotal = preuTotal + productesComanda.get(i).getPreuTotal();
+                }
+                tvPreuTotal.setText(String.valueOf(preuTotal));
+            } else {
+                // Modificar comanda
+                ComandesDataSource comandesDataSource = new ComandesDataSource(this);
+                Comanda comanda = comandesDataSource.getComanda(idComanda);
+                etData.setText(comanda.getData());
+                etHora.setText(comanda.getHora());
+                etNTaula.setText(""+comanda.getnTaula());
+                ProductesComandaDataSource productesComandaDataSource = new ProductesComandaDataSource(this);
+
+                ArrayList<ProductesComanda> productesComanda = productesComandaDataSource.getProductesComanda(idComanda);
+                Log.i("productesComanda", ""+productesComanda.size());
+                listView.setAdapter(new ItemProducteComandaAdapter(this, productesComanda));
+                double preuTotal = 0;
+                for (int i = 0; i < productesComanda.size(); ++i) {
+                    preuTotal = preuTotal + productesComanda.get(i).getPreuTotal();
+                }
+                tvPreuTotal.setText(String.valueOf(preuTotal));
+
+            }
+
+        }
+
+
     }
 
     private void setDateTimeField() {
@@ -104,7 +128,14 @@ public class AfegirComandaActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             //Toast t = new Toast()
             return true;
+        } else if (id == android.R.id.home) {
+            Intent backData = new Intent();
+            setResult(RESULT_CANCELED, backData);
+            ComandesDataSource comandesDataSource = new ComandesDataSource(this);
+            comandesDataSource.deleteRegister(idComanda);
+            finish();
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -124,14 +155,13 @@ public class AfegirComandaActivity extends ActionBarActivity {
 
             String data = etData.getText().toString();
             String hora = etHora.getText().toString();
-            data = data + " " + hora;
             String sPreu = tvPreuTotal.getText().toString();
             String nouPreu = sPreu.replace("€", "");
 
             Double preu = Double.valueOf(nouPreu);
             int nTaula = Integer.parseInt(etNTaula.getText().toString());
 
-            comandesDataSource.updateRegister(idComanda, data, preu, nTaula);
+            comandesDataSource.updateRegister(idComanda, data, hora, preu, nTaula);
             setResult(RESULT_OK, backData);
             finish();
         }
@@ -177,10 +207,15 @@ public class AfegirComandaActivity extends ActionBarActivity {
         mTimePicker = new TimePickerDialog(AfegirComandaActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                etHora.setText( selectedHour + ":" + selectedMinute);
+                if (Integer.toString(selectedMinute).length() == 1) {
+                    etHora.setText( selectedHour + ":0" + selectedMinute);
+                } else {
+                    etHora.setText( selectedHour + ":" + selectedMinute);
+                }
+
             }
-        }, hour, minute, true);//Yes 24 hour time
-        mTimePicker.setTitle("Select Time");
+        }, hour, minute, true);
+        mTimePicker.setTitle("Hora Comanda");
         mTimePicker.show();
 
     }
@@ -209,4 +244,5 @@ public class AfegirComandaActivity extends ActionBarActivity {
             }
         }
     }
+
 }

@@ -41,6 +41,7 @@ public class AfegirProducteActivity extends ActionBarActivity {
     EditText etStockProducte;
     ImageView mImatgeProducte;
     boolean imatgeSeleccionada;
+    boolean esAfegir;
 
     Producte producte;
 
@@ -55,7 +56,37 @@ public class AfegirProducteActivity extends ActionBarActivity {
         etStockProducte = (EditText) findViewById(R.id.et_StockProducte);
         mImatgeProducte = (ImageView) findViewById(R.id.iv_ImatgeProducte);
         imatgeSeleccionada = false;
-        producte = new Producte();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            int idProducte = extras.getInt("idProducte");
+            boolean bAfegir = extras.getBoolean("esAfegir");
+            esAfegir = bAfegir;
+            if (!esAfegir) {
+                // Modificar producte. Hem d'omplir tots els camps!
+                ProductesDataSource productesDataSource = new ProductesDataSource(this);
+                producte = productesDataSource.getProducteById(idProducte);
+                etNomProducte.setText(producte.getNom());
+                String tipus = producte.getTipus();
+                if (tipus.equals("Primer")) {
+                    spTipusProducte.setSelection(0);
+                } else if (tipus.equals("Segon")) {
+                    spTipusProducte.setSelection(1);
+                } else if (tipus.equals("Postre")) {
+                    spTipusProducte.setSelection(2);
+                } else {
+                    spTipusProducte.setSelection(3);
+                }
+                etPreuProducte.setText(String.valueOf(producte.getPreu()));
+                etStockProducte.setText(""+producte.getStock());
+                byte[] imatge = producte.getImatge();
+                Bitmap b = BitmapFactory.decodeByteArray(imatge, 0, imatge.length);
+                mImatgeProducte.setImageBitmap(b);
+
+            } else {
+                producte = new Producte();
+            }
+        }
+
     }
 
 
@@ -64,7 +95,10 @@ public class AfegirProducteActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-        //inflater.inflate(R.menu.menu_productes_comanda, menu);
+        if (!esAfegir) {
+            inflater.inflate(R.menu.menu_modificar_producte, menu);
+        }
+        //
         return true;
     }
 
@@ -73,6 +107,23 @@ public class AfegirProducteActivity extends ActionBarActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_remove) {
+            ProductesDataSource producteDataSource = new ProductesDataSource(this);
+            producteDataSource.deleteProducte(producte);
+            Intent backData = new Intent(this, ProductesActivity.class);
+            backData.putExtra("data", producte.getNom());
+            // Enviem la informació
+            setResult(RESULT_OK, backData);
+
+            startActivity(backData);
+            return true;
+        } else if (id == android.R.id.home) {
+            Intent backData = new Intent(this, ProductesActivity.class);
+            backData.putExtra("data", producte.getNom());
+            setResult(RESULT_CANCELED, backData);
+            startActivity(backData);
+        }
         return true;
     }
 
@@ -128,25 +179,44 @@ public class AfegirProducteActivity extends ActionBarActivity {
         int midaNomProducte = etNomProducte.getText().toString().trim().length();
         int midaPreuProducte = etPreuProducte.getText().toString().trim().length();
         int midaStockProducte = etStockProducte.getText().toString().trim().length();
-        if (midaNomProducte == 0 || midaPreuProducte == 0 || midaStockProducte == 0 || imatgeSeleccionada == false) {
-            Toast.makeText(this, "Falten camps!", Toast.LENGTH_SHORT).show();
+        if (esAfegir) {
+            if (midaNomProducte == 0 || midaPreuProducte == 0 || midaStockProducte == 0 || imatgeSeleccionada == false) {
+                Toast.makeText(this, "Falten camps!", Toast.LENGTH_SHORT).show();
+            } else {
+                // Guardem producte a BD
+                Toast.makeText(this, "Tot correcte!", Toast.LENGTH_SHORT).show();
+                producte.setNom(etNomProducte.getText().toString());
+                producte.setTipus(spTipusProducte.getSelectedItem().toString());
+                producte.setPreu(Double.parseDouble(etPreuProducte.getText().toString()));
+                producte.setStock(Integer.parseInt(etStockProducte.getText().toString()));
+                ProductesDataSource productesDataSource = new ProductesDataSource(this);
+                productesDataSource.insertRegister(producte.getNom(),producte.getPreu(), producte.getTipus(), producte.getImatge(), producte.getStock());
+                Intent backData = new Intent(this, ProductesActivity.class);
+                backData.putExtra("data", producte.getNom());
+                // Enviem la informació
+                setResult(RESULT_OK, backData);
+
+                startActivity(backData);
+
+            }
         } else {
-            // Guardem producte a BD
-            Toast.makeText(this, "Tot correcte!", Toast.LENGTH_SHORT).show();
-            producte.setNom(etNomProducte.getText().toString());
-            producte.setTipus(spTipusProducte.getSelectedItem().toString());
-            producte.setPreu(Double.parseDouble(etPreuProducte.getText().toString()));
-            producte.setStock(Integer.parseInt(etStockProducte.getText().toString()));
-            ProductesDataSource productesDataSource = new ProductesDataSource(this);
-            productesDataSource.insertRegister(producte.getNom(),producte.getPreu(), producte.getTipus(), producte.getImatge(), producte.getStock());
-            Intent backData = new Intent(this, ProductesActivity.class);
-            backData.putExtra("data", producte.getNom());
-            // Enviem la informació
-            setResult(RESULT_OK, backData);
-
-            startActivity(backData);
-
+            if (midaNomProducte == 0 || midaPreuProducte == 0 || midaStockProducte == 0 || producte.getImatge() == null) {
+                Toast.makeText(this, "Falten camps!", Toast.LENGTH_SHORT).show();
+            } else {
+                producte.setNom(etNomProducte.getText().toString());
+                producte.setTipus(spTipusProducte.getSelectedItem().toString());
+                producte.setPreu(Double.parseDouble(etPreuProducte.getText().toString()));
+                producte.setStock(Integer.parseInt(etStockProducte.getText().toString()));
+                ProductesDataSource productesDataSource = new ProductesDataSource(this);
+                productesDataSource.updateRegister(Integer.parseInt(producte.getId()), producte.getNom(),producte.getPreu(), producte.getTipus(), producte.getImatge(), producte.getStock());
+                Intent backData = new Intent(this, ProductesActivity.class);
+                backData.putExtra("data", producte.getNom());
+                // Enviem la informació
+                setResult(RESULT_OK, backData);
+                startActivity(backData);
+            }
         }
+
 
     }
 

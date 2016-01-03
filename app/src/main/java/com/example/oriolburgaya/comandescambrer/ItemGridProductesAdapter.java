@@ -1,8 +1,15 @@
 package com.example.oriolburgaya.comandescambrer;
 
+import android.app.AlertDialog;
+import android.app.FragmentTransaction;
+import android.content.ClipData;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.*;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.oriolburgaya.comandescambrer.BD.ProductesComandaDataSource;
+import com.example.oriolburgaya.comandescambrer.BD.ProductesDataSource;
+import com.example.oriolburgaya.comandescambrer.Fragments.dummy.BegudesFragment;
+import com.example.oriolburgaya.comandescambrer.Fragments.dummy.PrimersFragrment;
+import com.example.oriolburgaya.comandescambrer.Fragments.dummy.SegonsFragment;
+import com.example.oriolburgaya.comandescambrer.Fragments.dummy.TercersFragment;
 import com.example.oriolburgaya.comandescambrer.models.Producte;
 
 import org.w3c.dom.Text;
@@ -35,14 +47,20 @@ public class ItemGridProductesAdapter extends BaseAdapter {
     private ArrayList<Producte> productes;
     private int idComanda;
     private boolean gestio;
+    public ItemGridProductesAdapter itemGridProductesAdapter = this;
+    public final static int MODIFICAR_PRODUCTE_REQUEST_CODE = 1;
+    Fragment fragment;
+    ViewPager viewPager;
 
 
-    public ItemGridProductesAdapter(Context c, ArrayList<Bitmap> mImatges, ArrayList<Producte> productes, int idComanda, boolean gestio) {
+    public ItemGridProductesAdapter(Fragment fragment, Context c, ArrayList<Bitmap> mImatges, ArrayList<Producte> productes, int idComanda, boolean gestio, ViewPager viewPager) {
         mContext = c;
+        this.fragment = fragment;
         this.mImatges = mImatges;
         this.productes = productes;
         this.idComanda = idComanda;
         this.gestio = gestio;
+        this.viewPager = viewPager;
     }
 
 
@@ -53,7 +71,7 @@ public class ItemGridProductesAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return this.productes.get(i);
     }
 
     @Override
@@ -62,7 +80,7 @@ public class ItemGridProductesAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int i, View view, final ViewGroup viewGroup) {
         View grid;
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -164,11 +182,54 @@ public class ItemGridProductesAdapter extends BaseAdapter {
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-
+                    Producte producte = (Producte) getItem(row.getId());
+                    Log.i("row.getId()", ""+row.getId());
+                    Log.i("onClick", ""+producte.getNom());
+                    Intent intent = new Intent(view.getContext(), AfegirProducteActivity.class);
+                    intent.putExtra("idProducte", Integer.parseInt(producte.getId()));
+                    intent.putExtra("esAfegir", false);
+                    mContext.startActivity(intent);
                 }
+
+
             });
+            /*row.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(final View view) {
+                    final Producte producte = (Producte) getItem(row.getId());
+                    final int position = row.getId();
+                    Log.i("viewPager", ""+viewPager.getCurrentItem());
+                    AlertDialog.Builder adb = new AlertDialog.Builder(view.getContext());
+                    adb.setTitle("Vols esborrar aquest producte?");
+                    adb.setIcon(R.drawable.delete_red);
+                    adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            itemGridProductesAdapter.removeItemAt(position);
+                            itemGridProductesAdapter.notifyDataSetChanged();
+                        }
+                    });
+                    adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    adb.show();
+                    return true;
+                }
+            });*/
             return row;
         }
+    }
+
+    public void removeItemAt(int i) {
+        Log.i("removeAt", "" + productes.get(i).getId());
+        Producte producte = productes.get(i);
+        Log.i("i", "" + i);
+        Log.i("sizeAbans", "" + productes.size());
+        productes.remove(i);
+        Log.i("sizeDespres", "" + productes.size());
+        ProductesDataSource producteDataSource = new ProductesDataSource(mContext);
+        producteDataSource.deleteProducte(producte);
+
     }
 }

@@ -40,10 +40,10 @@
         <activity
             android:name=".AfegirProducteActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".AfegirProductesComandaActivity">
+            android:parentActivityName=".ProductesActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".AfegirProductesComandaActivity"/>
+                android:value=".ProductesActivity"/>
         </activity>
     </application>
     <uses-feature android:name="android.hardware.camera"

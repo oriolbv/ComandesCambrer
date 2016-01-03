@@ -7,9 +7,7 @@
         android:layout_width="165dp"
         android:layout_height="230dp"
         android:layout_x="10dp"
-        android:layout_y="15dp"
-
-        >
+        android:layout_y="15dp">
         <AbsoluteLayout
             android:layout_width="match_parent"
             android:layout_height="180dp">
@@ -25,13 +23,13 @@
             android:background="#8FF0"
             android:textColor="#ff000000"
             android:textAlignment="center"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"/>
 
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:id="@+id/gridImage"
                 android:src="@drawable/chicken"
                 android:layout_x="0dp"

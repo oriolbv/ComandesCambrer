@@ -68,6 +68,12 @@
             android:scaleType="centerCrop"
             android:adjustViewBounds="true"
             android:radius="50px"/>
+
+        <ImageView
+            android:layout_width="110px"
+            android:layout_height="110px"
+            android:src="@drawable/galeria_redimensionada"
+            android:onClick="setHoraComanda"/>
     </LinearLayout>
 
     <LinearLayout
@@ -117,7 +123,7 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="251dp"
+        android:layout_height="240dp"
         android:layout_marginTop="15dp"
         android:id="@+id/listView2"/>
 
@@ -155,21 +161,23 @@
         <Button
             android:layout_width="158dp"
             android:layout_height="wrap_content"
-            android:text="Confirmar"
-            android:id="@+id/btn_ConfirmarComanda"
-            android:layout_x="13dp"
-            android:layout_y="489dp"
-            android:onClick="confirmarComanda"/>
-
-        <Button
-            android:layout_width="158dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:text="Cancelar"
             android:id="@+id/btn_CancelarComanda"
             android:layout_x="182dp"
             android:layout_y="490dp"
             android:onClick="cancelarComanda"/>
+
+        <Button
+            android:layout_width="158dp"
+            android:layout_height="wrap_content"
+            android:text="Confirmar"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/btn_ConfirmarComanda"
+            android:layout_x="13dp"
+            android:layout_y="489dp"
+            android:onClick="confirmarComanda"/>
+
+
 
     </LinearLayout>
 

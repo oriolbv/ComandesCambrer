@@ -119,12 +119,6 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
             backData.putExtra("idComanda", idComanda);
             setResult(RESULT_OK, backData);
             finish();
-
-            //Intent backData = new Intent();
-            //backData.putExtra("data", "Hola em dic Oriol.");
-
-            // Enviem la informació
-            //
         }
 
         return super.onOptionsItemSelected(item);

@@ -6,6 +6,7 @@ package com.example.oriolburgaya.comandescambrer.models;
 public class Comanda {
     private String id;
     private String data;
+    private String hora;
     private double preu;
     private int nTaula;
 
@@ -25,6 +26,14 @@ public class Comanda {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
     public double getPreu() {

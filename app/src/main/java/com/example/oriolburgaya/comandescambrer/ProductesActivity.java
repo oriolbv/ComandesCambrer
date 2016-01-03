@@ -78,6 +78,8 @@ public class ProductesActivity extends BaseActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_afegir) {
             Intent intent = new Intent(this, AfegirProducteActivity.class);
+            intent.putExtra("idProducte", 0);
+            intent.putExtra("esAfegir", true);
             startActivityForResult(intent, AFEGIR_PRODUCTE_REQUEST_CODE);
             return true;
         }

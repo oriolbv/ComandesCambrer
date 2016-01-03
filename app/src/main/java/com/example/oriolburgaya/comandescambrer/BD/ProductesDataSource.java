@@ -84,6 +84,43 @@ public class ProductesDataSource {
         return productes;
     }
 
+    public ArrayList<Producte> getAllProductesNoEliminats() {
+        ArrayList<Producte> productes = new ArrayList<Producte>();
+
+        Cursor mCursor = database.query(
+                PRODUCTES_TABLE_NAME,  //Nom de la taula
+                null,  //Lista de Columnas a consultar
+                ColumnProductes.DELETED_PRODUCTE + "=?",
+                new String[] {""+0},
+                null,  //Agrupar con GROUP BY
+                null,  //Condición HAVING para GROUP BY
+                null  //Clausula ORDER BY
+        );
+
+        if (mCursor.moveToFirst()) {
+            do {
+                Producte producte = new Producte();
+                producte.setId(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnProductes.ID_PRODUCTE)));
+                producte.setNom(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnProductes.NOM_PRODUCTE)));
+                producte.setPreu(mCursor.getDouble(mCursor.getColumnIndexOrThrow(ColumnProductes.PREU_PRODUCTE)));
+                producte.setTipus(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnProductes.TIPUS_PRODUCTE)));
+                producte.setImatge(mCursor.getBlob(mCursor.getColumnIndexOrThrow(ColumnProductes.IMATGE_PRODUCTE)));
+                producte.setStock(mCursor.getInt(mCursor.getColumnIndexOrThrow(ColumnProductes.STOCK_PRODUCTE)));
+                int bDeleted = mCursor.getInt(mCursor.getColumnIndexOrThrow(ColumnProductes.DELETED_PRODUCTE));
+                if (bDeleted == 0) {
+                    producte.setbDeleted(false);
+                } else {
+                    producte.setbDeleted(true);
+                }
+                productes.add(producte);
+            } while (mCursor.moveToNext());
+        }
+        if (mCursor != null && !mCursor.isClosed()) {
+            mCursor.close();
+        }
+        return productes;
+    }
+
 
 
 
@@ -123,8 +160,8 @@ public class ProductesDataSource {
         Cursor mCursor = database.query(
                 PRODUCTES_TABLE_NAME,  //Nom de la taula
                 null,
-                ColumnProductes.TIPUS_PRODUCTE + "=?",
-                new String[] {tipus},
+                ColumnProductes.TIPUS_PRODUCTE + "=? and "+ ColumnProductes.DELETED_PRODUCTE + "=?" ,
+                new String[] {tipus, ""+0},
                 null,
                 null,
                 null
@@ -139,6 +176,12 @@ public class ProductesDataSource {
                 producte.setTipus(mCursor.getString(mCursor.getColumnIndexOrThrow(ColumnProductes.TIPUS_PRODUCTE)));
                 producte.setImatge(mCursor.getBlob(mCursor.getColumnIndexOrThrow(ColumnProductes.IMATGE_PRODUCTE)));
                 producte.setStock(mCursor.getInt(mCursor.getColumnIndexOrThrow(ColumnProductes.STOCK_PRODUCTE)));
+                int bDeleted = mCursor.getInt(mCursor.getColumnIndexOrThrow(ColumnProductes.DELETED_PRODUCTE));
+                if (bDeleted == 0) {
+                    producte.setbDeleted(false);
+                } else {
+                    producte.setbDeleted(true);
+                }
                 productes.add(producte);
             } while (mCursor.moveToNext());
         }
@@ -157,5 +200,26 @@ public class ProductesDataSource {
         cv.put(ColumnProductes.STOCK_PRODUCTE, stock);
         cv.put(ColumnProductes.DELETED_PRODUCTE, false);
         database.insert(PRODUCTES_TABLE_NAME, null, cv);
+    }
+
+    public void updateRegister(int id, String nom , double preu, String tipus, byte[] img, int stock) {
+        ContentValues cv = new ContentValues();
+        cv.put(ColumnProductes.NOM_PRODUCTE, nom);
+        cv.put(ColumnProductes.PREU_PRODUCTE, preu);
+        cv.put(ColumnProductes.TIPUS_PRODUCTE, tipus);
+        cv.put(ColumnProductes.IMATGE_PRODUCTE, img);
+        cv.put(ColumnProductes.STOCK_PRODUCTE, stock);
+        database.update(PRODUCTES_TABLE_NAME, cv, "_id="+id, null);
+    }
+
+    public void deleteProducte(Producte p) {
+        ContentValues cv = new ContentValues();
+        cv.put(ColumnProductes.NOM_PRODUCTE, p.getNom());
+        cv.put(ColumnProductes.PREU_PRODUCTE, p.getPreu());
+        cv.put(ColumnProductes.TIPUS_PRODUCTE, p.getTipus());
+        cv.put(ColumnProductes.IMATGE_PRODUCTE, p.getImatge());
+        cv.put(ColumnProductes.STOCK_PRODUCTE, p.getStock());
+        cv.put(ColumnProductes.DELETED_PRODUCTE, true);
+        database.update(PRODUCTES_TABLE_NAME, cv, "_id="+p.getId(), null);
     }
 }
