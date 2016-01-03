@@ -2,6 +2,7 @@ package com.example.oriolburgaya.comandescambrer;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -29,8 +30,11 @@ import com.example.oriolburgaya.comandescambrer.models.Comanda;
 import com.example.oriolburgaya.comandescambrer.models.Producte;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 
 public class MainActivity extends BaseActivity {
@@ -41,10 +45,15 @@ public class MainActivity extends BaseActivity {
     private ListView listView;
     private ImageButton imageButton;
 
+    private boolean bLlistarTotes = true;
+
+    private Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mContext = this;
         //setContentView(R.layout.activity_main);
         getLayoutInflater().inflate(R.layout.activity_main, frameLayout);
 
@@ -80,13 +89,17 @@ public class MainActivity extends BaseActivity {
 
 
         //SQLiteDatabase db = new SQLiteDatabase();
-        final ArrayList<Comanda> comandes = dataSource.getAllComandes();
-
-
+        final ArrayList<Comanda> comandes;
+        if (bLlistarTotes) {
+            comandes = dataSource.getAllComandes();
+        } else {
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+            Calendar calendar = Calendar.getInstance();
+            comandes = dataSource.getAllComandesData(dateFormatter.format(calendar.getTime()));
+        }
         this.listView = (ListView) findViewById(R.id.listView);
-
-
         this.listView.setAdapter(new ItemListComandesAdapter(this, comandes));
+
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -141,9 +154,6 @@ public class MainActivity extends BaseActivity {
         return true;
     }
 
-    public void afegirComanda(View view) {
-
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -152,11 +162,39 @@ public class MainActivity extends BaseActivity {
         if (requestCode == AFEGIR_COMANDA_REQUEST_CODE) {
 
             if (resultCode == RESULT_OK) {
-                Log.i("onActivityResult", "Result OK! : "+ data.getStringExtra("data"));
+
                 ComandesDataSource dataSource = new ComandesDataSource(this);
-                ArrayList<Comanda> comandes = dataSource.getAllComandes();
+                final ArrayList<Comanda> comandes;
+                if (bLlistarTotes) {
+                    comandes = dataSource.getAllComandes();
+                } else {
+                    SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+                    Calendar calendar = Calendar.getInstance();
+                    comandes = dataSource.getAllComandesData(dateFormatter.format(calendar.getTime()));
+                }
                 this.listView = (ListView) findViewById(R.id.listView);
                 this.listView.setAdapter(new ItemListComandesAdapter(this, comandes));
+            } else {
+                ComandesDataSource dataSource = new ComandesDataSource(this);
+                final ArrayList<Comanda> comandes;
+                if (bLlistarTotes) {
+                    comandes = dataSource.getAllComandes();
+                } else {
+                    SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+                    Calendar calendar = Calendar.getInstance();
+                    comandes = dataSource.getAllComandesData(dateFormatter.format(calendar.getTime()));
+                }
+
+                Log.i("cancel", "Result MAL 1 : "+ ""+comandes.size());
+                for (int i = 0; i < comandes.size(); ++i) {
+                    if (comandes.get(i).getnTaula() == 0) {
+                        dataSource.deleteRegister(Integer.parseInt(comandes.get(i).getId()));
+                    }
+                }
+
+                this.listView = (ListView) findViewById(R.id.listView);
+                this.listView.setAdapter(new ItemListComandesAdapter(this, comandes));
+
             }
         }
     }
@@ -167,7 +205,6 @@ public class MainActivity extends BaseActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_afegir) {
             ComandesDataSource dataSource = new ComandesDataSource(this);
@@ -180,6 +217,57 @@ public class MainActivity extends BaseActivity {
             intent.putExtra("esAfegir", true);
             startActivityForResult(intent, AFEGIR_COMANDA_REQUEST_CODE);
             return true;
+        } else if (id == R.id.tipus_llistat) {
+            int indexTipus = 0;
+            final boolean bEstatAnterior;
+            if (bLlistarTotes == false) {
+                indexTipus = 1;
+                bEstatAnterior = false;
+            } else {
+                indexTipus = 0;
+                bEstatAnterior = true;
+            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Llistat de Comandes")
+                    .setSingleChoiceItems(R.array.array_tipus_llistat, indexTipus, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if (i == 0) {
+                                bLlistarTotes = true;
+                            }
+                            else {
+                                bLlistarTotes = false;
+                            }
+                        }
+                    })
+                    .setPositiveButton(R.string.action_Ok, new DialogInterface.OnClickListener() {
+                        @Override
+
+                        public void onClick(DialogInterface dialog, int id) {
+                            ComandesDataSource dataSource = new ComandesDataSource(mContext);
+                            final ArrayList<Comanda> comandes;
+                            if (bLlistarTotes) {
+                                comandes = dataSource.getAllComandes();
+                            } else {
+                                SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+                                Calendar calendar = Calendar.getInstance();
+                                comandes = dataSource.getAllComandesData(dateFormatter.format(calendar.getTime()));
+                            }
+                            listView = (ListView) findViewById(R.id.listView);
+                            listView.setAdapter(new ItemListComandesAdapter(mContext, comandes));
+                        }
+                    })
+                    .setNegativeButton(R.string.action_cancelar, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            bLlistarTotes = bEstatAnterior;
+                        }
+                    });
+
+
+
+            builder.create().show();
+
         }
 
         return super.onOptionsItemSelected(item);

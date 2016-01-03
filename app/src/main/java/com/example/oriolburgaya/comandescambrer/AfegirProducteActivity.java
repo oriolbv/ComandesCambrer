@@ -59,8 +59,7 @@ public class AfegirProducteActivity extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             int idProducte = extras.getInt("idProducte");
-            boolean bAfegir = extras.getBoolean("esAfegir");
-            esAfegir = bAfegir;
+            esAfegir = extras.getBoolean("esAfegir");
             if (!esAfegir) {
                 // Modificar producte. Hem d'omplir tots els camps!
                 ProductesDataSource productesDataSource = new ProductesDataSource(this);
@@ -194,8 +193,8 @@ public class AfegirProducteActivity extends ActionBarActivity {
                 backData.putExtra("data", producte.getNom());
                 // Enviem la informació
                 setResult(RESULT_OK, backData);
-
-                startActivity(backData);
+                finish();
+                //startActivity(backData);
 
             }
         } else {
@@ -212,7 +211,8 @@ public class AfegirProducteActivity extends ActionBarActivity {
                 backData.putExtra("data", producte.getNom());
                 // Enviem la informació
                 setResult(RESULT_OK, backData);
-                startActivity(backData);
+                finish();
+                //startActivity(backData);
             }
         }
 

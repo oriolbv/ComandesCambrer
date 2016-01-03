@@ -76,6 +76,19 @@ public class AfegirComandaActivity extends ActionBarActivity {
                     preuTotal = preuTotal + productesComanda.get(i).getPreuTotal();
                 }
                 tvPreuTotal.setText(String.valueOf(preuTotal));
+                // DATA i HORA per defecte!!!
+                Calendar newDate = Calendar.getInstance();
+                etData.setText(dateFormatter.format(newDate.getTime()));
+
+                int hour = newDate.get(Calendar.HOUR);
+                int minute = newDate.get(Calendar.MINUTE);
+
+                if (Integer.toString(minute).length() == 1) {
+                    etHora.setText( hour + ":0" + minute);
+                } else {
+                    etHora.setText( hour + ":" + minute);
+                }
+
             } else {
                 // Modificar comanda
                 ComandesDataSource comandesDataSource = new ComandesDataSource(this);

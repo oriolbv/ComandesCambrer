@@ -8,8 +8,8 @@
         android:orderInCategory="100" app:showAsAction="always"
         android:icon="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha">
         <menu>
-            <item android:id="@+id/settings"
-                android:title="@string/action_settings" />
+            <item android:id="@+id/tipus_llistat"
+                android:title="Tipus llistat" />
             <item android:id="@+id/about"
                 android:title="@string/action_about" />
         </menu>

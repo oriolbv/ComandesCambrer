@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:minWidth="150dp"
-            android:id="@+id/et_NomProducte"/>
+            android:id="@+id/et_NomProducte"
+            android:maxLength="20"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

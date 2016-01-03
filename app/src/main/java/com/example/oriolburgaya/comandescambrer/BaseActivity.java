@@ -181,8 +181,6 @@ public class BaseActivity extends ActionBarActivity {
             default:
                 break;
         }
-
-        Toast.makeText(this, "Selected Item Position::" + position, Toast.LENGTH_LONG).show();
     }
 
     @Override
