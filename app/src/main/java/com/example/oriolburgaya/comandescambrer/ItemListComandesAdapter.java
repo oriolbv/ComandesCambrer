@@ -56,6 +56,7 @@ public class ItemListComandesAdapter extends BaseAdapter {
         // Modifiquem la data de la view
         TextView tvTitle = (TextView) rowView.findViewById(R.id.tvTitle);
         TextView tvData = (TextView) rowView.findViewById(R.id.tv_DataComanda);
+        TextView tvHora = (TextView) rowView.findViewById(R.id.tv_HoraComanda);
         TextView tvImportTotal = (TextView) rowView.findViewById(R.id.tv_ImportTotal);
         TextView tvNumTaula = (TextView) rowView.findViewById(R.id.tv_NumeroTaula);
 
@@ -63,6 +64,7 @@ public class ItemListComandesAdapter extends BaseAdapter {
         Log.i("tvNumTaula", String.valueOf(item.getnTaula()));
         tvTitle.setText((position+1)+".");
         tvData.setText(item.getData());
+        tvHora.setText(item.getHora());
         tvImportTotal.setText(String.format("%.2f", item.getPreu()) + " €");
         tvNumTaula.setText(String.valueOf(item.getnTaula()));
         return rowView;

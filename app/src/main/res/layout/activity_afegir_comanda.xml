@@ -29,9 +29,10 @@
             android:layout_y="87dp" />
 
         <ImageView
-            android:layout_width="110px"
-            android:layout_height="110px"
+            android:layout_width="120px"
+            android:layout_height="120px"
             android:layout_marginLeft="10dp"
+            android:id="@+id/btn_Calendari"
             android:src="@drawable/calendari_redimensionada"
             android:onClick="setDataComanda"/>
         </LinearLayout>
@@ -61,10 +62,11 @@
 
 
         <ImageView
-            android:layout_width="110px"
-            android:layout_height="110px"
+            android:layout_width="120px"
+            android:layout_height="120px"
             android:src="@drawable/rellotge_redimensionada"
             android:onClick="setHoraComanda"
+            android:id="@+id/btn_Hora"
             android:layout_marginLeft="10dp"/>
     </LinearLayout>
 
@@ -121,7 +123,7 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="220dp"
+        android:layout_height="200dp"
         android:layout_marginTop="15dp"
         android:id="@+id/listView2"/>
 
@@ -156,25 +158,25 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp">
 
-        <Button
-            android:layout_width="158dp"
-            android:layout_height="wrap_content"
-            android:text="Cancelar"
+
+        <ImageView
+            android:layout_width="310px"
+            android:layout_height="100px"
             android:id="@+id/btn_CancelarComanda"
             android:layout_x="182dp"
             android:layout_y="490dp"
-            android:onClick="cancelarComanda"/>
+            android:onClick="cancelarComanda"
+            android:src="@drawable/cancelar"/>
 
-        <Button
-            android:layout_width="158dp"
-            android:layout_height="wrap_content"
-            android:text="Confirmar"
+        <ImageView
+            android:layout_width="310px"
+            android:layout_height="100px"
             android:layout_marginLeft="10dp"
             android:id="@+id/btn_ConfirmarComanda"
             android:layout_x="13dp"
             android:layout_y="489dp"
-            android:onClick="confirmarComanda"/>
-
+            android:onClick="confirmarComanda"
+            android:src="@drawable/confirmar"/>
 
 
     </LinearLayout>

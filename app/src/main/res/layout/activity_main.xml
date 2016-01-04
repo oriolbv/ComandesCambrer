@@ -11,6 +11,14 @@
         android:id="@+id/listView"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_weight="1"/>
+        />
+
+    <ImageView
+        android:layout_width="200px"
+        android:layout_height="200px"
+        android:src="@drawable/mes_ombra"
+        android:id="@+id/btn_AfegirComanda"
+        android:layout_x="258dp"
+        android:layout_y="450dp" />
 
 </AbsoluteLayout>

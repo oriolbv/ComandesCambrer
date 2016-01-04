@@ -5,7 +5,8 @@
     tools:context="com.example.oriolburgaya.comandescambrer.AfegirProductesComandaActivity">
 
     <GridView android:id="@+id/gridViewProductes" android:layout_width="match_parent"
-        android:layout_height="match_parent" android:numColumns="2" />
+        android:layout_height="match_parent" android:numColumns="2"
+        android:listSelector="#00000000"/>
 
 
 </FrameLayout>

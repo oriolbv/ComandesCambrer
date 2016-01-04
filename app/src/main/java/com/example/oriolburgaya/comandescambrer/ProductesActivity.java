@@ -94,10 +94,6 @@ public class ProductesActivity extends BaseActivity {
         if (requestCode == AFEGIR_PRODUCTE_REQUEST_CODE) {
 
             if (resultCode == RESULT_OK) {
-
-                // Refresh del llistat de productes!
-                Log.i("EOO", "HE ENTRAT al onActivityResult");
-
                 ActionBar actionBar = this.getSupportActionBar();
                 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
                 actionBar.setDisplayShowTitleEnabled(true);

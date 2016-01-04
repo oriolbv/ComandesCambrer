@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 
 import android.support.v7.app.ActionBarActivity;
@@ -16,10 +17,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -87,7 +90,6 @@ public class MainActivity extends BaseActivity {
 
         }
 
-
         //SQLiteDatabase db = new SQLiteDatabase();
         final ArrayList<Comanda> comandes;
         if (bLlistarTotes) {
@@ -97,6 +99,13 @@ public class MainActivity extends BaseActivity {
             Calendar calendar = Calendar.getInstance();
             comandes = dataSource.getAllComandesData(dateFormatter.format(calendar.getTime()));
         }
+        for (int i = 0; i < comandes.size(); ++i) {
+            if (comandes.get(i).getnTaula() == 0) {
+                dataSource.deleteRegister(Integer.parseInt(comandes.get(i).getId()));
+                comandes.remove(i);
+            }
+        }
+
         this.listView = (ListView) findViewById(R.id.listView);
         this.listView.setAdapter(new ItemListComandesAdapter(this, comandes));
 
@@ -141,8 +150,67 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+        ImageView btnAfegir = (ImageView)findViewById(R.id.btn_AfegirComanda);
+        btnAfegir.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
 
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        // ---------------------------------
+                        ComandesDataSource dataSource = new ComandesDataSource(mContext);
+                        int nouId = dataSource.getNouIdentificador();
+                        Toast.makeText(MainActivity.this,
+                                "Nou identificador : "+ nouId, Toast.LENGTH_SHORT).show();
+                        dataSource.insertRegister(nouId, null, null, 0.0, 0);
+                        Intent intent = new Intent(mContext, AfegirComandaActivity.class);
+                        intent.putExtra("idComanda", nouId);
+                        intent.putExtra("esAfegir", true);
+                        startActivityForResult(intent, AFEGIR_COMANDA_REQUEST_CODE);
+                        // ------------------------------------
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ComandesDataSource dataSource = new ComandesDataSource(this);
+        final ArrayList<Comanda> comandes;
+        if (bLlistarTotes) {
+            comandes = dataSource.getAllComandes();
+        } else {
+            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
+            Calendar calendar = Calendar.getInstance();
+            comandes = dataSource.getAllComandesData(dateFormatter.format(calendar.getTime()));
+        }
+        for (int i = 0; i < comandes.size(); ++i) {
+            if (comandes.get(i).getnTaula() == 0) {
+                dataSource.deleteRegister(Integer.parseInt(comandes.get(i).getId()));
+                comandes.remove(i);
+            }
+        }
+
+        this.listView = (ListView) findViewById(R.id.listView);
+        this.listView.setAdapter(new ItemListComandesAdapter(this, comandes));
+    }
+
 
 
     @Override
@@ -185,7 +253,7 @@ public class MainActivity extends BaseActivity {
                     comandes = dataSource.getAllComandesData(dateFormatter.format(calendar.getTime()));
                 }
 
-                Log.i("cancel", "Result MAL 1 : "+ ""+comandes.size());
+
                 for (int i = 0; i < comandes.size(); ++i) {
                     if (comandes.get(i).getnTaula() == 0) {
                         dataSource.deleteRegister(Integer.parseInt(comandes.get(i).getId()));
@@ -206,16 +274,10 @@ public class MainActivity extends BaseActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_afegir) {
-            ComandesDataSource dataSource = new ComandesDataSource(this);
-            int nouId = dataSource.getNouIdentificador();
-            Toast.makeText(MainActivity.this,
-                    "Nou identificador : "+ nouId, Toast.LENGTH_SHORT).show();
-            dataSource.insertRegister(nouId, null, null, 0.0, 0);
-            Intent intent = new Intent(this, AfegirComandaActivity.class);
-            intent.putExtra("idComanda", nouId);
-            intent.putExtra("esAfegir", true);
-            startActivityForResult(intent, AFEGIR_COMANDA_REQUEST_CODE);
+        if (id == R.id.action_help) {
+
+            Toast.makeText(MainActivity.this,"HELP!", Toast.LENGTH_SHORT).show();
+
             return true;
         } else if (id == R.id.tipus_llistat) {
             int indexTipus = 0;

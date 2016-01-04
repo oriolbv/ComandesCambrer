@@ -3,8 +3,10 @@ package com.example.oriolburgaya.comandescambrer;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -12,9 +14,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -49,11 +53,16 @@ public class AfegirComandaActivity extends ActionBarActivity {
 
     private SimpleDateFormat dateFormatter;
 
+    private Context mContext;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_afegir_comanda);
+        mContext = this;
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFFDC4436));
         etData = (EditText) findViewById(R.id.et_Data);
         etHora = (EditText) findViewById(R.id.et_Hora);
@@ -75,7 +84,7 @@ public class AfegirComandaActivity extends ActionBarActivity {
                 for (int i = 0; i < productesComanda.size(); ++i) {
                     preuTotal = preuTotal + productesComanda.get(i).getPreuTotal();
                 }
-                tvPreuTotal.setText(String.valueOf(preuTotal));
+                tvPreuTotal.setText(String.format("%.2f", preuTotal) + " €");
                 // DATA i HORA per defecte!!!
                 Calendar newDate = Calendar.getInstance();
                 etData.setText(dateFormatter.format(newDate.getTime()));
@@ -111,7 +120,179 @@ public class AfegirComandaActivity extends ActionBarActivity {
 
         }
 
+        ImageView imageView = (ImageView)findViewById(R.id.btn_ConfirmarComanda);
+        imageView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
 
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        // ---------------------------------
+                        Intent backData = new Intent();
+                        int midaData = etData.getText().toString().trim().length();
+                        int midaHora = etHora.getText().toString().trim().length();
+                        int midanTaula = etNTaula.getText().toString().trim().length();
+                        int midaPreu = tvPreuTotal.getText().toString().trim().length();
+                        if (midaData == 0 || midaHora == 0 || midanTaula == 0 || midaPreu == 0) {
+                            Toast.makeText(mContext, "Falten camps!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            int nTaula = Integer.parseInt(etNTaula.getText().toString());
+                            if (nTaula < 1 || nTaula > 20) {
+                                Toast.makeText(mContext, "Número de taula incorrecte.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // Guardem producte a BD
+                                Toast.makeText(mContext, "Tot correcte!", Toast.LENGTH_SHORT).show();
+                                ComandesDataSource comandesDataSource = new ComandesDataSource(mContext);
+
+                                String data = etData.getText().toString();
+                                String hora = etHora.getText().toString();
+                                String sPreu = tvPreuTotal.getText().toString();
+                                String nouPreu = sPreu.replace("€", "");
+
+                                Double preu = Double.valueOf(nouPreu);
+
+                                comandesDataSource.updateRegister(idComanda, data, hora, preu, nTaula);
+                                setResult(RESULT_OK, backData);
+                                finish();
+                            }
+
+                        }
+                        // ------------------------------------
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
+
+        ImageView imageView2 = (ImageView)findViewById(R.id.btn_CancelarComanda);
+        imageView2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        // ---------------------------------
+                        Intent backData = new Intent();
+                        setResult(RESULT_CANCELED, backData);
+                        ComandesDataSource comandesDataSource = new ComandesDataSource(mContext);
+                        comandesDataSource.deleteRegister(idComanda);
+                        finish();
+                        // ------------------------------------
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
+
+        ImageView btnCalendari = (ImageView)findViewById(R.id.btn_Calendari);
+        btnCalendari.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        // ---------------------------------
+                        Calendar newCalendar = Calendar.getInstance();
+                        fromDatePickerDialog = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
+
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                Calendar newDate = Calendar.getInstance();
+                                newDate.set(year, monthOfYear, dayOfMonth);
+                                etData.setText(dateFormatter.format(newDate.getTime()));
+                            }
+
+                        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+                        fromDatePickerDialog.show();
+                        // ------------------------------------
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
+
+        ImageView btnHora = (ImageView)findViewById(R.id.btn_Hora);
+        btnHora.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        // ---------------------------------
+                        Calendar mcurrentTime = Calendar.getInstance();
+                        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                        int minute = mcurrentTime.get(Calendar.MINUTE);
+                        TimePickerDialog mTimePicker;
+                        mTimePicker = new TimePickerDialog(AfegirComandaActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                                if (Integer.toString(selectedMinute).length() == 1) {
+                                    etHora.setText( selectedHour + ":0" + selectedMinute);
+                                } else {
+                                    etHora.setText( selectedHour + ":" + selectedMinute);
+                                }
+
+                            }
+                        }, hour, minute, true);
+                        mTimePicker.setTitle("Hora Comanda");
+                        mTimePicker.show();
+                        // ------------------------------------
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
     }
 
     private void setDateTimeField() {
@@ -123,7 +304,7 @@ public class AfegirComandaActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
+        //inflater.inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -165,21 +346,26 @@ public class AfegirComandaActivity extends ActionBarActivity {
         if (midaData == 0 || midaHora == 0 || midanTaula == 0 || midaPreu == 0) {
             Toast.makeText(this, "Falten camps!", Toast.LENGTH_SHORT).show();
         } else {
-            // Guardem producte a BD
-            Toast.makeText(this, "Tot correcte!", Toast.LENGTH_SHORT).show();
-            ComandesDataSource comandesDataSource = new ComandesDataSource(this);
-
-            String data = etData.getText().toString();
-            String hora = etHora.getText().toString();
-            String sPreu = tvPreuTotal.getText().toString();
-            String nouPreu = sPreu.replace("€", "");
-
-            Double preu = Double.valueOf(nouPreu);
             int nTaula = Integer.parseInt(etNTaula.getText().toString());
+            if (nTaula < 1 || nTaula > 20) {
+                Toast.makeText(this, "Número de taula incorrecte.", Toast.LENGTH_SHORT).show();
+            } else {
+                // Guardem producte a BD
+                Toast.makeText(this, "Tot correcte!", Toast.LENGTH_SHORT).show();
+                ComandesDataSource comandesDataSource = new ComandesDataSource(this);
 
-            comandesDataSource.updateRegister(idComanda, data, hora, preu, nTaula);
-            setResult(RESULT_OK, backData);
-            finish();
+                String data = etData.getText().toString();
+                String hora = etHora.getText().toString();
+                String sPreu = tvPreuTotal.getText().toString();
+                String nouPreu = sPreu.replace("€", "");
+
+                Double preu = Double.valueOf(nouPreu);
+
+                comandesDataSource.updateRegister(idComanda, data, hora, preu, nTaula);
+                setResult(RESULT_OK, backData);
+                finish();
+            }
+
         }
     }
 
@@ -251,7 +437,7 @@ public class AfegirComandaActivity extends ActionBarActivity {
                 for (int i = 0; i < productesComanda.size(); ++i) {
                     preuTotal = preuTotal + productesComanda.get(i).getPreuTotal();
                 }
-                tvPreuTotal.setText(String.valueOf(preuTotal));
+                tvPreuTotal.setText(String.format("%.2f", preuTotal) + " €");
 
             } else if (resultCode == RESULT_CANCELED) {
                 Log.i("CANCELED", "CANCELED");

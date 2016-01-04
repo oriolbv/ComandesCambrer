@@ -10,7 +10,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -19,17 +20,20 @@
         <activity
             android:name=".ProductesActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".FerCaixaActivity"
             android:label="@string/app_name"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".AfegirComandaActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"/>
@@ -37,7 +41,8 @@
         <activity
             android:name=".AfegirProductesComandaActivity"
             android:label="Afegir productes"
-            android:parentActivityName=".AfegirComandaActivity">
+            android:parentActivityName=".AfegirComandaActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".AfegirComandaActivity"/>
@@ -45,7 +50,8 @@
         <activity
             android:name=".AfegirProducteActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".ProductesActivity">
+            android:parentActivityName=".ProductesActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ProductesActivity"/>
