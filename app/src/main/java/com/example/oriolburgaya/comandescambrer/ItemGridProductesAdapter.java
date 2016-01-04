@@ -145,7 +145,7 @@ public class ItemGridProductesAdapter extends BaseAdapter {
                         productesComandaDataSource.modificarProductesComanda(Integer.parseInt(tv_idProducte.getText().toString()), idComanda, novaQtt);
 
                         stockProducte = stockProducte - 1;
-                        productesDataSource.updateRegister(Integer.parseInt(producte.getId()), producte.getNom(), producte.getPreu(), producte.getTipus(), producte.getImatge(), stockProducte);
+                        //productesDataSource.updateRegister(Integer.parseInt(producte.getId()), producte.getNom(), producte.getPreu(), producte.getTipus(), producte.getImatge(), stockProducte);
 
                     }
 
@@ -181,7 +181,7 @@ public class ItemGridProductesAdapter extends BaseAdapter {
                         Producte producte = productesDataSource.getProducteById(idProducte);
                         int stockProducte = producte.getStock();
                         stockProducte = stockProducte + 1;
-                        productesDataSource.updateRegister(Integer.parseInt(producte.getId()), producte.getNom(), producte.getPreu(), producte.getTipus(), producte.getImatge(), stockProducte);
+                        //productesDataSource.updateRegister(Integer.parseInt(producte.getId()), producte.getNom(), producte.getPreu(), producte.getTipus(), producte.getImatge(), stockProducte);
                     }
 
                 }

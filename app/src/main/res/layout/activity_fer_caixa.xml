@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Data:"
+            android:text="Data Inicial:"
             android:id="@+id/tv_DataFerCaixa"
             android:layout_x="15dp"
             android:layout_y="86dp" />
@@ -30,12 +30,45 @@
             android:layout_width="110px"
             android:layout_height="110px"
             android:layout_marginLeft="10dp"
+            android:id="@+id/btn_DataInicialFerCaixa"
             android:src="@drawable/calendari_redimensionada"
             android:onClick="setDataFerCaixa"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:weightSum="1">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data Final:  "
+            android:id="@+id/tv_DataFinalFerCaixa"
+            android:layout_x="15dp"
+            android:layout_y="86dp" />
+
+        <EditText
+            android:layout_width="158dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:id="@+id/et_DataFinalFerCaixa"
+            android:layout_x="89dp"
+            android:layout_y="87dp" />
+
+        <ImageView
+            android:layout_width="110px"
+            android:layout_height="110px"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/btn_DataFinalFerCaixa"
+            android:src="@drawable/calendari_redimensionada"
+            android:onClick="setDataFinalFerCaixa"/>
+    </LinearLayout>
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="385dp"
+        android:layout_height="325dp"
         android:layout_marginTop="20dp"
         android:id="@+id/listView_FerCaixa"></ListView>
 
