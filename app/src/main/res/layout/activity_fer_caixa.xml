@@ -27,8 +27,8 @@
             android:layout_y="87dp" />
 
         <ImageView
-            android:layout_width="110px"
-            android:layout_height="110px"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginLeft="10dp"
             android:id="@+id/btn_DataInicialFerCaixa"
             android:src="@drawable/calendari_redimensionada"
@@ -59,8 +59,8 @@
             android:layout_y="87dp" />
 
         <ImageView
-            android:layout_width="110px"
-            android:layout_height="110px"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginLeft="10dp"
             android:id="@+id/btn_DataFinalFerCaixa"
             android:src="@drawable/calendari_redimensionada"

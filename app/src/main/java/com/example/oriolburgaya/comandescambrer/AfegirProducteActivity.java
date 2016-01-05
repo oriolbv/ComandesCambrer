@@ -1,5 +1,8 @@
 package com.example.oriolburgaya.comandescambrer;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -43,12 +46,15 @@ public class AfegirProducteActivity extends ActionBarActivity {
     boolean imatgeSeleccionada;
     boolean esAfegir;
 
+    Context mContext;
+
     Producte producte;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_afegir_producte);
+        mContext = this;
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(0xFFDC4436));
         etNomProducte = (EditText) findViewById(R.id.et_NomProducte);
         spTipusProducte = (Spinner) findViewById(R.id.sp_TipusProducte);
@@ -108,15 +114,29 @@ public class AfegirProducteActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_remove) {
-            ProductesDataSource producteDataSource = new ProductesDataSource(this);
-            producteDataSource.deleteProducte(producte);
-            Intent backData = new Intent(this, ProductesActivity.class);
-            backData.putExtra("data", producte.getNom());
-            // Enviem la informació
-            setResult(RESULT_OK, backData);
+            AlertDialog.Builder adb = new AlertDialog.Builder(mContext);
+            adb.setTitle("Vols esborrar aquesta producte?");
+            adb.setIcon(R.drawable.delete_red);
+            adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    ProductesDataSource producteDataSource = new ProductesDataSource(mContext);
+                    producteDataSource.deleteProducte(producte);
+                    Intent backData = new Intent(mContext, ProductesActivity.class);
+                    backData.putExtra("data", spTipusProducte.getSelectedItemPosition());
+                    // Enviem la informació
+                    setResult(RESULT_OK, backData);
 
-            startActivity(backData);
-            return true;
+                    startActivity(backData);
+
+                }
+            });
+            adb.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+
+
+                }
+            });
+            adb.show();
         } else if (id == android.R.id.home) {
             Intent backData = new Intent();
             setResult(RESULT_CANCELED, backData);
@@ -190,7 +210,7 @@ public class AfegirProducteActivity extends ActionBarActivity {
                 ProductesDataSource productesDataSource = new ProductesDataSource(this);
                 productesDataSource.insertRegister(producte.getNom(),producte.getPreu(), producte.getTipus(), producte.getImatge(), producte.getStock());
                 Intent backData = new Intent(this, ProductesActivity.class);
-                backData.putExtra("data", producte.getNom());
+                backData.putExtra("data", spTipusProducte.getSelectedItemPosition());
                 // Enviem la informació
                 setResult(RESULT_OK, backData);
                 finish();
@@ -208,7 +228,7 @@ public class AfegirProducteActivity extends ActionBarActivity {
                 ProductesDataSource productesDataSource = new ProductesDataSource(this);
                 productesDataSource.updateRegister(Integer.parseInt(producte.getId()), producte.getNom(),producte.getPreu(), producte.getTipus(), producte.getImatge(), producte.getStock());
                 Intent backData = new Intent(this, ProductesActivity.class);
-                backData.putExtra("data", producte.getNom());
+                backData.putExtra("data", spTipusProducte.getSelectedItemPosition());
                 // Enviem la informació
                 setResult(RESULT_OK, backData);
                 finish();

@@ -7,11 +7,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.PorterDuff;
 import android.media.Image;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.*;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -94,7 +96,7 @@ public class ItemGridProductesAdapter extends BaseAdapter {
                 TextView tv_NomProducte = (TextView) grid.findViewById(R.id.tv_NomProducteMostrar);
                 TextView tv_QttProducte = (TextView) grid.findViewById(R.id.tv_QttProducte);
                 TextView tv_PreuProducte = (TextView) grid.findViewById(R.id.tv_PreuUnitatProducte);
-                Button btn_decrementarProducte = (Button) grid.findViewById(R.id.btn_DecrementarQtt);
+                ImageView btn_decrementarProducte = (ImageView) grid.findViewById(R.id.btn_DecrementarQtt);
                 TextView tv_idProducte = (TextView) grid.findViewById(R.id.tv_idProducte);
                 TextView tv_PreuTotalProducte = (TextView) grid.findViewById(R.id.tv_PreuTotalProducte);
 
@@ -107,19 +109,18 @@ public class ItemGridProductesAdapter extends BaseAdapter {
                 tv_NomProducte.setText(productes.get(i).getNom());
                 tv_PreuProducte.setText(String.valueOf(productes.get(i).getPreu()) + " €");
                 tv_QttProducte.setText(Integer.toString(qttProducte));
-                tv_PreuTotalProducte.setText(String.valueOf(preuTotal));
+                tv_PreuTotalProducte.setText(String.format("%.2f", preuTotal) + " €");
 
             } else {
                 grid = (View) view;
             }
             final View row = grid;
             row.setId(i);
-            Button btn_decrementarProducte = (Button) row.findViewById(R.id.btn_DecrementarQtt);
+            ImageView btn_decrementarProducte = (ImageView) row.findViewById(R.id.btn_DecrementarQtt);
 
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    boolean bQuedaStock = true;
                     TextView tv_id = (TextView) row.findViewById(R.id.tv_idProducte);
                     int idProducte = Integer.parseInt(tv_id.getText().toString());
                     ProductesDataSource productesDataSource = new ProductesDataSource(mContext);
@@ -155,35 +156,55 @@ public class ItemGridProductesAdapter extends BaseAdapter {
                 }
             });
 
-            btn_decrementarProducte.setOnClickListener(new View.OnClickListener() {
+            btn_decrementarProducte.setOnTouchListener(new View.OnTouchListener() {
                 @Override
-                public void onClick(View view) {
-                    TextView tv_qttProducte = (TextView) row.findViewById(R.id.tv_QttProducte);
-                    int qttActual = Integer.parseInt(tv_qttProducte.getText().toString());
-                    if (qttActual > 0) {
-                        int novaQtt = qttActual - 1;
-                        tv_qttProducte.setText("" + novaQtt);
-                        TextView tv_PreuProducte = (TextView) row.findViewById(R.id.tv_PreuUnitatProducte);
-                        TextView tv_PreuTotalProducte = (TextView) row.findViewById(R.id.tv_PreuTotalProducte);
-                        String sPreuUnitat = tv_PreuProducte.getText().toString().replace("€", "").replace(" ", "");
-                        double preuUnitat = Double.parseDouble(sPreuUnitat);
-                        double preuTotal = preuUnitat*novaQtt;
-                        tv_PreuTotalProducte.setText(String.format("%.2f", preuTotal) + " €");
+                public boolean onTouch(View v, MotionEvent event) {
 
-                        ProductesComandaDataSource productesComandaDataSource = new ProductesComandaDataSource(mContext);
-                        TextView tv_idProducte = (TextView) row.findViewById(R.id.tv_idProducte);
-                        Log.i("ID", tv_idProducte.getText().toString());
-                        productesComandaDataSource.modificarProductesComanda(Integer.parseInt(tv_idProducte.getText().toString()), idComanda, novaQtt);
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN: {
+                            ImageView view = (ImageView) v;
 
-                        TextView tv_id = (TextView) row.findViewById(R.id.tv_idProducte);
-                        int idProducte = Integer.parseInt(tv_id.getText().toString());
-                        ProductesDataSource productesDataSource = new ProductesDataSource(mContext);
-                        Producte producte = productesDataSource.getProducteById(idProducte);
-                        int stockProducte = producte.getStock();
-                        stockProducte = stockProducte + 1;
-                        //productesDataSource.updateRegister(Integer.parseInt(producte.getId()), producte.getNom(), producte.getPreu(), producte.getTipus(), producte.getImatge(), stockProducte);
+                            view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                            view.invalidate();
+                            break;
+                        }
+                        case MotionEvent.ACTION_UP:
+                        case MotionEvent.ACTION_CANCEL: {
+                            ImageView view = (ImageView) v;
+
+                            view.getDrawable().clearColorFilter();
+                            view.invalidate();
+                            // ---------------------------------
+                            TextView tv_qttProducte = (TextView) row.findViewById(R.id.tv_QttProducte);
+                            int qttActual = Integer.parseInt(tv_qttProducte.getText().toString());
+                            if (qttActual > 0) {
+                                int novaQtt = qttActual - 1;
+                                tv_qttProducte.setText("" + novaQtt);
+                                TextView tv_PreuProducte = (TextView) row.findViewById(R.id.tv_PreuUnitatProducte);
+                                TextView tv_PreuTotalProducte = (TextView) row.findViewById(R.id.tv_PreuTotalProducte);
+                                String sPreuUnitat = tv_PreuProducte.getText().toString().replace("€", "").replace(" ", "");
+                                double preuUnitat = Double.parseDouble(sPreuUnitat);
+                                double preuTotal = preuUnitat*novaQtt;
+                                tv_PreuTotalProducte.setText(String.format("%.2f", preuTotal) + " €");
+
+                                ProductesComandaDataSource productesComandaDataSource = new ProductesComandaDataSource(mContext);
+                                TextView tv_idProducte = (TextView) row.findViewById(R.id.tv_idProducte);
+                                Log.i("ID", tv_idProducte.getText().toString());
+                                productesComandaDataSource.modificarProductesComanda(Integer.parseInt(tv_idProducte.getText().toString()), idComanda, novaQtt);
+
+                                TextView tv_id = (TextView) row.findViewById(R.id.tv_idProducte);
+                                int idProducte = Integer.parseInt(tv_id.getText().toString());
+                                ProductesDataSource productesDataSource = new ProductesDataSource(mContext);
+                                Producte producte = productesDataSource.getProducteById(idProducte);
+                                int stockProducte = producte.getStock();
+                                stockProducte = stockProducte + 1;
+                                //productesDataSource.updateRegister(Integer.parseInt(producte.getId()), producte.getNom(), producte.getPreu(), producte.getTipus(), producte.getImatge(), stockProducte);
+                            }
+                            // ------------------------------------
+                            break;
+                        }
                     }
-
+                    return true;
                 }
             });
             return row;

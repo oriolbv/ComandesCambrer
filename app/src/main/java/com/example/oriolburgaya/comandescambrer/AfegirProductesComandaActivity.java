@@ -18,6 +18,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.oriolburgaya.comandescambrer.BD.ProductesComandaDataSource;
 import com.example.oriolburgaya.comandescambrer.models.Producte;
 
 import org.w3c.dom.Text;
@@ -39,6 +40,7 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
     TextView tv_PreuTotalProducte;
     ArrayList<Producte> productesComanda = new ArrayList<Producte>();
     int idComanda;
+    ActionBar actionBar;
 
 
 
@@ -56,7 +58,7 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
         tv_idProducte = (TextView) findViewById(R.id.tv_idProducte);
         tv_QuantitatProducte = (TextView) findViewById(R.id.tv_QttProducte);
         tv_PreuTotalProducte = (TextView) findViewById(R.id.tv_PreuTotalProducte);
-        ActionBar actionBar = this.getSupportActionBar();
+        actionBar = this.getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowTitleEnabled(true);
@@ -64,7 +66,13 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 4, idComanda, false);
         viewPager.setAdapter(adapter);
-        // Create a tab listener that is called when the user changes tabs.
+        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                actionBar.setSelectedNavigationItem(position);
+                viewPager.setCurrentItem(position);
+            }
+        });
         tabListener = new ActionBar.TabListener() {
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
                 // show the given tab
@@ -136,13 +144,20 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
                 tv_QuantitatProducte = (TextView) findViewById(R.id.tv_QttProducte);
                 tv_PreuTotalProducte = (TextView) findViewById(R.id.tv_PreuTotalProducte);
 
-                ActionBar actionBar = this.getSupportActionBar();
+                actionBar = this.getSupportActionBar();
                 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
                 actionBar.setDisplayShowTitleEnabled(true);
                 final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
                 final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 4, idComanda, false);
                 viewPager.setAdapter(adapter);
-                // Create a tab listener that is called when the user changes tabs.
+                actionBar.setSelectedNavigationItem(0);
+                viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        actionBar.setSelectedNavigationItem(position);
+                        viewPager.setCurrentItem(position);
+                    }
+                });
                 tabListener = new ActionBar.TabListener() {
                     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
                         // show the given tab
@@ -166,6 +181,8 @@ public class AfegirProductesComandaActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
+        ProductesComandaDataSource productesComandaDataSource = new ProductesComandaDataSource(this);
+        productesComandaDataSource.deleteRegisters(idComanda);
         Intent backData = new Intent();
         backData.putExtra("idComanda", idComanda);
         setResult(RESULT_CANCELED, backData);

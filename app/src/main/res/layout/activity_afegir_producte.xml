@@ -84,20 +84,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Imatge"
+            android:layout_marginTop="15dp"
             android:id="@+id/tv_ImatgeProducte" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="Càmera"
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="20dp"
             android:id="@+id/btn_CameraProducte"
+            android:src="@drawable/camera"
             android:onClick="fotoCameraProducte"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="Galeria"
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginLeft="20dp"
             android:id="@+id/btn_GaleriaProducte"
+            android:src="@drawable/galeria"
             android:onClick="fotoGaleriaProducte"/>
     </LinearLayout>
     <ImageView
@@ -109,26 +110,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
 
         android:orientation="horizontal">
-        <Button
-            android:layout_width="158dp"
-            android:layout_height="wrap_content"
-            android:text="Cancelar"
-            android:id="@+id/btn_CancelarProducte"
-            android:layout_x="182dp"
-            android:layout_y="490dp"
-            android:onClick="cancelarProducte"/>
 
-        <Button
-            android:layout_width="158dp"
-            android:layout_height="wrap_content"
-            android:text="Confirmar"
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:id="@+id/btn_CancelarProducte"
+            android:layout_marginLeft="10dp"
+            android:onClick="cancelarProducte"
+            android:src="@drawable/cancelar"/>
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
             android:id="@+id/btn_ConfirmarProducte"
-            android:layout_x="13dp"
-            android:layout_y="489dp"
-            android:onClick="confirmarProducte"/>
+            android:onClick="confirmarProducte"
+            android:src="@drawable/confirmar"/>
 
 
         </LinearLayout>

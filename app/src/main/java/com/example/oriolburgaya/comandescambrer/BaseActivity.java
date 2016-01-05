@@ -37,7 +37,7 @@ public class BaseActivity extends ActionBarActivity {
     /**
      * List item array for navigation drawer items.
      * */
-    protected String[] listArray = { "Agafar Comanda", "Productes", "Fer Caixa", "Item 4", "Item 5" };
+    protected String[] listArray = { "Agafar Comanda", "Productes", "Fer Caixa"};
 
     /**
      * Static variable for selected item position. Which can be used in child activity to know which item is selected from the list.
@@ -171,13 +171,6 @@ public class BaseActivity extends ActionBarActivity {
             case 2:
                 startActivity(new Intent(this, FerCaixaActivity.class));
                 break;
-            case 3:
-                startActivity(new Intent(this, MainActivity.class));
-                break;
-            case 4:
-                startActivity(new Intent(this, MainActivity.class));
-                break;
-
             default:
                 break;
         }

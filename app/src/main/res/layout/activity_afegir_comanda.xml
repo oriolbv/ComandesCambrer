@@ -29,8 +29,8 @@
             android:layout_y="87dp" />
 
         <ImageView
-            android:layout_width="120px"
-            android:layout_height="120px"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginLeft="10dp"
             android:id="@+id/btn_Calendari"
             android:src="@drawable/calendari_redimensionada"
@@ -62,8 +62,8 @@
 
 
         <ImageView
-            android:layout_width="120px"
-            android:layout_height="120px"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:src="@drawable/rellotge_redimensionada"
             android:onClick="setHoraComanda"
             android:id="@+id/btn_Hora"
@@ -110,20 +110,22 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Productes"
             android:id="@+id/tv_Productes"
+            android:layout_marginTop="15dp"
             android:layout_x="20dp"
             android:layout_y="269dp" />
 
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="30dp"
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="50dp"
             android:id="@+id/btn_AfegirProductes"
-            android:layout_marginLeft="190dp"
+            android:layout_marginLeft="95dp"
+            android:src="@drawable/afegir_productes"
             android:onClick="afegirProductesComanda"/>
         </LinearLayout>
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="160dp"
         android:layout_marginTop="15dp"
         android:id="@+id/listView2"/>
 
@@ -160,17 +162,18 @@
 
 
         <ImageView
-            android:layout_width="310px"
-            android:layout_height="100px"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:id="@+id/btn_CancelarComanda"
+            android:layout_marginLeft="10dp"
             android:layout_x="182dp"
             android:layout_y="490dp"
             android:onClick="cancelarComanda"
             android:src="@drawable/cancelar"/>
 
         <ImageView
-            android:layout_width="310px"
-            android:layout_height="100px"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:id="@+id/btn_ConfirmarComanda"
             android:layout_x="13dp"

@@ -252,14 +252,11 @@ public class MainActivity extends BaseActivity {
                     Calendar calendar = Calendar.getInstance();
                     comandes = dataSource.getAllComandesData(dateFormatter.format(calendar.getTime()));
                 }
-
-
                 for (int i = 0; i < comandes.size(); ++i) {
                     if (comandes.get(i).getnTaula() == 0) {
                         dataSource.deleteRegister(Integer.parseInt(comandes.get(i).getId()));
                     }
                 }
-
                 this.listView = (ListView) findViewById(R.id.listView);
                 this.listView.setAdapter(new ItemListComandesAdapter(this, comandes));
 
@@ -277,6 +274,17 @@ public class MainActivity extends BaseActivity {
         if (id == R.id.action_help) {
 
             Toast.makeText(MainActivity.this,"HELP!", Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("En aquesta part de la app podrem crear comandes ").setTitle("Help Afegir Comandes")
+                    .setPositiveButton("Entesos", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // FIRE ZE MISSILES!
+                        }
+                    });
+            // Create the AlertDialog object and return it
+            builder.create().show();
+
+
 
             return true;
         } else if (id == R.id.tipus_llistat) {
@@ -325,13 +333,8 @@ public class MainActivity extends BaseActivity {
                             bLlistarTotes = bEstatAnterior;
                         }
                     });
-
-
-
             builder.create().show();
-
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

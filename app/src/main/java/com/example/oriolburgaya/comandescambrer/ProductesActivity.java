@@ -1,5 +1,6 @@
 package com.example.oriolburgaya.comandescambrer;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -19,20 +20,33 @@ public class ProductesActivity extends BaseActivity {
     private static int AFEGIR_PRODUCTE_REQUEST_CODE = 1;
     ActionBar.TabListener tabListener;
 
+    ActionBar actionBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         //setContentView(R.layout.activity_afegir_productes_comanda);
         getLayoutInflater().inflate(R.layout.activity_afegir_productes_comanda, frameLayout);
         Log.i("EOO", "HE ENTRAT al onCreate");
-
-        ActionBar actionBar = this.getSupportActionBar();
+        actionBar = this.getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowTitleEnabled(true);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 4, 0, true);
         viewPager.setAdapter(adapter);
+        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                // When swiping between different app sections, select the corresponding tab.
+                // We can also use ActionBar.Tab#select() to do this if we have a reference to the
+                // Tab.
+                actionBar.setSelectedNavigationItem(position);
+
+            }
+        });
+
         // Create a tab listener that is called when the user changes tabs.
         tabListener = new ActionBar.TabListener() {
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
@@ -94,28 +108,34 @@ public class ProductesActivity extends BaseActivity {
         if (requestCode == AFEGIR_PRODUCTE_REQUEST_CODE) {
 
             if (resultCode == RESULT_OK) {
-                ActionBar actionBar = this.getSupportActionBar();
+                actionBar = this.getSupportActionBar();
                 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
                 actionBar.setDisplayShowTitleEnabled(true);
                 final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
                 final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 4, 0, true);
                 viewPager.setAdapter(adapter);
-                // Create a tab listener that is called when the user changes tabs.
+                actionBar.setSelectedNavigationItem(0);
+                viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        actionBar.setSelectedNavigationItem(position);
+                        viewPager.setCurrentItem(position);
+                    }
+                });
+
                 tabListener = new ActionBar.TabListener() {
                     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-                        // show the given tab
-                        //setContentView(R.layout.clear);
                         viewPager.setCurrentItem(tab.getPosition());
 
 
                     }
 
                     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-                        // hide the given tab
+
                     }
 
                     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-                        // probably ignore this event
+
                     }
                 };
             }
@@ -125,12 +145,23 @@ public class ProductesActivity extends BaseActivity {
     @Override
     public void onResume(){
         super.onResume();
-        ActionBar actionBar = this.getSupportActionBar();
+        actionBar = this.getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowTitleEnabled(true);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), 4, 0, true);
         viewPager.setAdapter(adapter);
+        actionBar.setSelectedNavigationItem(0);
+        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                // When swiping between different app sections, select the corresponding tab.
+                // We can also use ActionBar.Tab#select() to do this if we have a reference to the
+                // Tab.
+
+                actionBar.setSelectedNavigationItem(position);
+            }
+        });
         // Create a tab listener that is called when the user changes tabs.
         tabListener = new ActionBar.TabListener() {
             public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
@@ -151,6 +182,5 @@ public class ProductesActivity extends BaseActivity {
         };
 
     }
-
 
 }

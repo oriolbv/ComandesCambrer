@@ -50,17 +50,15 @@
                 android:textAlignment="center"
                 android:gravity="center_horizontal" />
 
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="-"
-                android:textSize="16dp"
-                android:id="@+id/btn_DecrementarQtt"
-                android:layout_x="120dp"
-                android:layout_y="0dp"
-                android:background="#8F00"
 
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                android:src="@drawable/menys"
+                android:id="@+id/btn_DecrementarQtt"
+                android:layout_x="105dp"
+                android:layout_y="0dp"
                 android:layout_gravity="right" />
         </AbsoluteLayout>
         <RelativeLayout

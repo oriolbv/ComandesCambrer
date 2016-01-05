@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.example.oriolburgaya.comandescambrer.BD.ComandesDataSource;
 import com.example.oriolburgaya.comandescambrer.BD.ProductesComandaDataSource;
 import com.example.oriolburgaya.comandescambrer.models.Comanda;
+import com.example.oriolburgaya.comandescambrer.models.Producte;
 import com.example.oriolburgaya.comandescambrer.models.ProductesComanda;
 
 import java.text.SimpleDateFormat;
@@ -114,7 +115,7 @@ public class AfegirComandaActivity extends ActionBarActivity {
                 for (int i = 0; i < productesComanda.size(); ++i) {
                     preuTotal = preuTotal + productesComanda.get(i).getPreuTotal();
                 }
-                tvPreuTotal.setText(String.valueOf(preuTotal));
+                tvPreuTotal.setText(String.format("%.2f", preuTotal) + " €");
 
             }
 
@@ -169,7 +170,6 @@ public class AfegirComandaActivity extends ActionBarActivity {
                             }
 
                         }
-                        // ------------------------------------
                         break;
                     }
                 }
@@ -197,10 +197,15 @@ public class AfegirComandaActivity extends ActionBarActivity {
                         view.getDrawable().clearColorFilter();
                         view.invalidate();
                         // ---------------------------------
+
                         Intent backData = new Intent();
                         setResult(RESULT_CANCELED, backData);
-                        ComandesDataSource comandesDataSource = new ComandesDataSource(mContext);
-                        comandesDataSource.deleteRegister(idComanda);
+                        if (esAfegir) {
+                            ProductesComandaDataSource productesComandaDataSource = new ProductesComandaDataSource(mContext);
+                            productesComandaDataSource.deleteRegisters(idComanda);
+                            ComandesDataSource comandesDataSource = new ComandesDataSource(mContext);
+                            comandesDataSource.deleteRegister(idComanda);
+                        }
                         finish();
                         // ------------------------------------
                         break;
@@ -286,6 +291,39 @@ public class AfegirComandaActivity extends ActionBarActivity {
                         }, hour, minute, true);
                         mTimePicker.setTitle("Hora Comanda");
                         mTimePicker.show();
+                        // ------------------------------------
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
+
+        ImageView btnAfegirProductes = (ImageView)findViewById(R.id.btn_AfegirProductes);
+        btnAfegirProductes.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        // ---------------------------------
+                        Toast.makeText(AfegirComandaActivity.this,
+                                "He fet click per afegir Productes a la comanda!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(mContext, AfegirProductesComandaActivity.class);
+                        intent.putExtra("idComanda", idComanda);
+                        startActivityForResult(intent, AFEGIR_PRODUCTES_COMANDA_REQUEST_CODE);
                         // ------------------------------------
                         break;
                     }
