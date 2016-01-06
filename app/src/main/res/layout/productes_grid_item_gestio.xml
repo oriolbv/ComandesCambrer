@@ -44,8 +44,8 @@
                 android:id="@+id/tv_NomProducteMostrar"
                 android:layout_x="0dp"
                 android:layout_y="50dp"
-                android:background="#8FF0"
-                android:textColor="#ff000000"
+                android:background="#9000"
+                android:textColor="#ffffffff"
                 android:textAlignment="center"
                 android:gravity="center_horizontal" />
 
