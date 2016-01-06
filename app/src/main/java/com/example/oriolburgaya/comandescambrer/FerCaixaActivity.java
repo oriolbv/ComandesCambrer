@@ -253,7 +253,7 @@ public class FerCaixaActivity extends BaseActivity {
         int id = item.getItemId();
         if (id == R.id.action_help) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.help_fer_caixa).setTitle("Help Fer Caixa")
+            builder.setMessage(R.string.help_fer_caixa).setTitle("Ajuda Fer Caixa")
                     .setPositiveButton("D'acord", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 

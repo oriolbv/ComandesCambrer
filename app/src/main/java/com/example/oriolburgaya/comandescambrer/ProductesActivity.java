@@ -33,6 +33,7 @@ public class ProductesActivity extends BaseActivity {
         Log.i("EOO", "HE ENTRAT al onCreate");
         actionBar = this.getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("Productes");
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowTitleEnabled(true);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -100,7 +101,7 @@ public class ProductesActivity extends BaseActivity {
             return true;
         } else if (id == R.id.action_help) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.help_productes).setTitle("Help Productes")
+            builder.setMessage(R.string.help_productes).setTitle("Ajuda Productes")
                     .setPositiveButton("D'acord", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
@@ -121,6 +122,7 @@ public class ProductesActivity extends BaseActivity {
 
             if (resultCode == RESULT_OK) {
                 actionBar = this.getSupportActionBar();
+                actionBar.setTitle("Productes");
                 actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
                 actionBar.setDisplayShowTitleEnabled(true);
                 final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
@@ -158,6 +160,7 @@ public class ProductesActivity extends BaseActivity {
     public void onResume(){
         super.onResume();
         actionBar = this.getSupportActionBar();
+        actionBar.setTitle("Productes");
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setDisplayShowTitleEnabled(true);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);

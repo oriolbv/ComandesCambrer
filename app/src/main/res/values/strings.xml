@@ -10,21 +10,46 @@
     <string name="open_drawer">open</string>
     <string name="close_drawer">close</string>
     <string name="action_remove">remove</string>
-    <string name="action_about">About</string>
+    <string name="action_about">Quant a</string>
     <string name="action_help">Help</string>
-    <string name="help_afegir_comandes">En aquesta part de la app podrem crear comandes, modificar-les i esborrarles.\n\n
-                                        Per començar la creació d\'una comanda només hem de premer el botó + que es troba a baix a l\'esquerra.\n
-                                        Seguidament es demanarà la informació necessària per crear la comanda i podrem afegir tots els productes que
-                                        el client demani.\nTambé serà possible modificar la quantitat de productes que haguem demanat.
-                                        Si totes les dades introduïdes són correctes, la comanda serà guardada i es llistarà juntament amb totes les
-                                        altres comandes.\n
-                                        A més a més, hi ha la possibilitat de veure totes les comandes, o bé només les del dia utilitzant la opció del
-                                        menú de configuració \"Tipus llistat\"</string>
-    <string name="help_productes">En aquesta pantalla es poden gestionar tots els productes de la carta del restaurant.\nTindrem la possibilitat d\'afegir
-        un producte mitjançant el botó \"+\" i, també podrem modificar qualsevol dels productes afegits prement sobre la seva imatge.</string>
+    <string name="help_afegir_comandes">Des de l\'opció \"Comandes\" podem donar d\'alta les comandes així com modificar-ne les existents.\n\n<u><b>[+]</b></u>:
+        Quan cliquem aquest botó podem afegir una nova comanda. Cal informar els següents camps:\n\n<b>Data</b>: Data de la comanda. Per defecte agafa la data actual.\n<b>Hora</b>: Hora de la comanda. Per defecte agafa l\'hora actual.
+        \n<b>N.Taula</b>: Número de taula que cal que estigui entre 1 i 20.\n<b>Productes</b>: Clicant el botó <i>[Afegir Productes]</i> podem afegir els productes de la comanda. Quan ho fem, s\'activa la carta de productes.
+        \nA la part superior escollim el tipus de producte: un primer, un segon, unes postres o una beguda. Si cliquem la imatge del producte, se n\'afegeix una unitat a la comada. Si cliquem el botó <i>[-]</i> de la part superior dreta de la imatge, en restem una unitat.
+        \nQuan acabem, cliquem <i>[OK]</i> i veiem el contingut de la comanda.\nFinalment podem clicar <i>[Confirmar]</i> per guardar la comanda o <i>[Cancel·lar]</i> per desestimar-la.
 
-    <string name="help_fer_caixa">En aquesta pantalla podrem llistar totes les comandes de un dia, o bé, totes les que es trobin entre el rang de dates que
-        li indiquem a la aplicació.\n A més a més, a sota del llistat ens apareixerà els guanys totals d\'aquestes comandes.
+        \n\n<b><u>[Comanda de la llista de comandes]</u></b>: Quan cliquem una comanda de la llista de comandes podem modificar-la segons convingui.
+En aquest cas, si cliquem <i>[Cancel·lar]</i>, deixa la comanda tal com estava.
+        \n\n<b><u>[Llista de comandes]</u></b>: El llistat de les comandes serà el corresponent al dia actual o a totes elles en funció de l\'elecció feta al menú <i>\"Tipus llistat\"</i>. A aquest menú hi accedim mitjançant l\'accés a configuració de dalt de tot a la dreta.
+
+
+ </string>
+
+
+
+
+
+    <string name="help_productes">
+        Des de l\'opció <i>\"Productes\"</i> podrem gestionar la carta de productes.
+
+        \n\n<u><b>[+]</b></u>: Quan cliquem aquest botó podem afegir un nou producte. Cal informar els següents camps:
+        \n\n<b>Nom Producte</b>: Nom que se li assigna al producte. Es veurà sobreimprès a la imatge del producte.
+        \n<b>Tipus</b>: En aquest camp informarem de si es tracta d\'un primer, un segon, unes postres o una beguda.
+        \n<b>Preu</b>: Preu unitari del producte. Cal tenir en compte que quan guardem una comanda, es guarden els preus d\'aquell moment. Per tant, si modifiquem el preu, només afectarà a futures comandes.
+        \n<b>Estoc</b>: Quantitat de producte existent. Si és zero, a l\'hora de fer la comanda no deixarà afegir el producte.
+        \n<b>Imatge</b>: Clicarem el botó per assignar una imatge al producte que serà amb la que l\'identificarem a la carta.
+
+        \n\n<u><b>[Imatge]</b></u>: Si cliquem la imatge d\'un producte, el podrem modificar.
+        Acabada l\'operació, podem <i>[Confirmar]</i> i per tant guardar les modificacions, <i>[Cancel·lar]</i> i deixar el producte tal com estava o clicar <i>[X]</i> i eliminar el producte.
+
+    </string>
+
+    <string name="help_fer_caixa">
+
+        Des de l\'opció <i>\"Fer Caixa\"</i> podem llistar les comandes visualitzant-ne l\'import corresponent a la suma de totes elles.
+        \nPer fer la selecció de les comandes escollides disposem de dos camps:
+        \n\n<b>Data Inicial</b>: Les comandes llistades hauran de tenir la data igual o posterior a la data inicial.
+        \n<b>Data Final</b>: Les comandes llistades hauran de tenir la data igual o anterior a la data final.
 
 
 

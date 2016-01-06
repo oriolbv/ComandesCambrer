@@ -122,7 +122,7 @@ public class AfegirProducteActivity extends ActionBarActivity {
         int id = item.getItemId();
         if (id == R.id.action_remove) {
             AlertDialog.Builder adb = new AlertDialog.Builder(mContext);
-            adb.setTitle("Vols esborrar aquesta producte?");
+            adb.setTitle("Vols esborrar aquest producte?");
             adb.setIcon(R.drawable.delete_red);
             adb.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
@@ -194,8 +194,10 @@ public class AfegirProducteActivity extends ActionBarActivity {
                     int nh = (int) ( d.getHeight() * (512.0 / d.getWidth()) );
                     Bitmap scaled = Bitmap.createScaledBitmap(d, 512, nh, true);
                     mImatgeProducte.setImageBitmap(scaled);
-
-
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    scaled.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    producte.setImatge(stream.toByteArray());
+                    imatgeSeleccionada = true;
 
                     //mImatgeProducte.setImageBitmap(myBitmap);
                 }
@@ -212,15 +214,14 @@ public class AfegirProducteActivity extends ActionBarActivity {
                 imatgeBitmap = BitmapFactory.decodeFile(picturePath);
                 mImatgeProducte.setImageBitmap(imatgeBitmap);
                 imatgeSeleccionada = true;
+                if (imatgeBitmap != null) {
+                    byte[] img = null;
+                    ByteArrayOutputStream bos=new ByteArrayOutputStream();
+                    imatgeBitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
+                    img=bos.toByteArray();
+                    producte.setImatge(img);
+                }
             }
-            if (imatgeBitmap != null) {
-                byte[] img = null;
-                ByteArrayOutputStream bos=new ByteArrayOutputStream();
-                imatgeBitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
-                img=bos.toByteArray();
-                producte.setImatge(img);
-            }
-
         }
 
     }
@@ -229,6 +230,7 @@ public class AfegirProducteActivity extends ActionBarActivity {
         int midaNomProducte = etNomProducte.getText().toString().trim().length();
         int midaPreuProducte = etPreuProducte.getText().toString().trim().length();
         int midaStockProducte = etStockProducte.getText().toString().trim().length();
+
         if (esAfegir) {
             if (midaNomProducte == 0 || midaPreuProducte == 0 || midaStockProducte == 0 || imatgeSeleccionada == false) {
                 Toast.makeText(this, "Falten camps!", Toast.LENGTH_SHORT).show();

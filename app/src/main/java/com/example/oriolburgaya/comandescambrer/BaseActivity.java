@@ -25,7 +25,7 @@ public class BaseActivity extends ActionBarActivity {
 
     protected ListView mDrawerList;
 
-    protected String[] listArray = { "Agafar Comanda", "Productes", "Fer Caixa"};
+    protected String[] listArray = { "Comandes", "Productes", "Fer Caixa"};
 
     protected static int position;
 

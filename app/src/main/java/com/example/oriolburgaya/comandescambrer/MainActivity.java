@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -192,6 +193,8 @@ public class MainActivity extends BaseActivity {
     public void onResume() {
         super.onResume();
         ComandesDataSource dataSource = new ComandesDataSource(this);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Comandes");
         final ArrayList<Comanda> comandes;
         if (bLlistarTotes) {
             comandes = dataSource.getAllComandes();
@@ -273,7 +276,7 @@ public class MainActivity extends BaseActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_help) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.help_afegir_comandes).setTitle("Help Afegir Comandes")
+            builder.setMessage(R.string.help_afegir_comandes).setTitle("Ajuda Comandes")
                     .setPositiveButton("D'acord", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
@@ -330,7 +333,7 @@ public class MainActivity extends BaseActivity {
             builder.create().show();
         } else if (id == R.id.about) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(R.string.about).setTitle("About")
+            builder.setMessage(R.string.about).setTitle("Quant a")
                     .setPositiveButton("D'acord", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
