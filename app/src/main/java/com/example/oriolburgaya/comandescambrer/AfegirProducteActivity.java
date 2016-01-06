@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -21,6 +22,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -98,6 +100,178 @@ public class AfegirProducteActivity extends ActionBarActivity {
                 producte = new Producte();
             }
         }
+
+        ImageView btnConfirmar = (ImageView)findViewById(R.id.btn_ConfirmarProducte);
+        btnConfirmar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        // ---------------------------------
+
+                        int midaNomProducte = etNomProducte.getText().toString().trim().length();
+                        int midaPreuProducte = etPreuProducte.getText().toString().trim().length();
+                        int midaStockProducte = etStockProducte.getText().toString().trim().length();
+
+                        if (esAfegir) {
+                            if (midaNomProducte == 0 || midaPreuProducte == 0 || midaStockProducte == 0 || imatgeSeleccionada == false) {
+                                Toast.makeText(mContext, "Falten camps!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // Guardem producte a BD
+                                Toast.makeText(mContext, "Tot correcte!", Toast.LENGTH_SHORT).show();
+                                producte.setNom(etNomProducte.getText().toString());
+                                producte.setTipus(spTipusProducte.getSelectedItem().toString());
+                                producte.setPreu(Double.parseDouble(etPreuProducte.getText().toString()));
+                                producte.setStock(Integer.parseInt(etStockProducte.getText().toString()));
+                                ProductesDataSource productesDataSource = new ProductesDataSource(mContext);
+                                productesDataSource.insertRegister(producte.getNom(),producte.getPreu(), producte.getTipus(), producte.getImatge(), producte.getStock());
+                                Intent backData = new Intent(mContext, ProductesActivity.class);
+                                backData.putExtra("data", spTipusProducte.getSelectedItemPosition());
+                                // Enviem la informació
+                                setResult(RESULT_OK, backData);
+                                finish();
+                                //startActivity(backData);
+
+                            }
+                        } else {
+                            if (midaNomProducte == 0 || midaPreuProducte == 0 || midaStockProducte == 0 || producte.getImatge() == null) {
+                                Toast.makeText(mContext, "Falten camps!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                producte.setNom(etNomProducte.getText().toString());
+                                producte.setTipus(spTipusProducte.getSelectedItem().toString());
+                                producte.setPreu(Double.parseDouble(etPreuProducte.getText().toString()));
+                                producte.setStock(Integer.parseInt(etStockProducte.getText().toString()));
+                                ProductesDataSource productesDataSource = new ProductesDataSource(mContext);
+                                productesDataSource.updateRegister(Integer.parseInt(producte.getId()), producte.getNom(),producte.getPreu(), producte.getTipus(), producte.getImatge(), producte.getStock());
+                                Intent backData = new Intent(mContext, ProductesActivity.class);
+                                backData.putExtra("data", producte.getNom());
+                                // Enviem la informació
+                                setResult(RESULT_OK, backData);
+                                finish();
+                                //startActivity(backData);
+                            }
+                        }
+                        // ------------------------------------
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
+
+        ImageView btnCancelar = (ImageView)findViewById(R.id.btn_CancelarProducte);
+        btnCancelar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        // ---------------------------------
+                        Intent backData = new Intent();
+                        setResult(RESULT_CANCELED, backData);
+                        finish();
+                        // ------------------------------------
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
+
+        ImageView btnCamera = (ImageView)findViewById(R.id.btn_CameraProducte);
+        btnCamera.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        // ---------------------------------
+                        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                        String imageFileName = timeStamp + ".jpg";
+                        File storageDir = Environment.getExternalStoragePublicDirectory(
+                                Environment.DIRECTORY_PICTURES);
+                        pathImatge = storageDir.getAbsolutePath() + "/" + imageFileName;
+                        File file = new File(pathImatge);
+                        Uri outputFileUri = Uri.fromFile(file);
+                        Intent ferFotoIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                        ferFotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+                        startActivityForResult(ferFotoIntent, REQUEST_IMAGE_CAPTURE);
+                        // ------------------------------------
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
+
+        ImageView btnGaleria = (ImageView)findViewById(R.id.btn_GaleriaProducte);
+        btnGaleria.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().setColorFilter(0x77000000, PorterDuff.Mode.SRC_ATOP);
+                        view.invalidate();
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL: {
+                        ImageView view = (ImageView) v;
+
+                        view.getDrawable().clearColorFilter();
+                        view.invalidate();
+                        // ---------------------------------
+                        Intent getFotoGaleriaIntent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        if (getFotoGaleriaIntent.resolveActivity(getPackageManager()) != null) {
+                            startActivityForResult(getFotoGaleriaIntent, REQUEST_LOAD_IMAGE);
+                        }
+                        // ------------------------------------
+                        break;
+                    }
+                }
+                return true;
+            }
+        });
 
     }
 

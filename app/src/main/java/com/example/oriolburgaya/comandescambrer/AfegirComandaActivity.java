@@ -319,8 +319,6 @@ public class AfegirComandaActivity extends ActionBarActivity {
                         view.getDrawable().clearColorFilter();
                         view.invalidate();
                         // ---------------------------------
-                        Toast.makeText(AfegirComandaActivity.this,
-                                "He fet click per afegir Productes a la comanda!", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(mContext, AfegirProductesComandaActivity.class);
                         intent.putExtra("idComanda", idComanda);
                         startActivityForResult(intent, AFEGIR_PRODUCTES_COMANDA_REQUEST_CODE);
@@ -348,14 +346,10 @@ public class AfegirComandaActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            //Toast t = new Toast()
             return true;
         } else if (id == android.R.id.home) {
             if (esAfegir) {

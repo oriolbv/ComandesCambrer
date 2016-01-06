@@ -37,6 +37,7 @@ import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -68,19 +69,40 @@ public class MainActivity extends BaseActivity {
 
         ArrayList<Producte> productes = productesDataSource.getAllProductesNoEliminats();
         if (productes.size() == 0) {
+
             byte[] img=null;
             Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.chicken);
             ByteArrayOutputStream bos=new ByteArrayOutputStream();
             bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
             img=bos.toByteArray();
-            productesDataSource.insertRegister("Pollastre", 12.3, "Segon", img, 3);
+            productesDataSource.insertRegister("Pollastre", 12.3, "Segon", img, 7);
+
+            // --------------------------------------------------------
+            // PRIMERS
 
             img=null;
             bm = BitmapFactory.decodeResource(getResources(), R.drawable.hamburger);
             bos=new ByteArrayOutputStream();
             bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
             img=bos.toByteArray();
-            productesDataSource.insertRegister("Hamburguesa", 5.2, "Segon", img, 30);
+            productesDataSource.insertRegister("Hamburguesa", 5.2, "Primer", img, 30);
+
+            img=null;
+            bm = BitmapFactory.decodeResource(getResources(), R.drawable.pulpo);
+            bos=new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            img=bos.toByteArray();
+            productesDataSource.insertRegister("Pop a la Gallega", 9.2, "Primer", img, 12);
+
+            img=null;
+            bm = BitmapFactory.decodeResource(getResources(), R.drawable.amanida);
+            bos=new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            img=bos.toByteArray();
+            productesDataSource.insertRegister("Amanida espinacs", 4, "Primer", img, 8);
+
+            // ----------------------------------------------------------------
+            // SEGONS
 
             img=null;
             bm = BitmapFactory.decodeResource(getResources(), R.drawable.crestetes);
@@ -88,6 +110,57 @@ public class MainActivity extends BaseActivity {
             bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
             img=bos.toByteArray();
             productesDataSource.insertRegister("Crestetes", 2.3, "Segon", img, 10);
+
+
+
+            // ----------------------------------------------------------------
+            // POSTRES
+
+
+            img=null;
+            bm = BitmapFactory.decodeResource(getResources(), R.drawable.brownie);
+            bos=new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            img=bos.toByteArray();
+            productesDataSource.insertRegister("Brownie", 4, "Postre", img, 10);
+
+            img=null;
+            bm = BitmapFactory.decodeResource(getResources(), R.drawable.donut);
+            bos=new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            img=bos.toByteArray();
+            productesDataSource.insertRegister("Donut", 1.75, "Postre", img, 19);
+
+            img=null;
+            bm = BitmapFactory.decodeResource(getResources(), R.drawable.tiramisu);
+            bos=new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            img=bos.toByteArray();
+            productesDataSource.insertRegister("Tiramisu", 3.75, "Postre", img, 8);
+
+            // -----------------------------------------------------------------
+            // BEGUDES
+
+            img=null;
+            bm = BitmapFactory.decodeResource(getResources(), R.drawable.cocacola);
+            bos=new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            img=bos.toByteArray();
+            productesDataSource.insertRegister("Coca-cola", 1.75, "Beguda", img, 15);
+
+            img=null;
+            bm = BitmapFactory.decodeResource(getResources(), R.drawable.cocktail);
+            bos=new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            img=bos.toByteArray();
+            productesDataSource.insertRegister("Cocktail", 4.60, "Beguda", img, 7);
+
+            img=null;
+            bm = BitmapFactory.decodeResource(getResources(), R.drawable.aigua);
+            bos=new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.PNG, 100, bos);
+            img=bos.toByteArray();
+            productesDataSource.insertRegister("Aigua", 2.30, "Beguda", img, 15);
 
         }
 
@@ -106,7 +179,7 @@ public class MainActivity extends BaseActivity {
                 comandes.remove(i);
             }
         }
-
+        Collections.reverse(comandes);
         this.listView = (ListView) findViewById(R.id.listView);
         this.listView.setAdapter(new ItemListComandesAdapter(this, comandes));
 
@@ -173,8 +246,6 @@ public class MainActivity extends BaseActivity {
                         // ---------------------------------
                         ComandesDataSource dataSource = new ComandesDataSource(mContext);
                         int nouId = dataSource.getNouIdentificador();
-                        Toast.makeText(MainActivity.this,
-                                "Nou identificador : "+ nouId, Toast.LENGTH_SHORT).show();
                         dataSource.insertRegister(nouId, null, null, 0.0, 0);
                         Intent intent = new Intent(mContext, AfegirComandaActivity.class);
                         intent.putExtra("idComanda", nouId);
@@ -209,7 +280,7 @@ public class MainActivity extends BaseActivity {
                 comandes.remove(i);
             }
         }
-
+        Collections.reverse(comandes);
         this.listView = (ListView) findViewById(R.id.listView);
         this.listView.setAdapter(new ItemListComandesAdapter(this, comandes));
     }
@@ -243,6 +314,7 @@ public class MainActivity extends BaseActivity {
                     Calendar calendar = Calendar.getInstance();
                     comandes = dataSource.getAllComandesData(dateFormatter.format(calendar.getTime()));
                 }
+                Collections.reverse(comandes);
                 this.listView = (ListView) findViewById(R.id.listView);
                 this.listView.setAdapter(new ItemListComandesAdapter(this, comandes));
             } else {
@@ -260,6 +332,7 @@ public class MainActivity extends BaseActivity {
                         dataSource.deleteRegister(Integer.parseInt(comandes.get(i).getId()));
                     }
                 }
+                Collections.reverse(comandes);
                 this.listView = (ListView) findViewById(R.id.listView);
                 this.listView.setAdapter(new ItemListComandesAdapter(this, comandes));
 
@@ -320,6 +393,7 @@ public class MainActivity extends BaseActivity {
                                 Calendar calendar = Calendar.getInstance();
                                 comandes = dataSource.getAllComandesData(dateFormatter.format(calendar.getTime()));
                             }
+                            Collections.reverse(comandes);
                             listView = (ListView) findViewById(R.id.listView);
                             listView.setAdapter(new ItemListComandesAdapter(mContext, comandes));
                         }

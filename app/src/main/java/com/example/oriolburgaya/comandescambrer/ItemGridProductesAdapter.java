@@ -127,7 +127,7 @@ public class ItemGridProductesAdapter extends BaseAdapter {
                     Producte producte = productesDataSource.getProducteById(idProducte);
                     int stockProducte = producte.getStock();
                     if (stockProducte == 0) {
-                        Toast.makeText(mContext, "No hi ha Stock : " + producte.getNom(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "No hi ha Stock : " + producte.getNom(), Toast.LENGTH_SHORT).show();
                     } else {
                         TextView tv_qttProducte = (TextView) row.findViewById(R.id.tv_QttProducte);
                         int qttActual = Integer.parseInt(tv_qttProducte.getText().toString());
@@ -146,8 +146,10 @@ public class ItemGridProductesAdapter extends BaseAdapter {
                         productesComandaDataSource.modificarProductesComanda(Integer.parseInt(tv_idProducte.getText().toString()), idComanda, novaQtt);
 
                         stockProducte = stockProducte - 1;
-                        //productesDataSource.updateRegister(Integer.parseInt(producte.getId()), producte.getNom(), producte.getPreu(), producte.getTipus(), producte.getImatge(), stockProducte);
 
+
+                        //productesDataSource.updateRegister(Integer.parseInt(producte.getId()), producte.getNom(), producte.getPreu(), producte.getTipus(), producte.getImatge(), stockProducte);
+                        productesDataSource.updateStock(Integer.parseInt(producte.getId()), stockProducte);
                     }
 
 
@@ -199,6 +201,7 @@ public class ItemGridProductesAdapter extends BaseAdapter {
                                 int stockProducte = producte.getStock();
                                 stockProducte = stockProducte + 1;
                                 //productesDataSource.updateRegister(Integer.parseInt(producte.getId()), producte.getNom(), producte.getPreu(), producte.getTipus(), producte.getImatge(), stockProducte);
+                                productesDataSource.updateStock(Integer.parseInt(producte.getId()), stockProducte);
                             }
                             // ------------------------------------
                             break;

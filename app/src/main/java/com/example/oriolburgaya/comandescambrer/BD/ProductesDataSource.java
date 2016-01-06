@@ -212,6 +212,12 @@ public class ProductesDataSource {
         database.update(PRODUCTES_TABLE_NAME, cv, "_id="+id, null);
     }
 
+    public void updateStock(int id, int stock) {
+        ContentValues cv = new ContentValues();
+        cv.put(ColumnProductes.STOCK_PRODUCTE, stock);
+        database.update(PRODUCTES_TABLE_NAME, cv, "_id="+id, null);
+    }
+
     public void deleteProducte(Producte p) {
         ContentValues cv = new ContentValues();
         cv.put(ColumnProductes.NOM_PRODUCTE, p.getNom());
