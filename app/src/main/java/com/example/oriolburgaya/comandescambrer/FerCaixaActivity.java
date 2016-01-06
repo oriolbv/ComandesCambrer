@@ -1,13 +1,18 @@
 package com.example.oriolburgaya.comandescambrer;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.DatePicker;
@@ -242,6 +247,26 @@ public class FerCaixaActivity extends BaseActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        if (id == R.id.action_help) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.help_fer_caixa).setTitle("Help Fer Caixa")
+                    .setPositiveButton("D'acord", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+            builder.create().show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
     private static ArrayList<Date> getDates(String dataInicial, String dataFinal)
     {
         ArrayList<Date> dates = new ArrayList<Date>();
@@ -321,6 +346,15 @@ public class FerCaixaActivity extends BaseActivity {
 
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        super.onCreateOptionsMenu(menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_fer_caixa, menu);
+        return true;
     }
 
 }

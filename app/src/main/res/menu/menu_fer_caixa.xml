@@ -4,8 +4,5 @@
     <item android:id="@+id/action_help" android:title="@string/action_help"
         android:icon="@drawable/ic_action_help"
         android:orderInCategory="100" app:showAsAction="always" />
-    <item android:id="@+id/action_afegir" android:title="@string/action_afegir"
-        android:icon="@drawable/icon_add_grey"
-        android:orderInCategory="100" app:showAsAction="always" />
 
 </menu>

@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -29,6 +31,9 @@ import com.example.oriolburgaya.comandescambrer.BD.ProductesDataSource;
 import com.example.oriolburgaya.comandescambrer.models.Producte;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by oriolbv on 27/12/15.
@@ -45,6 +50,8 @@ public class AfegirProducteActivity extends ActionBarActivity {
     ImageView mImatgeProducte;
     boolean imatgeSeleccionada;
     boolean esAfegir;
+
+    private String pathImatge = "";
 
     Context mContext;
 
@@ -122,7 +129,7 @@ public class AfegirProducteActivity extends ActionBarActivity {
                     ProductesDataSource producteDataSource = new ProductesDataSource(mContext);
                     producteDataSource.deleteProducte(producte);
                     Intent backData = new Intent(mContext, ProductesActivity.class);
-                    backData.putExtra("data", spTipusProducte.getSelectedItemPosition());
+                    backData.putExtra("data", producte.getNom());
                     // Enviem la informació
                     setResult(RESULT_OK, backData);
 
@@ -146,10 +153,20 @@ public class AfegirProducteActivity extends ActionBarActivity {
     }
 
     public void fotoCameraProducte(View view) {
-        Intent ferFotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+/*        Intent ferFotoIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (ferFotoIntent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(ferFotoIntent, REQUEST_IMAGE_CAPTURE);
-        }
+        }*/
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = timeStamp + ".jpg";
+        File storageDir = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+        pathImatge = storageDir.getAbsolutePath() + "/" + imageFileName;
+        File file = new File(pathImatge);
+        Uri outputFileUri = Uri.fromFile(file);
+        Intent ferFotoIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        ferFotoIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+        startActivityForResult(ferFotoIntent, REQUEST_IMAGE_CAPTURE);
     }
 
     public void fotoGaleriaProducte(View view) {
@@ -164,10 +181,25 @@ public class AfegirProducteActivity extends ActionBarActivity {
         if (resultCode == RESULT_OK) {
             Bitmap imatgeBitmap = null;
             if (requestCode == REQUEST_IMAGE_CAPTURE) {
-                Bundle extras = data.getExtras();
+                /*Bundle extras = data.getExtras();
                 imatgeBitmap = (Bitmap) extras.get("data");
                 mImatgeProducte.setImageBitmap(imatgeBitmap);
-                imatgeSeleccionada = true;
+                imatgeSeleccionada = true;*/
+                File imgFile = new  File(pathImatge);
+                if(imgFile.exists()){
+                    //Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+
+
+                    Bitmap d = new BitmapDrawable(getResources() , imgFile.getAbsolutePath()).getBitmap();
+                    int nh = (int) ( d.getHeight() * (512.0 / d.getWidth()) );
+                    Bitmap scaled = Bitmap.createScaledBitmap(d, 512, nh, true);
+                    mImatgeProducte.setImageBitmap(scaled);
+
+
+
+                    //mImatgeProducte.setImageBitmap(myBitmap);
+                }
+
             }
             else if (requestCode == REQUEST_LOAD_IMAGE && null != data) {
                 Uri selectedImage = data.getData();
@@ -228,7 +260,7 @@ public class AfegirProducteActivity extends ActionBarActivity {
                 ProductesDataSource productesDataSource = new ProductesDataSource(this);
                 productesDataSource.updateRegister(Integer.parseInt(producte.getId()), producte.getNom(),producte.getPreu(), producte.getTipus(), producte.getImatge(), producte.getStock());
                 Intent backData = new Intent(this, ProductesActivity.class);
-                backData.putExtra("data", spTipusProducte.getSelectedItemPosition());
+                backData.putExtra("data", producte.getNom());
                 // Enviem la informació
                 setResult(RESULT_OK, backData);
                 finish();

@@ -272,20 +272,14 @@ public class MainActivity extends BaseActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_help) {
-
-            Toast.makeText(MainActivity.this,"HELP!", Toast.LENGTH_SHORT).show();
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage("En aquesta part de la app podrem crear comandes ").setTitle("Help Afegir Comandes")
-                    .setPositiveButton("Entesos", new DialogInterface.OnClickListener() {
+            builder.setMessage(R.string.help_afegir_comandes).setTitle("Help Afegir Comandes")
+                    .setPositiveButton("D'acord", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            // FIRE ZE MISSILES!
+
                         }
                     });
-            // Create the AlertDialog object and return it
             builder.create().show();
-
-
-
             return true;
         } else if (id == R.id.tipus_llistat) {
             int indexTipus = 0;
@@ -334,6 +328,16 @@ public class MainActivity extends BaseActivity {
                         }
                     });
             builder.create().show();
+        } else if (id == R.id.about) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.about).setTitle("About")
+                    .setPositiveButton("D'acord", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+            builder.create().show();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

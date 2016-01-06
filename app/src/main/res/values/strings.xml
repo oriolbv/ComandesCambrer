@@ -12,6 +12,26 @@
     <string name="action_remove">remove</string>
     <string name="action_about">About</string>
     <string name="action_help">Help</string>
+    <string name="help_afegir_comandes">En aquesta part de la app podrem crear comandes, modificar-les i esborrarles.\n\n
+                                        Per començar la creació d\'una comanda només hem de premer el botó + que es troba a baix a l\'esquerra.\n
+                                        Seguidament es demanarà la informació necessària per crear la comanda i podrem afegir tots els productes que
+                                        el client demani.\nTambé serà possible modificar la quantitat de productes que haguem demanat.
+                                        Si totes les dades introduïdes són correctes, la comanda serà guardada i es llistarà juntament amb totes les
+                                        altres comandes.\n
+                                        A més a més, hi ha la possibilitat de veure totes les comandes, o bé només les del dia utilitzant la opció del
+                                        menú de configuració \"Tipus llistat\"</string>
+    <string name="help_productes">En aquesta pantalla es poden gestionar tots els productes de la carta del restaurant.\nTindrem la possibilitat d\'afegir
+        un producte mitjançant el botó \"+\" i, també podrem modificar qualsevol dels productes afegits prement sobre la seva imatge.</string>
+
+    <string name="help_fer_caixa">En aquesta pantalla podrem llistar totes les comandes de un dia, o bé, totes les que es trobin entre el rang de dates que
+        li indiquem a la aplicació.\n A més a més, a sota del llistat ens apareixerà els guanys totals d\'aquestes comandes.
+
+
+
+
+    </string>
+
+    <string name="about">ComandesCambrer\n\nVersió 1.0\nOriol Burgaya Verdaguer\nIDI</string>
 
     <string-array name="array_tipus_producte">
         <item>Primer</item>

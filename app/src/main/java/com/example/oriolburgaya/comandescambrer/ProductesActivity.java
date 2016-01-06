@@ -1,6 +1,8 @@
 package com.example.oriolburgaya.comandescambrer;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -95,6 +97,16 @@ public class ProductesActivity extends BaseActivity {
             intent.putExtra("idProducte", 0);
             intent.putExtra("esAfegir", true);
             startActivityForResult(intent, AFEGIR_PRODUCTE_REQUEST_CODE);
+            return true;
+        } else if (id == R.id.action_help) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.help_productes).setTitle("Help Productes")
+                    .setPositiveButton("D'acord", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                        }
+                    });
+            builder.create().show();
             return true;
         }
 

@@ -14,8 +14,8 @@
         />
 
     <ImageView
-        android:layout_width="200px"
-        android:layout_height="200px"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:src="@drawable/mes_ombra"
         android:id="@+id/btn_AfegirComanda"
         android:layout_x="258dp"
