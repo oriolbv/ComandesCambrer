@@ -20,7 +20,8 @@
 
         \n\n<b><u>[Comanda de la llista de comandes]</u></b>: Quan cliquem una comanda de la llista de comandes podem modificar-la segons convingui.
 En aquest cas, si cliquem <i>[Cancel·lar]</i>, deixa la comanda tal com estava.
-        \n\n<b><u>[Llista de comandes]</u></b>: El llistat de les comandes serà el corresponent al dia actual o a totes elles en funció de l\'elecció feta al menú <i>\"Tipus llistat\"</i>. A aquest menú hi accedim mitjançant l\'accés a configuració de dalt de tot a la dreta.
+        \nSi deixem clicada una comanda del llistat, tindrem la possibilitat d\'esborrar-la.
+        \n\n<b><u>[Llista de comandes]</u></b>: El llistat de les comandes serà el corresponent al dia actual o a totes elles en funció de l\'elecció feta al menú <i>\"Tipus llistat\"</i>. A aquest menú hi accedim mitjançant l\'accés a configuració de dalt de tot a la dreta. Les comandes més recents es posicionaràn a la part de dalt de la llista.
 
 
  </string>
